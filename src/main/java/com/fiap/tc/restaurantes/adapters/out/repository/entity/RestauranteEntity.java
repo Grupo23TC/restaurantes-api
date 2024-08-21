@@ -1,21 +1,35 @@
 package com.fiap.tc.restaurantes.adapters.out.repository.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 public class RestauranteEntity {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long restauranteId;
+
+  @Column(nullable = false)
   private String nome;
-  private String localizcao;
+
+  @OneToOne
+  @JoinColumn(name="enderecoId")
+  private EnderecoEntity localizacao;
+
+  @Column(nullable = false)
   private String tipoDeCozinha;
+
+  @Column(nullable = false)
   private Integer capacidade;
-  private LocalDateTime horarioFuncionamento;
+
+  @Column(nullable = false)
+  private String horarioFuncionamento;
 }
