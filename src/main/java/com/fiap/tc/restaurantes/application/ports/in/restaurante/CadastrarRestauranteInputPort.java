@@ -1,4 +1,4 @@
-package com.fiap.tc.restaurantes.application.ports.in;
+package com.fiap.tc.restaurantes.application.ports.in.restaurante;
 
 import com.fiap.tc.restaurantes.application.core.domain.Restaurante;
 

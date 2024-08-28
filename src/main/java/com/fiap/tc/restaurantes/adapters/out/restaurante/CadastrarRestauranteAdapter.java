@@ -7,14 +7,14 @@ import com.fiap.tc.restaurantes.adapters.out.repository.entity.RestauranteEntity
 import com.fiap.tc.restaurantes.adapters.out.repository.mapper.EnderecoEntityMapper;
 import com.fiap.tc.restaurantes.adapters.out.repository.mapper.RestauranteEntityMapper;
 import com.fiap.tc.restaurantes.application.core.domain.Restaurante;
-import com.fiap.tc.restaurantes.application.ports.out.CadastrarRestauranteOutputPort;
+import com.fiap.tc.restaurantes.application.ports.out.restaurante.CadastrarRestauranteOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 
 @Component
-public class cadastrarRestauranteAdapter implements CadastrarRestauranteOutputPort {
+public class CadastrarRestauranteAdapter implements CadastrarRestauranteOutputPort {
 
     private final RestauranteRepository restauranteRepository;
     private final RestauranteEntityMapper entityMapper;

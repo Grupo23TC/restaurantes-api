@@ -1,9 +1,9 @@
-package com.fiap.tc.restaurantes.application.core.usecase;
+package com.fiap.tc.restaurantes.application.core.usecase.restaurante;
 
 import com.fiap.tc.restaurantes.application.core.domain.Restaurante;
-import com.fiap.tc.restaurantes.application.ports.in.CadastrarRestauranteInputPort;
-import com.fiap.tc.restaurantes.application.ports.out.CadastrarRestauranteOutputPort;
-import com.fiap.tc.restaurantes.application.ports.out.ConsultarEnderecoPorCepOutputPort;
+import com.fiap.tc.restaurantes.application.ports.in.restaurante.CadastrarRestauranteInputPort;
+import com.fiap.tc.restaurantes.application.ports.out.restaurante.CadastrarRestauranteOutputPort;
+import com.fiap.tc.restaurantes.application.ports.out.restaurante.ConsultarEnderecoPorCepOutputPort;
 
 
 public class CadastrarRestauranteUseCase implements CadastrarRestauranteInputPort {
