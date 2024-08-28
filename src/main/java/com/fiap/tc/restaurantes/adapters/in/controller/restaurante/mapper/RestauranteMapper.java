@@ -1,5 +1,6 @@
 package com.fiap.tc.restaurantes.adapters.in.controller.restaurante.mapper;
 
+import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.request.AtualizarRestauranteRequest;
 import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.request.CadastrarRestauranteRequest;
 import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.response.RestauranteResponse;
 import com.fiap.tc.restaurantes.application.core.domain.Restaurante;
@@ -18,6 +19,9 @@ public interface RestauranteMapper {
      */
     @Mapping(target = "restauranteId", ignore = true)
     Restaurante toRestaurante(CadastrarRestauranteRequest restauranteRequest);
+
+    @Mapping(target = "restauranteId", ignore = true)
+    Restaurante toRestaurante(AtualizarRestauranteRequest restauranteRequest);
 
     /**
      * @param restaurante
