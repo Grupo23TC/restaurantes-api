@@ -5,6 +5,7 @@ import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.request.Cadas
 import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.response.RestauranteResponse;
 import com.fiap.tc.restaurantes.application.core.domain.Restaurante;
 import com.fiap.tc.restaurantes.application.ports.in.restaurante.CadastrarRestauranteInputPort;
+import com.fiap.tc.restaurantes.application.ports.in.restaurante.DeletarRestauranteInputPort;
 import com.fiap.tc.restaurantes.application.ports.in.restaurante.ListarRestauranteInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class RestauranteController {
 
     private final CadastrarRestauranteInputPort cadastrarRestauranteInputPort;
     private final ListarRestauranteInputPort listarRestauranteInputPort;
+    private final DeletarRestauranteInputPort deletarRestauranteInputPort;
 
     @PostMapping
     public ResponseEntity<RestauranteResponse> cadastrarRestaurante(@RequestBody CadastrarRestauranteRequest request) {
@@ -57,8 +59,10 @@ public class RestauranteController {
         return ResponseEntity.status(HttpStatus.OK).body(listaRestaurante);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Boolean> removerRestaurante(@PathVariable String id) {
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deletarRestaurante(@PathVariable Long id) {
+        //TODO implementar json de restaurante deletado
+        Boolean foiDeletado = deletarRestauranteInputPort.deletarRestaurante(id);
+        return ResponseEntity.status(HttpStatus.OK).body(foiDeletado);
     }
 }
