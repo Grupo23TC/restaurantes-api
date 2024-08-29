@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record AtualizarRestauranteRequest(
     @NotBlank String nome,
-    @NotBlank CadastrarRestauranteRequest.Endereco localizacao,
+    @NotBlank Endereco localizacao,
     @NotBlank String tipoDeCozinha,
     @NotNull Integer capacidade,
     @NotBlank String horarioFuncionamento
