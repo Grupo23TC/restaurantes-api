@@ -5,7 +5,6 @@ import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.request.Atual
 import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.request.CadastrarRestauranteRequest;
 import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.response.RestauranteResponse;
 import com.fiap.tc.restaurantes.application.core.domain.Restaurante;
-import com.fiap.tc.restaurantes.application.core.domain.enumeration.TipoCozinhaEnum;
 import com.fiap.tc.restaurantes.application.ports.in.restaurante.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
