@@ -1,6 +1,7 @@
 package com.fiap.tc.restaurantes.adapters.in.controller.usuario.mapper;
 
 
+import com.fiap.tc.restaurantes.adapters.in.controller.usuario.request.AtualizarUsuarioRequest;
 import com.fiap.tc.restaurantes.adapters.in.controller.usuario.request.CadastrarUsuarioRequest;
 import com.fiap.tc.restaurantes.adapters.in.controller.usuario.response.UsuarioResponse;
 import com.fiap.tc.restaurantes.application.core.domain.Usuario;
@@ -18,6 +19,13 @@ public interface UsuarioMapper {
    */
   @Mapping(target = "usuarioId", ignore = true)
   Usuario toUsuario(CadastrarUsuarioRequest cadastrarUsuarioRequest);
+
+  /**
+   * @param atualizarUsuarioRequest
+   * @return
+   */
+  @Mapping(target = "usuarioId", ignore = true)
+  Usuario toUsuario(AtualizarUsuarioRequest atualizarUsuarioRequest);
 
   /**
    * @param usuario
