@@ -1,8 +1,8 @@
 package com.fiap.tc.restaurantes.config.restaurante;
 
-import com.fiap.tc.restaurantes.application.core.usecase.CadastrarRestauranteUseCase;
-import com.fiap.tc.restaurantes.application.ports.out.CadastrarRestauranteOutputPort;
-import com.fiap.tc.restaurantes.application.ports.out.ConsultarEnderecoPorCepOutputPort;
+import com.fiap.tc.restaurantes.application.core.usecase.restaurante.CadastrarRestauranteUseCase;
+import com.fiap.tc.restaurantes.application.ports.out.restaurante.CadastrarRestauranteOutputPort;
+import com.fiap.tc.restaurantes.application.ports.out.restaurante.ConsultarEnderecoPorCepOutputPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

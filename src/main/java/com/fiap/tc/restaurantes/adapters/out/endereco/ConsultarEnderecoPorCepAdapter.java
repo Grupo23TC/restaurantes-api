@@ -3,7 +3,7 @@ package com.fiap.tc.restaurantes.adapters.out.endereco;
 import com.fiap.tc.restaurantes.adapters.out.client.ConsultarEnderecoPorCepClient;
 import com.fiap.tc.restaurantes.adapters.out.client.mapper.EnderecoResponseMapper;
 import com.fiap.tc.restaurantes.application.core.domain.Endereco;
-import com.fiap.tc.restaurantes.application.ports.out.ConsultarEnderecoPorCepOutputPort;
+import com.fiap.tc.restaurantes.application.ports.out.restaurante.ConsultarEnderecoPorCepOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
