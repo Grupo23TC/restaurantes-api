@@ -15,6 +15,7 @@ public class DeletarUsuarioAdapter implements DeletarUsuarioOutputPort {
   @Override
   public boolean deletarUsuario(Long id) {
     buscarUsuarioPorIdOutputPort.buscarUsuarioPorId(id);
+    usuarioRepository.deleteById(id);
     return true;
   }
 }
