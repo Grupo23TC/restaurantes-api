@@ -5,21 +5,21 @@ import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class UsuarioRepositoryTest {
-  @Mock
-  public UsuarioRepository repository;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+public class UsuarioRepositoryIT {
+  @Autowired
+  UsuarioRepository repository;
 
   @Nested
   class CadastraUsuario {
@@ -27,9 +27,6 @@ public class UsuarioRepositoryTest {
     void devePermitirCadastrarUsuarioEntity() {
       // Arrange
       UsuarioEntity entidade = UsuarioHelper.gerarUsuarioEntity();
-
-      when(repository.save(any(UsuarioEntity.class)))
-          .thenAnswer(answer -> answer.getArgument(0));
 
 
       // Act
@@ -45,13 +42,12 @@ public class UsuarioRepositoryTest {
           .isEqualTo(entidade.getNome());
 
       assertThat(usuarioSalvo.getSenha())
-        .isEqualTo(entidade.getSenha());
+          .isEqualTo(entidade.getSenha());
 
 
       assertThat(usuarioSalvo.getEmail())
-        .isEqualTo(entidade.getEmail());
+          .isEqualTo(entidade.getEmail());
 
-      verify(repository, times(1)).save(any(UsuarioEntity.class));
     }
   }
 
@@ -60,37 +56,19 @@ public class UsuarioRepositoryTest {
     @Test
     void devePermitirBuscarUsuarioEntityPorId() {
       // Arrange
-      Long id = 1L;
-
-      UsuarioEntity entidade = UsuarioHelper.gerarUsuarioEntity();
-      entidade.setUsuarioId(id);
-
-      when(repository.findById(id))
-          .thenReturn(Optional.of(entidade));
+      Long id = 2L;
 
       // Act
       Optional<UsuarioEntity> usuarioEntityOptional = repository.findById(id);
 
       // Assert
-      assertThat(usuarioEntityOptional)
-          .isPresent()
-          .containsSame(entidade);
+
+      assertThat(usuarioEntityOptional).isPresent();
 
       usuarioEntityOptional.ifPresent(usuarioEntity -> {
         assertThat(usuarioEntity.getUsuarioId())
-            .isPositive();
-
-        assertThat(usuarioEntity.getNome())
-            .isEqualTo(entidade.getNome());
-
-        assertThat(usuarioEntity.getSenha())
-            .isEqualTo(entidade.getSenha());
-
-        assertThat(usuarioEntity.getEmail())
-            .isEqualTo(entidade.getEmail());
+            .isEqualTo(id);
       });
-
-      verify(repository, times(1)).findById(any(Long.class));
     }
   }
 
@@ -101,39 +79,27 @@ public class UsuarioRepositoryTest {
       // Arrange
       Long id = 1L;
 
-      doNothing().when(repository).deleteById(any(Long.class));
-
       // Act
       repository.deleteById(id);
+      Optional<UsuarioEntity> usuarioExcluido = repository.findById(id);
 
       // Assert
-      verify(repository, times(1)).deleteById(any(Long.class));
+      assertThat(usuarioExcluido).isEmpty();
     }
   }
-
 
   @Nested
   class ListarUsuario {
     @Test
     void devePermitirListarUsuarioEntity() {
-      // Arrange
-      UsuarioEntity entidade1 = UsuarioHelper.gerarUsuarioEntity();
-      UsuarioEntity entidade2 = UsuarioHelper.gerarUsuarioEntity();
-
-      List<UsuarioEntity> usuarioEntities = Arrays.asList(entidade1, entidade2);
-
-      when(repository.findAll())
-          .thenReturn(usuarioEntities);
-
       // Act
+      Long contagem = repository.count();
       List<UsuarioEntity> usuarioEntityList = repository.findAll();
 
       // Assert
       assertThat(usuarioEntityList)
-          .hasSize(2)
-          .containsExactlyInAnyOrder(entidade1, entidade2);
+          .hasSizeGreaterThan(9);
 
-      verify(repository, times(1)).findAll();
     }
   }
 }
