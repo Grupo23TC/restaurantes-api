@@ -21,12 +21,12 @@ public class CadastrarRestauranteUseCase implements CadastrarRestauranteInputPor
     // Talvez podemos passar apenas o cep no request e popular o endereco a partir disso?
     @Override
     public Restaurante cadastrarRestaurante(Restaurante restaurante) {
-        var endereco = consultarEnderecoPorCepOutputPort.consultaPorCep(restaurante.getLocalizacao().getCep());
+        var endereco = consultarEnderecoPorCepOutputPort.consultaPorCep(restaurante.getEndereco().getCep());
         if (endereco == null)
             throw new IllegalArgumentException("CEP inexistente.");
 
-        restaurante.getLocalizacao().setCidade(endereco.getCidade());
-        restaurante.getLocalizacao().setUf(endereco.getUf());
+        restaurante.getEndereco().setCidade(endereco.getCidade());
+        restaurante.getEndereco().setUf(endereco.getUf());
 
         return cadastrarRestauranteOutputPort.cadastrarRestaurante(restaurante);
     }

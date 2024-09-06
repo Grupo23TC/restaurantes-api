@@ -29,11 +29,11 @@ public class CadastrarRestauranteAdapter implements CadastrarRestauranteOutputPo
         RestauranteEntity restauranteEntity = entityMapper.toRestauranteEntity(restaurante);
 
         // TODO ver em qual camada orquestrar esse insert na table de endereco
-        EnderecoEntity enderecoEntity = enderecoEntityMapper.toEnderecoEntity(restaurante.getLocalizacao());
+        EnderecoEntity enderecoEntity = enderecoEntityMapper.toEnderecoEntity(restaurante.getEndereco());
 
         enderecoEntity = enderecoRepository.save(enderecoEntity);
 
-        restauranteEntity.setLocalizacao(enderecoEntity);
+        restauranteEntity.setEndereco(enderecoEntity);
 
         restauranteEntity = restauranteRepository.save(restauranteEntity);
 

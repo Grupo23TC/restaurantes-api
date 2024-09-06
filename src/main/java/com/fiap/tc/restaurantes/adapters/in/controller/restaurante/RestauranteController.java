@@ -5,6 +5,7 @@ import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.request.Atual
 import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.request.CadastrarRestauranteRequest;
 import com.fiap.tc.restaurantes.adapters.in.controller.restaurante.response.RestauranteResponse;
 import com.fiap.tc.restaurantes.application.core.domain.Restaurante;
+import com.fiap.tc.restaurantes.application.core.domain.enumeration.TipoCozinhaEnum;
 import com.fiap.tc.restaurantes.application.ports.in.restaurante.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,8 @@ public class RestauranteController {
     private final DeletarRestauranteInputPort deletarRestauranteInputPort;
     private final AtualizarRestauranteInputPort atualizarRestauranteInputPort;
     private final BuscarRestaurantePorNomeInputPort buscarRestaurantePorNomeInputPort;
+
+    private final BuscarRestaurantePorLocalidadeInputPort buscarRestaurantePorLocalidadeInputPort;
     private final BuscarRestaurantePorTipoCozinhaInputPort buscarRestaurantePorTipoCozinhaInputPort;
 
 
@@ -55,7 +58,7 @@ public class RestauranteController {
 
 
     @GetMapping
-    public ResponseEntity<List<RestauranteResponse>> listRestaurantes() {
+    public ResponseEntity<List<RestauranteResponse>> listarRestaurantes() {
         List<RestauranteResponse> listaRestaurante = listarRestauranteInputPort.listarRestaurantes()
             .stream()
             .map(restauranteMapper::toRestauranteResponse)
@@ -70,6 +73,15 @@ public class RestauranteController {
           .map(restauranteMapper::toRestauranteResponse)
           .toList();
       return ResponseEntity.status(HttpStatus.OK).body(listaRestaurantePorNome);
+    }
+
+    @GetMapping("/localidade")
+    public ResponseEntity<List<RestauranteResponse>> buscarRestaurantesPorLocalidade(@RequestParam String localidade) {
+        List<RestauranteResponse> listaRestaurantePorLocalidade = buscarRestaurantePorLocalidadeInputPort.buscarRestaurantePorLocalidade(localidade)
+                .stream()
+                .map(restauranteMapper::toRestauranteResponse)
+                .toList();
+        return ResponseEntity.status(HttpStatus.OK).body(listaRestaurantePorLocalidade);
     }
 
   @GetMapping("/tipo")

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record CadastrarRestauranteRequest(
         @NotBlank String nome,
-        @NotBlank Endereco localizacao,
+        @NotBlank Endereco endereco,
         @NotBlank String tipoDeCozinha,
         @NotNull Integer capacidade,
         @NotBlank String horarioFuncionamento

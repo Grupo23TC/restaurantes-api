@@ -1,6 +1,6 @@
 package com.fiap.tc.restaurantes.config.restaurante;
 
-import com.fiap.tc.restaurantes.application.core.usecase.restaurante.BuscarRestaurantesPorNomeUseCase;
+import com.fiap.tc.restaurantes.application.core.usecase.restaurante.BuscarRestaurantePorNomeUseCase;
 import com.fiap.tc.restaurantes.application.ports.out.restaurante.BuscarRestaurantePorNomeOutputPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class BuscarRestaurantePorNomeConfig {
 
   @Bean
-  public BuscarRestaurantesPorNomeUseCase buscarRestaurantesPorNomeUseCase(
+  public BuscarRestaurantePorNomeUseCase buscarRestaurantesPorNomeUseCase(
       BuscarRestaurantePorNomeOutputPort buscarRestaurantePorNomeOutputPort
   ) {
-    return new BuscarRestaurantesPorNomeUseCase(buscarRestaurantePorNomeOutputPort);
+    return new BuscarRestaurantePorNomeUseCase(buscarRestaurantePorNomeOutputPort);
   }
 }

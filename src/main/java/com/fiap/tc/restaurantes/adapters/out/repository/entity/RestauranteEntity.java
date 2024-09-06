@@ -22,7 +22,7 @@ public class RestauranteEntity {
 
   @OneToOne
   @JoinColumn(name="enderecoId")
-  private EnderecoEntity localizacao;
+  private EnderecoEntity endereco;
 
   @Column(nullable = false)
   private String tipoDeCozinha;

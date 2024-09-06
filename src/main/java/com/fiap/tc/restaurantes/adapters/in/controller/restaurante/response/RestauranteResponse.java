@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 public record RestauranteResponse(
         Long restauranteId,
         String nome,
-           Endereco localizacao,
+           Endereco endereco,
            String tipoDeCozinha,
            Integer capacidade,
            String horarioFuncionamento) {

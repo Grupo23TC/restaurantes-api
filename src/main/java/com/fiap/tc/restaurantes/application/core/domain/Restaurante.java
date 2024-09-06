@@ -12,7 +12,7 @@ public class Restaurante {
 
     private Long restauranteId;
     private String nome;
-    private Endereco localizacao;
+    private Endereco endereco;
     private TipoCozinhaEnum tipoDeCozinha;
     private Integer capacidade;
     private String horarioFuncionamento;
