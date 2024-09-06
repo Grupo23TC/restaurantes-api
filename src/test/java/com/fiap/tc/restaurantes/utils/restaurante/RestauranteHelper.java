@@ -1,7 +1,7 @@
 package com.fiap.tc.restaurantes.utils.restaurante;
 
-import com.fiap.tc.restaurantes.adapters.out.repository.entity.EnderecoEntity;
-import com.fiap.tc.restaurantes.adapters.out.repository.entity.RestauranteEntity;
+import com.fiap.tc.restaurantes.infra.entity.EnderecoEntity;
+import com.fiap.tc.restaurantes.infra.entity.RestauranteEntity;
 public class RestauranteHelper {
 
     public static RestauranteEntity gerarRestauranteValido() {
