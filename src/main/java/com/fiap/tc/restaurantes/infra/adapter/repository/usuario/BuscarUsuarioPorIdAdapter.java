@@ -19,11 +19,7 @@ public class BuscarUsuarioPorIdAdapter implements BuscarUsuarioPorIdInterface {
 
   @Override
   public Usuario buscarUsuarioPorId(Long id) {
-    UsuarioEntity usuarioBuscado = usuarioRepository.
-        findById(id)
-        .orElseThrow(
-            () -> new IllegalArgumentException("Id do usuário não encontrado")
-        );
+    UsuarioEntity usuarioBuscado = usuarioRepository.findById(id).orElse(null);
 
     return usuarioEntityMapper.toUsuario(usuarioBuscado);
   }
