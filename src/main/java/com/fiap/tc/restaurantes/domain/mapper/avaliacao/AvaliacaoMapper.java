@@ -27,8 +27,8 @@ public interface AvaliacaoMapper {
      * @return
      */
     @Mapping(target = "avaliacaoId", ignore = true)
-    @Mapping(target = "restaurante.restauranteId", source = "restauranteId")
-    @Mapping(target = "usuario.usuarioId", source = "usuarioId")
+    @Mapping(target = "restaurante.restauranteId", ignore = true)
+    @Mapping(target = "usuario.usuarioId", ignore = true)
     Avaliacao toAvaliacao(AtualizarAvaliacaoRequest avaliacaoRequest);
 
     /**
