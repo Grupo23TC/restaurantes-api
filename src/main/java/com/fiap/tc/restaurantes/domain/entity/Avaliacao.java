@@ -1,5 +1,7 @@
 package com.fiap.tc.restaurantes.domain.entity;
 
+import java.time.LocalDateTime;
+
 public class Avaliacao {
 
     private Long avaliacaoId;
@@ -7,13 +9,15 @@ public class Avaliacao {
     private Usuario usuario;
     private Integer nota;
     private String comentario;
+    private LocalDateTime dataAvaliacao;
 
-    public Avaliacao(Long avaliacaoId, Restaurante restaurante, Usuario usuario, Integer nota, String comentario) {
+    public Avaliacao(Long avaliacaoId, Restaurante restaurante, Usuario usuario, Integer nota, String comentario, LocalDateTime dataAvaliacao) {
         this.avaliacaoId = avaliacaoId;
         this.restaurante = restaurante;
         this.usuario = usuario;
         this.nota = nota;
         this.comentario = comentario;
+        this.dataAvaliacao = dataAvaliacao;
     }
 
     public Avaliacao() {
@@ -57,5 +61,13 @@ public class Avaliacao {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public LocalDateTime getDataAvaliacao() {
+        return dataAvaliacao;
+    }
+
+    public void setDataAvaliacao(LocalDateTime dataAvaliacao) {
+        this.dataAvaliacao = dataAvaliacao;
     }
 }

@@ -1,6 +1,8 @@
 package com.fiap.tc.restaurantes.infra.repository.integracao;
 
+import com.fiap.tc.restaurantes.infra.entity.AvaliacaoEntity;
 import com.fiap.tc.restaurantes.infra.repository.AvaliacaoRepository;
+import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -18,12 +20,30 @@ public class AvaliacaoRepositoryIT {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
+    @Test
+    void devePermitirCriarTabela() {
+        var totalDeRegistros = avaliacaoRepository.count();
+        assertThat(totalDeRegistros).isPositive();
+    }
+
     @Nested
     class CadastrarAvaliacao {
 
         @Test
         void devePermitirCadastrarAvaliacao() {
-            fail("Não implementado");
+            var avaliacao = AvaliacaoHelper.gerarAvaliacaoEntity();
+
+            var avaliacaoArmazenada = avaliacaoRepository.save(avaliacao);
+
+            assertThat(avaliacaoArmazenada)
+                    .isInstanceOf(AvaliacaoEntity.class)
+                    .isNotNull();
+            assertThat(avaliacaoArmazenada.getAvaliacaoId()).isNotNull().isPositive();
+            assertThat(avaliacaoArmazenada.getUsuarioEntity()).isEqualTo(avaliacao.getUsuarioEntity());
+            assertThat(avaliacaoArmazenada.getRestauranteEntity()).isEqualTo(avaliacao.getRestauranteEntity());
+            assertThat(avaliacaoArmazenada.getNota()).isEqualTo(avaliacao.getNota());
+            assertThat(avaliacaoArmazenada.getComentario()).isEqualTo(avaliacao.getComentario());
+            assertThat(avaliacaoArmazenada.getDataAvaliacao()).isEqualTo(avaliacao.getDataAvaliacao());
         }
 
     }
@@ -33,17 +53,24 @@ public class AvaliacaoRepositoryIT {
 
         @Test
         void devePermitirBuscarAvaliacaoPorId() {
-            fail("Não implementado");
+            var avaliacaoObtidaOpt = avaliacaoRepository.findById(1L);
+
+            assertThat(avaliacaoObtidaOpt).isPresent();
+            avaliacaoObtidaOpt.ifPresent(avaliacaoEntity -> {
+                assertThat(avaliacaoEntity.getAvaliacaoId()).isEqualTo(1L);
+            });
         }
 
         @Test
         void devePermitirBuscarAvaliacaoPorRestaurante() {
-            fail("Não implementado");
+            var avaliacaoList = avaliacaoRepository.buscarPorRestaurante(1L);
+            assertThat(avaliacaoList).isNotEmpty().hasSize(2);
         }
 
         @Test
         void devePermitirBuscarAvaliacaoPorUsuario() {
-            fail("Não implementado");
+            var avaliacaoList = avaliacaoRepository.buscarPorUsuario(1L);
+            assertThat(avaliacaoList).isNotEmpty().hasSize(2);
         }
 
     }
@@ -53,7 +80,9 @@ public class AvaliacaoRepositoryIT {
 
         @Test
         void devePermitirDeletarAvaliacao() {
-            fail("Não implementado");
+            avaliacaoRepository.deleteById(1L);
+            var avaliacaoObtidaOpt = avaliacaoRepository.findById(1L);
+            assertThat(avaliacaoObtidaOpt).isNotPresent();
         }
 
     }
