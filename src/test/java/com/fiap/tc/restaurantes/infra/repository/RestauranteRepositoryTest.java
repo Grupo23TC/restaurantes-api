@@ -40,7 +40,7 @@ class RestauranteRepositoryTest {
         @Test
         void devePermitirCadastrarRestauranteEntity() {
             // Arrange
-            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteEntityValido();
 
             when(repository.save(any(RestauranteEntity.class)))
                     .thenAnswer(answer -> answer.getArgument(0));
@@ -70,7 +70,7 @@ class RestauranteRepositoryTest {
             // Arrange
             Long id = 1L;
 
-            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteEntityValido();
             entidade.setRestauranteId(id);
 
             when(repository.findById(id))
@@ -98,8 +98,8 @@ class RestauranteRepositoryTest {
         @Test
         void devePermitirListarRestauranteEntity() {
             // Arrange
-            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
 
             List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
 
@@ -119,8 +119,8 @@ class RestauranteRepositoryTest {
         @Test
         void findByNomeContaining() {
             // Arrange
-            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
 
             String nome = "Nome Teste";
 
@@ -148,8 +148,8 @@ class RestauranteRepositoryTest {
         @Test
         void findByTipoDeCozinha() {
             // Arrange
-            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
 
             String tipoCozinha = "MEXICANA";
 
@@ -177,8 +177,8 @@ class RestauranteRepositoryTest {
         @Test
         void findByLocalidade() {
             // Arrange
-            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
 
             String localidade = "Rua Teste";
 

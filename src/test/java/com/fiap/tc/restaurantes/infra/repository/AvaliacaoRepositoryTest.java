@@ -71,14 +71,14 @@ public class AvaliacaoRepositoryTest {
                 assertThat(avaliacaoObtida.getUsuarioEntity()).isEqualTo(avaliacaoEntity.getUsuarioEntity());
                 assertThat(avaliacaoObtida.getDataAvaliacao()).isEqualTo(avaliacaoEntity.getDataAvaliacao());
             });
-            verify(avaliacaoRepository, times(1)).findById(any(Long.class));
+            verify(avaliacaoRepository, times(1)).findById(anyLong());
         }
 
         @Test
         void devePermitirBuscarAvaliacaoPorRestaurante() {
             var avaliacaoEntity = AvaliacaoHelper.gerarAvaliacaoEntity();
             var avaliacaoEntity2 = AvaliacaoHelper.gerarAvaliacaoEntity();
-            when(avaliacaoRepository.buscarPorRestaurante(any(Long.class))).thenReturn(Arrays.asList(avaliacaoEntity, avaliacaoEntity2));
+            when(avaliacaoRepository.buscarPorRestaurante(anyLong())).thenReturn(Arrays.asList(avaliacaoEntity, avaliacaoEntity2));
 
             var avaliacaoEntityList = avaliacaoRepository.buscarPorRestaurante(1L);
 
@@ -87,14 +87,14 @@ public class AvaliacaoRepositoryTest {
                     .hasSize(2)
                     .containsExactlyInAnyOrder(avaliacaoEntity, avaliacaoEntity2);
 
-            verify(avaliacaoRepository, times(1)).buscarPorRestaurante(any(Long.class));
+            verify(avaliacaoRepository, times(1)).buscarPorRestaurante(anyLong());
         }
 
         @Test
         void devePermitirBuscarAvaliacaoPorUsuario() {
             var avaliacaoEntity = AvaliacaoHelper.gerarAvaliacaoEntity();
             var avaliacaoEntity2 = AvaliacaoHelper.gerarAvaliacaoEntity();
-            when(avaliacaoRepository.buscarPorUsuario(any(Long.class))).thenReturn(Arrays.asList(avaliacaoEntity, avaliacaoEntity2));
+            when(avaliacaoRepository.buscarPorUsuario(anyLong())).thenReturn(Arrays.asList(avaliacaoEntity, avaliacaoEntity2));
 
             var avaliacaoEntityList = avaliacaoRepository.buscarPorUsuario(1L);
 
@@ -103,7 +103,7 @@ public class AvaliacaoRepositoryTest {
                     .hasSize(2)
                     .containsExactlyInAnyOrder(avaliacaoEntity, avaliacaoEntity2);
 
-            verify(avaliacaoRepository, times(1)).buscarPorUsuario(any(Long.class));
+            verify(avaliacaoRepository, times(1)).buscarPorUsuario(anyLong());
         }
 
     }
@@ -113,9 +113,9 @@ public class AvaliacaoRepositoryTest {
 
         @Test
         void devePermitirDeletarAvaliacao() {
-            doNothing().when(avaliacaoRepository).deleteById(any(Long.class));
+            doNothing().when(avaliacaoRepository).deleteById(anyLong());
             avaliacaoRepository.deleteById(1L);
-            verify(avaliacaoRepository, times(1)).deleteById(any(Long.class));
+            verify(avaliacaoRepository, times(1)).deleteById(anyLong());
         }
 
     }

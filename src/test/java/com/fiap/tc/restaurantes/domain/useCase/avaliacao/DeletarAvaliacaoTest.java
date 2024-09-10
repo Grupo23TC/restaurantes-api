@@ -1,13 +1,19 @@
 package com.fiap.tc.restaurantes.domain.useCase.avaliacao;
 
+import com.fiap.tc.restaurantes.domain.exception.avaliacao.AvaliacaoNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.DeletarAvaliacaoInterface;
+import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 public class DeletarAvaliacaoTest {
 
@@ -34,11 +40,24 @@ public class DeletarAvaliacaoTest {
 
     @Test
     void devePermitirDeletarAvaliacao() {
-        fail("Não implementado");
+        when(buscarAvaliacaoPorIdUseCase.execute(anyLong())).thenReturn(AvaliacaoHelper.gerarAvaliacao());
+        when(deletarAvaliacaoInterface.deletarAvaliacao(anyLong())).thenReturn(true);
+
+        var avaliacaRemovida = deletarAvaliacaoUseCase.execute(1L);
+
+        assertThat(avaliacaRemovida).isTrue();
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).execute(anyLong());
+        verify(deletarAvaliacaoInterface, times(1)).deletarAvaliacao(anyLong());
     }
 
     @Test
     void deveGerarExcecao_QuandoDeletarAvaliacao_IdNaoEncontrado() {
-        fail("Não implementado");
+        when(buscarAvaliacaoPorIdUseCase.execute(anyLong())).thenThrow(new AvaliacaoNotFoundException("Avaliacao não encontrada"));
+
+        assertThatThrownBy(() -> deletarAvaliacaoUseCase.execute(1L))
+                .isInstanceOf(AvaliacaoNotFoundException.class)
+                .hasMessage("Avaliacao não encontrada");
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).execute(anyLong());
+        verify(deletarAvaliacaoInterface, never()).deletarAvaliacao(anyLong());
     }
 }

@@ -1,15 +1,22 @@
 package com.fiap.tc.restaurantes.domain.useCase.avaliacao;
 
+import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
+import com.fiap.tc.restaurantes.domain.exception.restaurante.RestauranteNotFoundException;
+import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.CadastrarAvaliacaoInterface;
 import com.fiap.tc.restaurantes.domain.useCase.restaurante.BuscarRestaurantePorIdUseCase;
 import com.fiap.tc.restaurantes.domain.useCase.usuario.BuscarUsuarioPorIdUseCase;
+import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 public class CadastrarAvaliacaoTest {
 
@@ -39,21 +46,71 @@ public class CadastrarAvaliacaoTest {
 
     @Test
     void devePermitirCadastrarAvaliacao() {
-        fail("Não implementado");
-    }
+        var avaliacao = AvaliacaoHelper.gerarAvaliacao();
+        avaliacao.setAvaliacaoId(1L);
+        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getRestaurante());
+        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getUsuario());
+        when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
-    @Test
-    void deveGerarExcecao_QuandoCadastrarAvaliacao_RestauranteNaoEncontrado() {
-        fail("Não implementado");
+        var avaliacaoArmazenada = cadastrarAvaliacaoUseCase.execute(avaliacao);
+
+        assertThat(avaliacaoArmazenada)
+                .isInstanceOf(Avaliacao.class)
+                .isNotNull();
+        assertThat(avaliacaoArmazenada.getAvaliacaoId()).isEqualTo(avaliacao.getAvaliacaoId());
+        assertThat(avaliacaoArmazenada.getNota()).isEqualTo(avaliacao.getNota());
+        assertThat(avaliacaoArmazenada.getComentario()).isEqualTo(avaliacao.getComentario());
+        assertThat(avaliacaoArmazenada.getDataAvaliacao()).isEqualTo(avaliacao.getDataAvaliacao());
+        assertThat(avaliacaoArmazenada.getRestaurante()).isEqualTo(avaliacao.getRestaurante());
+        assertThat(avaliacaoArmazenada.getUsuario()).isEqualTo(avaliacao.getUsuario());
+        verify(buscarUsuarioPorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarRestaurantePorIdUseCase, times(1)).execute(anyLong());
+        verify(cadastrarAvaliacaoInterface, times(1)).cadastraAvaliacao(any(Avaliacao.class));
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarAvaliacao_UsuarioNaoEncontrado() {
-        fail("Não implementado");
+        var avaliacao = AvaliacaoHelper.gerarAvaliacao();
+        avaliacao.setAvaliacaoId(1L);
+        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getRestaurante());
+        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenThrow(new UsuarioNotFoundException("Usuário não encontrado"));
+        when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
+
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+                .isInstanceOf(UsuarioNotFoundException.class)
+                .hasMessage("Usuário não encontrado");
+        verify(buscarUsuarioPorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarRestaurantePorIdUseCase, never()).execute(anyLong());
+        verify(cadastrarAvaliacaoInterface, never()).cadastraAvaliacao(any(Avaliacao.class));
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoCadastrarAvaliacao_RestauranteNaoEncontrado() {
+        var avaliacao = AvaliacaoHelper.gerarAvaliacao();
+        avaliacao.setAvaliacaoId(1L);
+        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenThrow(new RestauranteNotFoundException("Restaurante não encontrado"));
+        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getUsuario());
+        when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
+
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+                .isInstanceOf(RestauranteNotFoundException.class)
+                .hasMessage("Restaurante não encontrado");
+        verify(buscarUsuarioPorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarRestaurantePorIdUseCase, times(1)).execute(anyLong());
+        verify(cadastrarAvaliacaoInterface, never()).cadastraAvaliacao(any(Avaliacao.class));
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarAvaliacao_NotaInvalida() {
-        fail("Não implementado");
+        var avaliacao = AvaliacaoHelper.gerarAvaliacao();
+        avaliacao.setAvaliacaoId(1L);
+        avaliacao.setNota(1000);
+        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getRestaurante());
+        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getUsuario());
+        when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
+
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("A Nota deve ser entre 0 e 5");
     }
 }

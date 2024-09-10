@@ -1,21 +1,27 @@
 package com.fiap.tc.restaurantes.utils.avaliacao;
 
+import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
 import com.fiap.tc.restaurantes.infra.entity.AvaliacaoEntity;
-import com.fiap.tc.restaurantes.infra.entity.RestauranteEntity;
-import com.fiap.tc.restaurantes.infra.entity.UsuarioEntity;
+import com.fiap.tc.restaurantes.utils.restaurante.RestauranteHelper;
+import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 
 public class AvaliacaoHelper {
 
     public static AvaliacaoEntity gerarAvaliacaoEntity() {
         AvaliacaoEntity avaliacao = new AvaliacaoEntity();
-        UsuarioEntity usuario = new UsuarioEntity();
-        RestauranteEntity restaurante = new RestauranteEntity();
 
-        usuario.setUsuarioId(1L);
-        restaurante.setRestauranteId(1L);
+        avaliacao.setUsuarioEntity(UsuarioHelper.gerarUsuarioEntity());
+        avaliacao.setRestauranteEntity(RestauranteHelper.gerarRestauranteEntityValido());
+        avaliacao.setNota(5);
+        avaliacao.setComentario("Comentário teste");
+        return avaliacao;
+    }
 
-        avaliacao.setUsuarioEntity(usuario);
-        avaliacao.setRestauranteEntity(restaurante);
+    public static Avaliacao gerarAvaliacao() {
+        Avaliacao avaliacao = new Avaliacao();
+
+        avaliacao.setUsuario(UsuarioHelper.gerarUsuario());
+        avaliacao.setRestaurante(RestauranteHelper.gerarRestaurante());
         avaliacao.setNota(5);
         avaliacao.setComentario("Comentário teste");
         return avaliacao;
