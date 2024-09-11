@@ -1,7 +1,7 @@
 package com.fiap.tc.restaurantes.utils.usuario;
 
-import com.fiap.tc.restaurantes.adapters.out.repository.entity.UsuarioEntity;
-import com.fiap.tc.restaurantes.application.core.domain.Usuario;
+import com.fiap.tc.restaurantes.domain.entity.Usuario;
+import com.fiap.tc.restaurantes.infra.entity.UsuarioEntity;
 
 public class UsuarioHelper {
   public static Usuario gerarUsuarioValido() {
