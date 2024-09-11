@@ -13,12 +13,7 @@ public class DeletarAvaliacaoAdapter implements DeletarAvaliacaoInterface {
 
     @Override
     public boolean deletarAvaliacao(Long avaliacaoId) {
-        try {
-            avaliacaoRepository.deleteById(avaliacaoId);
-        } catch (Exception e) {
-            return false;
-        }
-
+        avaliacaoRepository.deleteById(avaliacaoId);
         return true;
     }
 }

@@ -60,4 +60,16 @@ public class DeletarAvaliacaoTest {
         verify(buscarAvaliacaoPorIdUseCase, times(1)).execute(anyLong());
         verify(deletarAvaliacaoInterface, never()).deletarAvaliacao(anyLong());
     }
+
+    @Test
+    void naoDeveDeletarAvaliacao_QuandoDeletarAvaliacao_ExceptionDeRepository() {
+        when(buscarAvaliacaoPorIdUseCase.execute(anyLong())).thenReturn(AvaliacaoHelper.gerarAvaliacao());
+        when(deletarAvaliacaoInterface.deletarAvaliacao(anyLong())).thenThrow(new RuntimeException("Generic Database Exception"));
+
+        var avaliacaRemovida = deletarAvaliacaoUseCase.execute(1L);
+
+        assertThat(avaliacaRemovida).isFalse();
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).execute(anyLong());
+        verify(deletarAvaliacaoInterface, times(1)).deletarAvaliacao(anyLong());
+    }
 }

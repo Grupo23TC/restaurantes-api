@@ -17,6 +17,12 @@ public class DeletarAvaliacaoUseCase {
         //Valida se avaliacao existe
         buscarAvaliacaoPorIdUseCase.execute(avaliacaoId);
 
-        return deletarAvaliacaoInterface.deletarAvaliacao(avaliacaoId);
+        try {
+            deletarAvaliacaoInterface.deletarAvaliacao(avaliacaoId);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 }

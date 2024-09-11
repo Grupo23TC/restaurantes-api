@@ -7,7 +7,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
@@ -18,6 +19,12 @@ public class BuscarAvaliacoesPorRestauranteIT {
 
     @Test
     void devePermitirBuscarAvaliacoesPorRestaurante() {
-        fail("Não implementado");
+        var restauranteId = 1L;
+
+        var listAvaliacoes = buscarAvaliacoesPorRestauranteUseCase.execute(restauranteId);
+
+        assertThat(listAvaliacoes)
+                .isNotEmpty()
+                .hasSize(2);
     }
 }
