@@ -18,7 +18,7 @@ public class RestauranteHelper {
     }
 
     public static EnderecoEntity builder(){
-        EnderecoEntity endereco = EnderecoEntity.builder()
+        return EnderecoEntity.builder()
                 .rua("Rua Teste")
                 .bairro("")
                 .cidade("")
@@ -28,8 +28,6 @@ public class RestauranteHelper {
                 .estado("")
                 .uf("")
                 .build();
-
-        return endereco;
     }
 
     public static Restaurante gerarRestaurante() {
@@ -43,7 +41,7 @@ public class RestauranteHelper {
     }
 
     public static Endereco gerarEndereco(){
-        Endereco endereco = new Endereco("Rua teste",
+        return new Endereco("Rua teste",
                 "logradouro teste",
                 1,
                 "apto 1",
@@ -51,6 +49,5 @@ public class RestauranteHelper {
                 "cidade teste",
                 "99999-999",
                 "SP");
-        return endereco;
     }
 }

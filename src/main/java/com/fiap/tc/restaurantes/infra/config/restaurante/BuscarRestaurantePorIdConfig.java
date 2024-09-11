@@ -1,7 +1,7 @@
 package com.fiap.tc.restaurantes.infra.config.restaurante;
 
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.BuscarRestaurantePorIdInterface;
-import com.fiap.tc.restaurantes.domain.useCase.restaurante.BuscarRestaurantePorIdUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.restaurante.BuscarRestaurantePorIdUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

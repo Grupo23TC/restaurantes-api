@@ -2,8 +2,7 @@ package com.fiap.tc.restaurantes.application.avaliacao;
 
 import com.fiap.tc.restaurantes.domain.mapper.avaliacao.AvaliacaoMapper;
 import com.fiap.tc.restaurantes.domain.output.avaliacao.AvaliacaoResponse;
-import com.fiap.tc.restaurantes.domain.useCase.avaliacao.BuscarAvaliacoesPorRestauranteUseCase;
-import com.fiap.tc.restaurantes.domain.useCase.avaliacao.BuscarAvaliacoesPorUsuarioUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.avaliacao.BuscarAvaliacoesPorUsuarioUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

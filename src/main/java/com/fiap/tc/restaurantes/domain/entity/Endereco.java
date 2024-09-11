@@ -20,6 +20,7 @@ public class Endereco {
 
     private String uf;
 
+    @SuppressWarnings("squid:S107") // Evitar regra sonar sobre ter mais de 7 parametros no constructor
     public Endereco(String rua, String logradouro, Integer numero, String complemento, String bairro, String cidade, String cep, String uf) {
         this.rua = rua;
         this.logradouro = logradouro;

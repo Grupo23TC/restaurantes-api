@@ -1,7 +1,7 @@
 package com.fiap.tc.restaurantes.application.avaliacao;
 
 import com.fiap.tc.restaurantes.domain.mapper.avaliacao.AvaliacaoMapper;
-import com.fiap.tc.restaurantes.domain.useCase.avaliacao.AtualizarAvaliacaoUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.avaliacao.AtualizarAvaliacaoUseCase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class AtualizarAvaliacaoControllerTest {
+class AtualizarAvaliacaoControllerTest {
 
     @Mock
     private AtualizarAvaliacaoUseCase atualizarAvaliacaoUseCase;
@@ -25,7 +25,7 @@ public class AtualizarAvaliacaoControllerTest {
     AutoCloseable mock;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         mock = MockitoAnnotations.openMocks(this);
         AtualizarAvaliacaoController controller = new AtualizarAvaliacaoController(mapper, atualizarAvaliacaoUseCase);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
