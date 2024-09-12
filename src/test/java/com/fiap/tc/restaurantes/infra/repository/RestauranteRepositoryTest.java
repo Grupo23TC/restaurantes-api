@@ -40,7 +40,7 @@ class RestauranteRepositoryTest {
         @Test
         void devePermitirCadastrarRestauranteEntity() {
             // Arrange
-            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteEntityValido();
 
             when(repository.save(any(RestauranteEntity.class)))
                     .thenAnswer(answer -> answer.getArgument(0));
@@ -70,7 +70,7 @@ class RestauranteRepositoryTest {
             // Arrange
             Long id = 1L;
 
-            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteValido();
+            RestauranteEntity entidade = RestauranteHelper.gerarRestauranteEntityValido();
             entidade.setRestauranteId(id);
 
             when(repository.findById(id))
@@ -94,6 +94,114 @@ class RestauranteRepositoryTest {
 
             verify(repository, times(1)).findById(any(Long.class));
         }
+
+        @Test
+        void devePermitirListarRestauranteEntity() {
+            // Arrange
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
+
+            List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
+
+            when(repository.findAll())
+                    .thenReturn(restauranteEntities);
+
+            // Act
+            List<RestauranteEntity> restauranteEntityList = repository.findAll();
+
+            // Assert
+            assertThat(restauranteEntityList)
+                    .hasSize(2)
+                    .containsExactlyInAnyOrder(entidade1, entidade2);
+
+            verify(repository, times(1)).findAll();
+        }
+        @Test
+        void findByNomeContaining() {
+            // Arrange
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
+
+            String nome = "Nome Teste";
+
+            List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
+
+            when(repository.findByNomeContaining(any()))
+                    .thenReturn(restauranteEntities);
+
+            List<RestauranteEntity> restauranteEntityList = repository.findByNomeContaining(nome);
+
+            // Assert
+            assertThat(restauranteEntityList)
+                    .hasSize(2)
+                    .containsExactlyInAnyOrder(entidade1, entidade2);
+
+            assertThat(restauranteEntityList.get(0).getNome())
+                    .isEqualTo(entidade1.getNome());
+
+            assertThat(restauranteEntityList.get(1).getNome())
+                    .isEqualTo(entidade1.getNome());
+
+            verify(repository, times(1)).findByNomeContaining(any());
+        }
+
+        @Test
+        void findByTipoDeCozinha() {
+            // Arrange
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
+
+            String tipoCozinha = "MEXICANA";
+
+            List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
+
+            when(repository.findByTipoDeCozinha(any()))
+                    .thenReturn(restauranteEntities);
+
+            List<RestauranteEntity> restauranteEntityList = repository.findByTipoDeCozinha(tipoCozinha);
+
+            // Assert
+            assertThat(restauranteEntityList)
+                    .hasSize(2)
+                    .containsExactlyInAnyOrder(entidade1, entidade2);
+
+            assertThat(restauranteEntityList.get(0).getTipoDeCozinha())
+                    .isEqualTo(entidade1.getTipoDeCozinha());
+
+            assertThat(restauranteEntityList.get(1).getTipoDeCozinha())
+                    .isEqualTo(entidade1.getTipoDeCozinha());
+
+            verify(repository, times(1)).findByTipoDeCozinha(any());
+        }
+
+        @Test
+        void findByLocalidade() {
+            // Arrange
+            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteEntityValido();
+            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteEntityValido();
+
+            String localidade = "Rua Teste";
+
+            List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
+
+            when(repository.findByLocalidade(any()))
+                    .thenReturn(restauranteEntities);
+
+            List<RestauranteEntity> restauranteEntityList = repository.findByLocalidade(localidade);
+
+            // Assert
+            assertThat(restauranteEntityList)
+                    .hasSize(2)
+                    .containsExactlyInAnyOrder(entidade1, entidade2);
+
+            assertThat(restauranteEntityList.get(0).getEndereco().getRua())
+                    .isEqualTo(entidade1.getEndereco().getRua());
+
+            assertThat(restauranteEntityList.get(1).getEndereco().getRua())
+                    .isEqualTo(entidade1.getEndereco().getRua());
+
+            verify(repository, times(1)).findByLocalidade(any());
+        }
     }
 
     @Nested
@@ -111,117 +219,5 @@ class RestauranteRepositoryTest {
             // Assert
             verify(repository, times(1)).deleteById(any(Long.class));
         }
-    }
-
-    @Nested
-    class ListarUsuario {
-        @Test
-        void devePermitirListarRestauranteEntity() {
-            // Arrange
-            RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-            RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
-
-            List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
-
-            when(repository.findAll())
-                    .thenReturn(restauranteEntities);
-
-            // Act
-            List<RestauranteEntity> restauranteEntityList = repository.findAll();
-
-            // Assert
-            assertThat(restauranteEntityList)
-                    .hasSize(2)
-                    .containsExactlyInAnyOrder(entidade1, entidade2);
-
-            verify(repository, times(1)).findAll();
-        }
-    }
-
-    @Test
-    void findByNomeContaining() {
-        // Arrange
-        RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-        RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
-
-        String nome = "Nome Teste";
-
-        List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
-
-        when(repository.findByNomeContaining(any()))
-                .thenReturn(restauranteEntities);
-
-        List<RestauranteEntity> restauranteEntityList = repository.findByNomeContaining(nome);
-
-        // Assert
-        assertThat(restauranteEntityList)
-                .hasSize(2)
-                .containsExactlyInAnyOrder(entidade1, entidade2);
-
-        assertThat(restauranteEntityList.get(0).getNome())
-                .isEqualTo(entidade1.getNome());
-
-        assertThat(restauranteEntityList.get(1).getNome())
-                .isEqualTo(entidade1.getNome());
-
-        verify(repository, times(1)).findByNomeContaining(any());
-    }
-
-    @Test
-    void findByTipoDeCozinha() {
-        // Arrange
-        RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-        RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
-
-        String tipoCozinha = "MEXICANA";
-
-        List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
-
-        when(repository.findByTipoDeCozinha(any()))
-                .thenReturn(restauranteEntities);
-
-        List<RestauranteEntity> restauranteEntityList = repository.findByTipoDeCozinha(tipoCozinha);
-
-        // Assert
-        assertThat(restauranteEntityList)
-                .hasSize(2)
-                .containsExactlyInAnyOrder(entidade1, entidade2);
-
-        assertThat(restauranteEntityList.get(0).getTipoDeCozinha())
-                .isEqualTo(entidade1.getTipoDeCozinha());
-
-        assertThat(restauranteEntityList.get(1).getTipoDeCozinha())
-                .isEqualTo(entidade1.getTipoDeCozinha());
-
-        verify(repository, times(1)).findByTipoDeCozinha(any());
-    }
-
-    @Test
-    void findByLocalidade() {
-        // Arrange
-        RestauranteEntity entidade1 = RestauranteHelper.gerarRestauranteValido();
-        RestauranteEntity entidade2 = RestauranteHelper.gerarRestauranteValido();
-
-        String localidade = "Rua Teste";
-
-        List<RestauranteEntity> restauranteEntities = Arrays.asList(entidade1, entidade2);
-
-        when(repository.findByLocalidade(any()))
-                .thenReturn(restauranteEntities);
-
-        List<RestauranteEntity> restauranteEntityList = repository.findByLocalidade(localidade);
-
-        // Assert
-        assertThat(restauranteEntityList)
-                .hasSize(2)
-                .containsExactlyInAnyOrder(entidade1, entidade2);
-
-        assertThat(restauranteEntityList.get(0).getEndereco().getRua())
-                .isEqualTo(entidade1.getEndereco().getRua());
-
-        assertThat(restauranteEntityList.get(1).getEndereco().getRua())
-                .isEqualTo(entidade1.getEndereco().getRua());
-
-        verify(repository, times(1)).findByLocalidade(any());
     }
 }

@@ -37,9 +37,7 @@ public class AtualizarRestauranteAdapter implements AtualizarRestauranteInterfac
   @Override
   public RestauranteEntity buscarRestaurantePorId(Long restauranteId){
 
-    RestauranteEntity restaurante = restauranteRepository.findById(restauranteId)
-        .orElseThrow(() -> new RuntimeException());
-
-    return restaurante;
+    return restauranteRepository.findById(restauranteId)
+        .orElseThrow(RuntimeException::new);
   }
 }
