@@ -10,11 +10,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeletarUsuarioAdapter implements DeletarUsuarioInterface {
   private final UsuarioRepository usuarioRepository;
-  private final BuscarUsuarioPorIdInterface buscarUsuarioPorIdInterface;
 
   @Override
   public boolean deletarUsuario(Long id) {
-    buscarUsuarioPorIdInterface.buscarUsuarioPorId(id);
+    usuarioRepository.deleteById(id);
     return true;
   }
 }

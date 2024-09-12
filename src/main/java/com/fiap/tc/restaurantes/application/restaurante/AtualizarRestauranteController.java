@@ -4,7 +4,7 @@ import com.fiap.tc.restaurantes.domain.entity.Restaurante;
 import com.fiap.tc.restaurantes.domain.input.restaurante.AtualizarRestauranteRequest;
 import com.fiap.tc.restaurantes.domain.mapper.restaurante.RestauranteMapper;
 import com.fiap.tc.restaurantes.domain.output.restaurante.RestauranteResponse;
-import com.fiap.tc.restaurantes.domain.useCase.restaurante.AtualizarRestauranteUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.restaurante.AtualizarRestauranteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

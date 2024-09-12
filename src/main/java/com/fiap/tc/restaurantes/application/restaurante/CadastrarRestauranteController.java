@@ -4,7 +4,7 @@ import com.fiap.tc.restaurantes.domain.mapper.restaurante.RestauranteMapper;
 import com.fiap.tc.restaurantes.domain.input.restaurante.CadastrarRestauranteRequest;
 import com.fiap.tc.restaurantes.domain.output.restaurante.RestauranteResponse;
 import com.fiap.tc.restaurantes.domain.entity.Restaurante;
-import com.fiap.tc.restaurantes.domain.useCase.restaurante.CadastrarRestauranteUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.restaurante.CadastrarRestauranteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
