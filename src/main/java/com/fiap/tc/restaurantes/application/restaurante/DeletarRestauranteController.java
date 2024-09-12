@@ -1,7 +1,7 @@
 package com.fiap.tc.restaurantes.application.restaurante;
 
 import com.fiap.tc.restaurantes.domain.mapper.restaurante.RestauranteMapper;
-import com.fiap.tc.restaurantes.domain.useCase.restaurante.DeletarRestauranteUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.restaurante.DeletarRestauranteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

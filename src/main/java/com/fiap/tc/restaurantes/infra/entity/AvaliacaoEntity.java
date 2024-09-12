@@ -1,18 +1,33 @@
 package com.fiap.tc.restaurantes.infra.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@Entity
+@Builder
+@Table(name = "avaliacao")
 public class AvaliacaoEntity {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long avaliacaoId;
-  private Long restauranteId;
-  private Long usuarioId;
+
+  @ManyToOne
+  @JoinColumn(name = "restauranteId")
+  private RestauranteEntity restauranteEntity;
+
+  @ManyToOne
+  @JoinColumn(name = "usuarioId")
+  private UsuarioEntity usuarioEntity;
+
   private Integer nota;
   private String comentario;
+
+  @Builder.Default
+  private LocalDateTime dataAvaliacao = LocalDateTime.now();
 }

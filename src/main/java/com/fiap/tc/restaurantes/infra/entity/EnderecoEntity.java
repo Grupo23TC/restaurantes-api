@@ -1,9 +1,6 @@
 package com.fiap.tc.restaurantes.infra.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -16,10 +13,11 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "endereco")
 public class EnderecoEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long enderecoId;
 
     @NotBlank

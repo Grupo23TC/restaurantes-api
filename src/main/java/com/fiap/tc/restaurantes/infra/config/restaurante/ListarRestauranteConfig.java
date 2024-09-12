@@ -1,6 +1,6 @@
 package com.fiap.tc.restaurantes.infra.config.restaurante;
 
-import com.fiap.tc.restaurantes.domain.useCase.restaurante.ListarRestauranteUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.restaurante.ListarRestauranteUseCase;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.ListarRestauranteInterface;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

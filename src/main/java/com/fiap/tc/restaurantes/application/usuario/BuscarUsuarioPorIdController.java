@@ -3,7 +3,7 @@ package com.fiap.tc.restaurantes.application.usuario;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioResponse;
-import com.fiap.tc.restaurantes.domain.useCase.usuario.BuscarUsuarioPorIdUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.usuario.BuscarUsuarioPorIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class BuscarUsuarioPorIdController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponse> buscarUsuario(@PathVariable Long id) {
-        Usuario usuarioBuscado = buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id);
+        Usuario usuarioBuscado = buscarUsuarioPorIdUseCase.execute(id);
         return ResponseEntity.ok(usuarioMapper.toUsuarioResponse(usuarioBuscado));
     }
 }
