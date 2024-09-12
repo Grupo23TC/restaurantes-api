@@ -1,4 +1,4 @@
-package com.fiap.tc.restaurantes.domain.usecase.usuario;
+package com.fiap.tc.restaurantes.domain.useCase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.ListarUsuariosInterface;

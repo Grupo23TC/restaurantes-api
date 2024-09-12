@@ -1,7 +1,6 @@
-package com.fiap.tc.restaurantes.domain.usecase.usuario;
+package com.fiap.tc.restaurantes.domain.useCase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
-import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.BuscarUsuarioPorIdInterface;
 
 public class BuscarUsuarioPorIdUseCase {
@@ -12,10 +11,6 @@ public class BuscarUsuarioPorIdUseCase {
   }
 
   public Usuario buscarUsuarioPorId(Long id) {
-    Usuario usuario = buscarUsuarioPorIdInterface.buscarUsuarioPorId(id);
-    if(usuario == null) {
-      throw new UsuarioNotFoundException("Id do usuário não encontrado");
-    }
     return buscarUsuarioPorIdInterface.buscarUsuarioPorId(id);
   }
 }
