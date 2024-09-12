@@ -7,7 +7,6 @@ import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.BuscarUsuarioPorIdInterface;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class BuscarUsuarioPorIdAdapter implements BuscarUsuarioPorIdInterface {

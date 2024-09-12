@@ -1,7 +1,6 @@
 package com.fiap.tc.restaurantes.infra.adapter.repository.usuario;
 
 import com.fiap.tc.restaurantes.infra.repository.UsuarioRepository;
-import com.fiap.tc.restaurantes.domain.gateway.usuario.BuscarUsuarioPorIdInterface;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.DeletarUsuarioInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

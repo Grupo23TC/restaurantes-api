@@ -2,9 +2,7 @@ package com.fiap.tc.restaurantes.domain.entity;
 
 import com.fiap.tc.restaurantes.domain.entity.validation.usuario.EmailValidator;
 import com.fiap.tc.restaurantes.domain.entity.validation.usuario.PasswordValidator;
-import lombok.ToString;
 
-@ToString
 public class Usuario {
   private Long usuarioId;
   private String nome;
