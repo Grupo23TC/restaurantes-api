@@ -1,8 +1,7 @@
-package com.fiap.tc.restaurantes.domain.usecase;
+package com.fiap.tc.restaurantes.domain.usecase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.BuscarUsuarioPorIdInterface;
-import com.fiap.tc.restaurantes.domain.usecase.usuario.BuscarUsuarioPorIdUseCase;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +30,9 @@ public class BuscarUsuarioPorIdUseCaseTest {
     // Arrange
     Usuario usuario = UsuarioHelper.gerarUsuarioValido();
     Long id = 1L;
+    usuario.setUsuarioId(id);
 
-    when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(1L)).thenReturn(usuario);
+    when(buscarUsuarioPorIdInterface.buscarUsuarioPorId(id)).thenReturn(usuario);
 
     // Act
     Usuario usuarioBuscado = buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id);

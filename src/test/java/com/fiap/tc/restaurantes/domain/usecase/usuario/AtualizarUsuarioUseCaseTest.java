@@ -1,10 +1,8 @@
-package com.fiap.tc.restaurantes.domain.usecase;
+package com.fiap.tc.restaurantes.domain.usecase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.AtualizarUsuarioInterface;
-import com.fiap.tc.restaurantes.domain.usecase.usuario.AtualizarUsuarioUseCase;
-import com.fiap.tc.restaurantes.domain.usecase.usuario.BuscarUsuarioPorIdUseCase;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +17,12 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AtualizarUsuarioUseCaseTest {
+
   private AtualizarUsuarioUseCase atualizarUsuarioUseCase;
 
   @Mock
   private AtualizarUsuarioInterface atualizarUsuarioInterface;
+
   @Mock
   private BuscarUsuarioPorIdUseCase buscarUsuarioPorIdUseCase;
 
@@ -42,15 +42,14 @@ public class AtualizarUsuarioUseCaseTest {
     usuarioBody.setNome("Exemplo");
     usuarioBody.setSenha("Aa@12345");
 
-    when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(any(Long.class))).thenReturn(usuarioBuscado);
-    when(atualizarUsuarioUseCase.atualizarUsuario(id, usuarioBody))
-        .thenReturn(usuarioBody);
+    doReturn(usuarioBuscado)
+        .when(buscarUsuarioPorIdUseCase).buscarUsuarioPorId(any(Long.class));
+    when(atualizarUsuarioInterface.atualizarUsuario(any(Long.class), any(Usuario.class))).thenAnswer(answer -> answer.getArgument(1));
 
     // Act
     Usuario usuarioAtualizado = atualizarUsuarioUseCase.atualizarUsuario(id, usuarioBody);
 
     // Assert
-
     assertThat(usuarioAtualizado)
         .isNotNull()
         .isInstanceOf(Usuario.class);
@@ -72,6 +71,9 @@ public class AtualizarUsuarioUseCaseTest {
 
     assertThat(usuarioAtualizado.getEmail())
         .isEqualTo(usuarioBuscado.getEmail());
+
+    verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(any(Long.class));
+    verify(atualizarUsuarioInterface, times(1)).atualizarUsuario(any(Long.class), any(Usuario.class));
   }
 
   @Test
@@ -84,7 +86,7 @@ public class AtualizarUsuarioUseCaseTest {
     usuarioBody.setNome("Exemplo");
     usuarioBody.setSenha("Aa@12345");
 
-    when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id))
+    when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(any(Long.class)))
         .thenThrow(new UsuarioNotFoundException("Id do usuário não encontrado"));
 
     // Act & Assert
@@ -92,8 +94,7 @@ public class AtualizarUsuarioUseCaseTest {
         .isInstanceOf(UsuarioNotFoundException.class)
         .hasMessage("Id do usuário não encontrado");
 
-    verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(id);
+    verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(any(Long.class));
     verify(atualizarUsuarioInterface, never()).atualizarUsuario(any(Long.class), any(Usuario.class));
-
   }
 }

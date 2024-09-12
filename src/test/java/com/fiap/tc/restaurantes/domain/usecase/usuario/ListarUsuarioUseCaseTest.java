@@ -1,8 +1,7 @@
-package com.fiap.tc.restaurantes.domain.usecase;
+package com.fiap.tc.restaurantes.domain.usecase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.ListarUsuariosInterface;
-import com.fiap.tc.restaurantes.domain.usecase.usuario.ListarUsuariosUseCase;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ListarUsuarioUseCaseTest {
@@ -34,7 +33,7 @@ public class ListarUsuarioUseCaseTest {
     Usuario usuario2 = UsuarioHelper.gerarUsuarioValido();
     List<Usuario> listaDeUsuario = List.of(usuario1, usuario2);
 
-    when(listarUsuariosUseCase.listarUsuarios()).thenReturn(listaDeUsuario);
+    when(listarUsuariosInterface.listarUsuarios()).thenReturn(listaDeUsuario);
 
     // Act
     List<Usuario> usuarios = listarUsuariosUseCase.listarUsuarios();
@@ -46,5 +45,6 @@ public class ListarUsuarioUseCaseTest {
         .hasSizeGreaterThan(1)
         .containsExactlyInAnyOrder(usuario1, usuario2);
 
+    verify(listarUsuariosInterface, times(1)).listarUsuarios();
   }
 }

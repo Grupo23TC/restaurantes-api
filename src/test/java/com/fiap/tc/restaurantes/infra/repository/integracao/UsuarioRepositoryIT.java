@@ -1,7 +1,8 @@
-package com.fiap.tc.restaurantes.infra.repository;
+package com.fiap.tc.restaurantes.infra.repository.integracao;
 
 
 import com.fiap.tc.restaurantes.infra.entity.UsuarioEntity;
+import com.fiap.tc.restaurantes.infra.repository.UsuarioRepository;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

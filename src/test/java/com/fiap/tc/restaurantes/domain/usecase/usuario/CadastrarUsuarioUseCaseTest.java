@@ -1,8 +1,7 @@
-package com.fiap.tc.restaurantes.domain.usecase;
+package com.fiap.tc.restaurantes.domain.usecase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.CadastrarUsuarioInterface;
-import com.fiap.tc.restaurantes.domain.usecase.usuario.CadastrarUsuarioUseCase;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CadastrarUsuarioUseCaseTest {
@@ -31,7 +30,7 @@ public class CadastrarUsuarioUseCaseTest {
     // Arrange
     Usuario usuario = UsuarioHelper.gerarUsuarioValido();
 
-    when(cadastrarUsuarioUseCase.cadastrarUsuario(any(Usuario.class))).thenReturn(usuario);
+    when(cadastrarUsuarioInterface.cadastrarUsuario(any(Usuario.class))).thenReturn(usuario);
 
     // Act
     Usuario usuarioCadastrado = cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
@@ -49,5 +48,7 @@ public class CadastrarUsuarioUseCaseTest {
         .isEqualTo(usuario.getSenha());
     assertThat(usuarioCadastrado.getTelefone())
         .isEqualTo(usuario.getTelefone());
+
+    verify(cadastrarUsuarioInterface, times(1)).cadastrarUsuario(any(Usuario.class));
   }
 }
