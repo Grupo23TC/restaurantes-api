@@ -21,7 +21,7 @@ public class BuscarRestaurantePorIdController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RestauranteResponse> buscarRestaurantePorId(@PathVariable Long id) {
-        RestauranteResponse restauranteResponse = restauranteMapper.toRestauranteResponse(buscarRestaurantePorIdUseCase.execute(id));
+        RestauranteResponse restauranteResponse = restauranteMapper.toRestauranteResponse(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(id));
         return ResponseEntity.status(HttpStatus.OK).body(restauranteResponse);
     }
 }

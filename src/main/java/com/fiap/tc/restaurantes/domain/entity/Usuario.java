@@ -1,5 +1,7 @@
 package com.fiap.tc.restaurantes.domain.entity;
 
+import com.fiap.tc.restaurantes.domain.entity.validation.usuario.EmailValidator;
+import com.fiap.tc.restaurantes.domain.entity.validation.usuario.PasswordValidator;
 
 public class Usuario {
   private Long usuarioId;
@@ -8,15 +10,20 @@ public class Usuario {
   private String senha;
   private String telefone;
 
-  public Usuario(Long usuarioId, String nome, String email, String senha, String telefone) {
-    this.usuarioId = usuarioId;
+  public Usuario(String nome, String email, String senha, String telefone) {
+    if(nome == null || nome.isEmpty()) {
+      throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+    }
+    if(email == null || email.isEmpty() || !EmailValidator.isValid(email)) {
+      throw new IllegalArgumentException("Email deve ser válido");
+    }
+    if(senha == null || senha.isEmpty() || !PasswordValidator.isValid(senha)) {
+      throw new IllegalArgumentException("A senha não corresponde aos padrões de segurança");
+    }
     this.nome = nome;
     this.email = email;
     this.senha = senha;
     this.telefone = telefone;
-  }
-
-  public Usuario() {
   }
 
   public Long getUsuarioId() {

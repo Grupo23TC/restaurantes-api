@@ -20,7 +20,7 @@ public class AvaliacaoHelper {
     public static Avaliacao gerarAvaliacao() {
         Avaliacao avaliacao = new Avaliacao();
 
-        avaliacao.setUsuario(UsuarioHelper.gerarUsuario());
+        avaliacao.setUsuario(UsuarioHelper.gerarUsuarioValidoComId());
         avaliacao.setRestaurante(RestauranteHelper.gerarRestaurante());
         avaliacao.setNota(5);
         avaliacao.setComentario("Comentário teste");

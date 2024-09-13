@@ -12,7 +12,7 @@ public class BuscarRestaurantePorIdUseCase {
         this.buscarRestaurantePorIdInterface = buscarRestaurantePorIdInterface;
     }
 
-    public Restaurante execute(Long id) {
+    public Restaurante buscarRestaurantePorId(Long id) {
         Restaurante restaurante = buscarRestaurantePorIdInterface.buscarRestaurantePorId(id);
         if (restaurante == null) {
             throw new RestauranteNotFoundException("Restaurante de id: " + id + " não encontrado.");

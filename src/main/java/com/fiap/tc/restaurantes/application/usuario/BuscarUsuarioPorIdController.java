@@ -21,7 +21,7 @@ public class BuscarUsuarioPorIdController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponse> buscarUsuario(@PathVariable Long id) {
-        Usuario usuarioBuscado = buscarUsuarioPorIdUseCase.execute(id);
+        Usuario usuarioBuscado = buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id);
         return ResponseEntity.ok(usuarioMapper.toUsuarioResponse(usuarioBuscado));
     }
 }

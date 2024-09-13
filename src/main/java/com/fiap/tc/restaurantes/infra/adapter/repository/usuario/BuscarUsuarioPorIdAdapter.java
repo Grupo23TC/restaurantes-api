@@ -7,6 +7,7 @@ import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.BuscarUsuarioPorIdInterface;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class BuscarUsuarioPorIdAdapter implements BuscarUsuarioPorIdInterface {
   private final UsuarioRepository usuarioRepository;
@@ -19,7 +20,9 @@ public class BuscarUsuarioPorIdAdapter implements BuscarUsuarioPorIdInterface {
 
   @Override
   public Usuario buscarUsuarioPorId(Long id) {
-    UsuarioEntity usuarioBuscado = usuarioRepository.findById(id).orElse(null);
+    UsuarioEntity usuarioBuscado = usuarioRepository
+        .findById(id)
+        .orElse(null);
 
     return usuarioEntityMapper.toUsuario(usuarioBuscado);
   }

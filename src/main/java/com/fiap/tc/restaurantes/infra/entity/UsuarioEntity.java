@@ -1,13 +1,11 @@
 package com.fiap.tc.restaurantes.infra.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -16,9 +14,12 @@ public class UsuarioEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long usuarioId;
+  @NonNull
   private String nome;
+  @NonNull
   private String email;
+  @NonNull
   private String senha;
+  @NonNull
   private String telefone;
-
 }
