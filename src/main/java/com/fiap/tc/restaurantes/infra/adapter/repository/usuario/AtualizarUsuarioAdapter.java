@@ -17,13 +17,7 @@ public class AtualizarUsuarioAdapter implements AtualizarUsuarioInterface {
 
   @Override
   public Usuario atualizarUsuario(Long id, Usuario usuario) {
-    Usuario usuarioBuscado = buscarUsuarioPorIdAdapter.buscarUsuarioPorId(id);
-
-    usuarioBuscado.setNome(usuario.getNome());
-    usuarioBuscado.setTelefone(usuario.getTelefone());
-    usuarioBuscado.setSenha(usuario.getSenha());
-
-    UsuarioEntity usuarioAtualizado = usuarioRepository.save(usuarioEntityMapper.toUsuarioEntity(usuarioBuscado));
+    UsuarioEntity usuarioAtualizado = usuarioRepository.save(usuarioEntityMapper.toUsuarioEntity(usuario));
 
     return usuarioEntityMapper.toUsuario(usuarioAtualizado);
   }

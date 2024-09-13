@@ -1,6 +1,5 @@
 package com.fiap.tc.restaurantes.domain.mapper.usuario;
 
-
 import com.fiap.tc.restaurantes.domain.input.usuario.AtualizarUsuarioRequest;
 import com.fiap.tc.restaurantes.domain.input.usuario.CadastrarUsuarioRequest;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioResponse;
@@ -11,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
-  UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
+  // UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
 
   /**
    * @param cadastrarUsuarioRequest

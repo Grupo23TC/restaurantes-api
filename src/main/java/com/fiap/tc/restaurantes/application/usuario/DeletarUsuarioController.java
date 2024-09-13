@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/usuarios")
 public class DeletarUsuarioController {
-
-    private final UsuarioMapper usuarioMapper;
     private final DeletarUsuarioUseCase deletarUsuarioUseCase;
 
     @DeleteMapping("/{id}")
