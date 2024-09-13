@@ -23,7 +23,7 @@ public class AtualizarUsuarioUseCaseIT {
   void atualizarUsuario() {
     // Arrange
     Usuario usuarioBody = UsuarioHelper.gerarUsuarioValido();
-    Long id = 1L;
+    Long id = 3L;
 
     // Act
     Usuario usuarioAtualizado = atualizarUsuarioUseCase.atualizarUsuario(id, usuarioBody);
@@ -60,6 +60,7 @@ public class AtualizarUsuarioUseCaseIT {
     // Act & Assert
     assertThatThrownBy(() -> atualizarUsuarioUseCase.atualizarUsuario(id, usuario))
         .isNotNull()
-        .isInstanceOf(UsuarioNotFoundException.class);
+        .isInstanceOf(UsuarioNotFoundException.class)
+            .hasMessage("Usuário de id: " + id + " não encontrado.");
   }
 }

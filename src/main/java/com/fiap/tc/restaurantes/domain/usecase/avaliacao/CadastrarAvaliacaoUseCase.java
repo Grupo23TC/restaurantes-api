@@ -21,9 +21,9 @@ public class CadastrarAvaliacaoUseCase {
     public Avaliacao execute(Avaliacao avaliacao) {
 
         //Valida se Usuario existe
-        buscarUsuarioPorIdUseCase.execute(avaliacao.getUsuario().getUsuarioId());
+        buscarUsuarioPorIdUseCase.buscarUsuarioPorId(avaliacao.getUsuario().getUsuarioId());
         //Valida se Restaurate existe
-        buscarRestaurantePorIdUseCase.execute(avaliacao.getRestaurante().getRestauranteId());
+        buscarRestaurantePorIdUseCase.buscarRestaurantePorId(avaliacao.getRestaurante().getRestauranteId());
 
         AvaliacaoValidation.validate(avaliacao);
 

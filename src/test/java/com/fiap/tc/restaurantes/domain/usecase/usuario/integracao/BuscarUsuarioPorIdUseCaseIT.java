@@ -21,7 +21,7 @@ public class BuscarUsuarioPorIdUseCaseIT {
   @Test
   void deveBuscarUsuarioPorIdUseCase() {
     // Arrange
-    Long id = 1L;
+    Long id = 3L;
 
     // Act
     Usuario usuario = buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id);
@@ -60,6 +60,6 @@ public class BuscarUsuarioPorIdUseCaseIT {
     // Act & Assert
     assertThatThrownBy(() -> buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id))
         .isInstanceOf(UsuarioNotFoundException.class)
-        .hasMessage("Id do usuário não encontrado");
+        .hasMessage("Usuário de id: " + id + " não encontrado.");
   }
 }

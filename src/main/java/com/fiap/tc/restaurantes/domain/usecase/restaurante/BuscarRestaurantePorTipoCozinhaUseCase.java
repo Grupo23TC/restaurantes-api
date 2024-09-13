@@ -1,4 +1,4 @@
-package com.fiap.tc.restaurantes.domain.useCase.restaurante;
+package com.fiap.tc.restaurantes.domain.usecase.restaurante;
 
 import com.fiap.tc.restaurantes.domain.entity.Restaurante;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.BuscarRestaurantePorTipoCozinhaInterface;

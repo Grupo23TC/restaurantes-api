@@ -78,7 +78,7 @@ public class UsuarioRepositoryIT {
     @Test
     void devePermitirDeletarUsuarioEntity() {
       // Arrange
-      Long id = 1L;
+      Long id = 3L;
 
       // Act
       repository.deleteById(id);

@@ -48,8 +48,8 @@ class CadastrarAvaliacaoTest {
     void devePermitirCadastrarAvaliacao() {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         avaliacao.setAvaliacaoId(1L);
-        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getRestaurante());
-        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getUsuario());
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(avaliacao.getRestaurante());
+        when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(avaliacao.getUsuario());
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
         var avaliacaoArmazenada = cadastrarAvaliacaoUseCase.execute(avaliacao);
@@ -63,8 +63,8 @@ class CadastrarAvaliacaoTest {
         assertThat(avaliacaoArmazenada.getDataAvaliacao()).isEqualTo(avaliacao.getDataAvaliacao());
         assertThat(avaliacaoArmazenada.getRestaurante()).isEqualTo(avaliacao.getRestaurante());
         assertThat(avaliacaoArmazenada.getUsuario()).isEqualTo(avaliacao.getUsuario());
-        verify(buscarUsuarioPorIdUseCase, times(1)).execute(anyLong());
-        verify(buscarRestaurantePorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(anyLong());
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
         verify(cadastrarAvaliacaoInterface, times(1)).cadastraAvaliacao(any(Avaliacao.class));
     }
 
@@ -72,15 +72,15 @@ class CadastrarAvaliacaoTest {
     void deveGerarExcecao_QuandoCadastrarAvaliacao_UsuarioNaoEncontrado() {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         avaliacao.setAvaliacaoId(1L);
-        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getRestaurante());
-        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenThrow(new UsuarioNotFoundException("Usuário não encontrado"));
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(avaliacao.getRestaurante());
+        when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenThrow(new UsuarioNotFoundException("Usuário não encontrado"));
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
         assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
                 .isInstanceOf(UsuarioNotFoundException.class)
                 .hasMessage("Usuário não encontrado");
-        verify(buscarUsuarioPorIdUseCase, times(1)).execute(anyLong());
-        verify(buscarRestaurantePorIdUseCase, never()).execute(anyLong());
+        verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(anyLong());
+        verify(buscarRestaurantePorIdUseCase, never()).buscarRestaurantePorId(anyLong());
         verify(cadastrarAvaliacaoInterface, never()).cadastraAvaliacao(any(Avaliacao.class));
     }
 
@@ -88,15 +88,15 @@ class CadastrarAvaliacaoTest {
     void deveGerarExcecao_QuandoCadastrarAvaliacao_RestauranteNaoEncontrado() {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         avaliacao.setAvaliacaoId(1L);
-        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenThrow(new RestauranteNotFoundException("Restaurante não encontrado"));
-        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getUsuario());
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenThrow(new RestauranteNotFoundException("Restaurante não encontrado"));
+        when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(avaliacao.getUsuario());
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
         assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
                 .isInstanceOf(RestauranteNotFoundException.class)
                 .hasMessage("Restaurante não encontrado");
-        verify(buscarUsuarioPorIdUseCase, times(1)).execute(anyLong());
-        verify(buscarRestaurantePorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(anyLong());
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
         verify(cadastrarAvaliacaoInterface, never()).cadastraAvaliacao(any(Avaliacao.class));
     }
 
@@ -105,8 +105,8 @@ class CadastrarAvaliacaoTest {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         avaliacao.setAvaliacaoId(1L);
         avaliacao.setNota(1000);
-        when(buscarRestaurantePorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getRestaurante());
-        when(buscarUsuarioPorIdUseCase.execute(anyLong())).thenReturn(avaliacao.getUsuario());
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(avaliacao.getRestaurante());
+        when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(avaliacao.getUsuario());
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
         assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))

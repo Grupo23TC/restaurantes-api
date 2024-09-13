@@ -11,7 +11,7 @@ public class BuscarUsuarioPorIdUseCase {
     this.buscarUsuarioPorIdInterface = buscarUsuarioPorIdInterface;
   }
 
-  public Usuario execute(Long id) {
+  public Usuario buscarUsuarioPorId(Long id) {
     Usuario usuario = buscarUsuarioPorIdInterface.buscarUsuarioPorId(id);
     if (usuario == null) {
       throw new UsuarioNotFoundException("Usuário de id: " + id + " não encontrado.");

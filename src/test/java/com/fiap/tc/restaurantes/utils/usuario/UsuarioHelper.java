@@ -4,6 +4,18 @@ import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.infra.entity.UsuarioEntity;
 
 public class UsuarioHelper {
+
+  public static Usuario gerarUsuarioValidoComId() {
+    Long id = 1L;
+    String nome = "Lucas";
+    String email = "lucas@mail.com";
+    String telefone = "000000000";
+    String senha = "aA@4b7c8";
+    Usuario usuario = new Usuario(nome, email, senha, telefone);
+    usuario.setUsuarioId(id);
+    return usuario;
+  }
+
   public static Usuario gerarUsuarioValido() {
     String nome = "Lucas";
     String email = "lucas@mail.com";

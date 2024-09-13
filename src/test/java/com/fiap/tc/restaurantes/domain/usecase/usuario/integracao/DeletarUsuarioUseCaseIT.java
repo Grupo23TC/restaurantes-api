@@ -20,7 +20,7 @@ public class DeletarUsuarioUseCaseIT {
   @Test
   void devePermitirDeletarUsuario() {
     // Arrange
-    Long id = 1L;
+    Long id = 4L;
 
     // Act
     boolean usuarioFoiDeletado = deletarUsuarioUseCase.deletarUsuario(id);
@@ -37,7 +37,7 @@ public class DeletarUsuarioUseCaseIT {
     // Act & Assert
     assertThatThrownBy(() -> deletarUsuarioUseCase.deletarUsuario(id))
         .isInstanceOf(UsuarioNotFoundException.class)
-        .hasMessage("Id do usuário não encontrado");
+        .hasMessage("Usuário de id: " + id + " não encontrado.");
 
   }
 }
