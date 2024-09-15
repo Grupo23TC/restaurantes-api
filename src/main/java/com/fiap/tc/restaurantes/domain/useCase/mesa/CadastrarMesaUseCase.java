@@ -2,16 +2,17 @@ package com.fiap.tc.restaurantes.domain.useCase.mesa;
 
 import com.fiap.tc.restaurantes.domain.entity.Mesa;
 import com.fiap.tc.restaurantes.domain.gateway.mesa.CadastrarMesaInterface;
+import com.fiap.tc.restaurantes.infra.repository.MesaRepository;
 
 public class CadastrarMesaUseCase {
 
-  private final CadastrarMesaInterface cadastrarMesaInterface;
+  private final MesaRepository mesaRepository;
 
-  public CadastrarMesaUseCase(CadastrarMesaInterface cadastrarMesaInterface) {
-    this.cadastrarMesaInterface = cadastrarMesaInterface;
+  public CadastrarMesaUseCase(MesaRepository mesaRepository) {
+    this.mesaRepository = mesaRepository;
   }
 
-  public Mesa cadastrarMesa(Long restauranteId, Mesa mesa) {
-    return cadastrarMesaInterface.cadastrarMesa(restauranteId, mesa);
+  public Mesa cadastrarMesa(Mesa mesa) {
+    return mesaRepository.save(mesa);
   }
 }

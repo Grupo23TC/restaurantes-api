@@ -24,14 +24,14 @@ public class CadastrarMesaController {
     public ResponseEntity<MesaResponse> cadastrarMesa(@RequestBody CadastrarMesaRequest cadastrarMesaRequest) {
         Mesa mesa = mesaMapper.toMesa(cadastrarMesaRequest);
 
-        Mesa mesaCadastrada = cadastrarMesaUseCase.cadastrarMesa(mesa.getRestauranteId(), mesa.getMesaId());
+        Mesa mesaCadastrada = cadastrarMesaUseCase.cadastrarMesa(mesa);
 
         MesaResponse mesaResponse = mesaMapper.toMesaResponse(mesaCadastrada);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(mesaResponse.getMesaId())
+                .buildAndExpand(mesaResponse)
                 .toUri();
 
         return ResponseEntity.created(uri).body(mesaResponse);

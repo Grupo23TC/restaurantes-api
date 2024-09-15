@@ -16,7 +16,4 @@ public class ListarMesasUseCase {
     public List<Mesa> listarMesasPorRestaurante(Long restauranteId) {
         return listarMesasInterface.listarMesasPorRestaurante(restauranteId);
     }
-
-    public List<Mesa> listarMesas() {
-    }
 }

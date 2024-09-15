@@ -10,7 +10,7 @@ public class DeletarMesaUseCase {
         this.deletarMesaInterface = deletarMesaInterface;
     }
 
-    public void deletarMesa(Long restauranteId, Long mesaId) {
+    public void execute(Long restauranteId, Long mesaId) {
         deletarMesaInterface.deletarMesa(restauranteId, mesaId);
     }
 }

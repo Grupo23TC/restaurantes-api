@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ListarMesasInterface {
     List<Mesa> listarMesasPorRestaurante(Long restauranteId);
+
+    List<Mesa> listarMesas();
 }

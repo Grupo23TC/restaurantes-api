@@ -14,4 +14,5 @@ public class AtualizarMesaUseCase {
     public Mesa atualizarMesa(Long restauranteId, Long mesaId, Mesa mesa) {
         return atualizarMesaInterface.atualizarMesa(restauranteId, mesaId, mesa);
     }
+
 }
