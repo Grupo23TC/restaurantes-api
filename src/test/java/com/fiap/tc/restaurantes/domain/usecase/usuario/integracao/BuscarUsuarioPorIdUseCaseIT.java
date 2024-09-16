@@ -21,7 +21,7 @@ public class BuscarUsuarioPorIdUseCaseIT {
   @Test
   void deveBuscarUsuarioPorIdUseCase() {
     // Arrange
-    Long id = 6L;
+    Long id = 7L;
 
     // Act
     Usuario usuario = buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id);
@@ -37,19 +37,19 @@ public class BuscarUsuarioPorIdUseCaseIT {
 
     assertThat(usuario.getNome())
         .isNotEmpty()
-        .isEqualTo("Ana Costa");
+        .isEqualTo("Pedro Alves");
 
     assertThat(usuario.getEmail())
         .isNotEmpty()
-        .isEqualTo("ana.costa@email.com");
+        .isEqualTo("pedro.alves@email.com");
 
     assertThat(usuario.getSenha())
         .isNotEmpty()
-        .isEqualTo("Senha@10");
+        .isEqualTo("Senha@20");
 
     assertThat(usuario.getTelefone())
         .isNotEmpty()
-        .isEqualTo("11999999904");
+        .isEqualTo("11999999905");
   }
 
   @Test
