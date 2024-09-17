@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "restaurante")
 public class RestauranteEntity {
 
   public RestauranteEntity(Long restauranteId, String nome, EnderecoEntity endereco, String tipoDeCozinha, Integer capacidade, String horarioFuncionamento) {

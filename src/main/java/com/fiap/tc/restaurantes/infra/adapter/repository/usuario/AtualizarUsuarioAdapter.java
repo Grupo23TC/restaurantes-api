@@ -20,8 +20,8 @@ public class AtualizarUsuarioAdapter implements AtualizarUsuarioInterface {
     Usuario usuarioBuscado = buscarUsuarioPorIdAdapter.buscarUsuarioPorId(id);
 
     usuarioBuscado.setNome(usuario.getNome());
-    usuarioBuscado.setEmail(usuario.getEmail());
     usuarioBuscado.setTelefone(usuario.getTelefone());
+    usuarioBuscado.setSenha(usuario.getSenha());
 
     UsuarioEntity usuarioAtualizado = usuarioRepository.save(usuarioEntityMapper.toUsuarioEntity(usuarioBuscado));
 
