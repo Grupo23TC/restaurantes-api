@@ -2,7 +2,9 @@ package com.fiap.tc.restaurantes.application.usuario;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fiap.tc.restaurantes.application.handler.usuario.UsuarioExceptionHandler;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
+import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.input.usuario.AtualizarUsuarioRequest;
 import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioResponse;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -42,6 +45,7 @@ public class AtualizarUsuarioControllerTest {
     mock = MockitoAnnotations.openMocks(this);
     AtualizarUsuarioController controller = new AtualizarUsuarioController(usuarioMapper, atualizarUsuarioUseCase);
     mockMvc = MockMvcBuilders.standaloneSetup(controller)
+        .setControllerAdvice(new UsuarioExceptionHandler())
         .addFilter((request, response, chain) -> {
           response.setCharacterEncoding("UTF-8");
           chain.doFilter(request, response);
@@ -84,6 +88,36 @@ public class AtualizarUsuarioControllerTest {
     verify(atualizarUsuarioUseCase, times(1)).atualizarUsuario(any(Long.class), any(Usuario.class));
     verify(usuarioMapper, times(1)).toUsuario(any(AtualizarUsuarioRequest.class));
     verify(usuarioMapper, times(1)).toUsuarioResponse(any(Usuario.class));
+  }
+
+  @Test
+  void deveGerarExcecao_QuandoAtualizarUsuario_IdNaoExiste() throws Exception {
+    // Arrange
+    Long id = 100L;
+    Usuario usuario = UsuarioHelper.gerarUsuarioValido();
+    usuario.setNome("João");
+    usuario.setTelefone("00000000001");
+    usuario.setSenha("bB@7aw85");
+
+    when(usuarioMapper.toUsuario(any(AtualizarUsuarioRequest.class))).thenReturn(usuario);
+    when(atualizarUsuarioUseCase.atualizarUsuario(any(Long.class), any(Usuario.class))).thenThrow(new UsuarioNotFoundException("Usuário de id: " + id + " não encontrado."));
+    when(usuarioMapper.toUsuarioResponse(any(Usuario.class))).thenReturn(null);
+
+    // Act & Assert
+    mockMvc.perform(put("/usuarios/{id}", id)
+          .content(asJsonString(usuario))
+          .contentType(MediaType.APPLICATION_JSON)
+        )
+        .andDo(print())
+        .andExpect(status().isNotFound())
+        .andExpect(jsonPath("$.erro").value("Usuário de id: " + id + " não encontrado."))
+        .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
+        .andExpect(jsonPath("$.horario").exists())
+        .andExpect(jsonPath("$.rota").value("/usuarios/" + id));
+
+    verify(usuarioMapper, times(1)).toUsuario(any(AtualizarUsuarioRequest.class));
+    verify(atualizarUsuarioUseCase, times(1)).atualizarUsuario(any(Long.class), any(Usuario.class));
+    verify(usuarioMapper, never()).toUsuarioResponse(null);
   }
 
   private String asJsonString(final Object object) throws Exception {

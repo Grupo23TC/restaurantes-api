@@ -43,7 +43,8 @@ public class BuscarUsuarioPorIdControllerIT {
     when()
         .get("/usuarios/{id}", id)
     .then()
-        .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        .statusCode(HttpStatus.NOT_FOUND.value())
+        .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
         .log().all();
   }
 }

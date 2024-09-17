@@ -1,6 +1,7 @@
 package com.fiap.tc.restaurantes.domain.usecase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
+import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.BuscarUsuarioPorIdInterface;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,8 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class BuscarUsuarioPorIdUseCaseTest {
@@ -42,5 +44,21 @@ public class BuscarUsuarioPorIdUseCaseTest {
         .isNotNull()
         .isInstanceOf(Usuario.class)
         .isEqualTo(usuario);
+  }
+
+  @Test
+  void deveGerarExcecao_QuandoBuscarUsuario_IdNaoExiste() {
+    // Arrange
+    Long id = 100L;
+
+    when(buscarUsuarioPorIdInterface.buscarUsuarioPorId(any(Long.class))).thenThrow(new UsuarioNotFoundException("Usuário de id: " + id + " não encontrado."));
+
+    // Act
+    assertThatThrownBy(() -> buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id))
+        .isNotNull()
+        .isInstanceOf(UsuarioNotFoundException.class)
+        .hasMessage("Usuário de id: " + id + " não encontrado.");
+
+    verify(buscarUsuarioPorIdInterface, times(1)).buscarUsuarioPorId(any(Long.class));
   }
 }

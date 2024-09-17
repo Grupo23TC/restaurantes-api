@@ -87,12 +87,12 @@ public class AtualizarUsuarioUseCaseTest {
     usuarioBody.setSenha("Aa@12345");
 
     when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(any(Long.class)))
-        .thenThrow(new UsuarioNotFoundException("Id do usuário não encontrado"));
+        .thenThrow(new UsuarioNotFoundException("Usuário de id: " + id + " não encontrado."));
 
     // Act & Assert
     assertThatThrownBy(() -> atualizarUsuarioUseCase.atualizarUsuario(id, usuarioBody))
         .isInstanceOf(UsuarioNotFoundException.class)
-        .hasMessage("Id do usuário não encontrado");
+        .hasMessage("Usuário de id: " + id + " não encontrado.");
 
     verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(any(Long.class));
     verify(atualizarUsuarioInterface, never()).atualizarUsuario(any(Long.class), any(Usuario.class));
