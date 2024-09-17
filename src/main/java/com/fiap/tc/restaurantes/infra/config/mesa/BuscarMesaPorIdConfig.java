@@ -1,6 +1,6 @@
 package com.fiap.tc.restaurantes.infra.config.mesa;
 
-import com.fiap.tc.restaurantes.domain.useCase.mesa.BuscarMesaPorIdUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.mesa.BuscarMesaPorIdUseCase;
 import com.fiap.tc.restaurantes.domain.gateway.mesa.BuscarMesaPorIdInterface;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

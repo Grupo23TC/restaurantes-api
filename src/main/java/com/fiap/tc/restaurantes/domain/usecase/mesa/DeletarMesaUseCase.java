@@ -1,4 +1,4 @@
-package com.fiap.tc.restaurantes.domain.useCase.mesa;
+package com.fiap.tc.restaurantes.domain.usecase.mesa;
 
 import com.fiap.tc.restaurantes.domain.gateway.mesa.DeletarMesaInterface;
 

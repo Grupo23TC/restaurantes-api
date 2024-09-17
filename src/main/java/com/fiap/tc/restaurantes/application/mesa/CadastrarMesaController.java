@@ -4,7 +4,7 @@ import com.fiap.tc.restaurantes.domain.mapper.mesa.MesaMapper;
 import com.fiap.tc.restaurantes.domain.input.mesa.CadastrarMesaRequest;
 import com.fiap.tc.restaurantes.domain.entity.Mesa;
 import com.fiap.tc.restaurantes.domain.output.mesa.MesaResponse;
-import com.fiap.tc.restaurantes.domain.useCase.mesa.CadastrarMesaUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.mesa.CadastrarMesaUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

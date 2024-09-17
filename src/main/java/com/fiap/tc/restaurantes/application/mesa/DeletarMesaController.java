@@ -1,6 +1,6 @@
 package com.fiap.tc.restaurantes.application.mesa;
 
-import com.fiap.tc.restaurantes.domain.useCase.mesa.DeletarMesaUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.mesa.DeletarMesaUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,10 +1,9 @@
 package com.fiap.tc.restaurantes.application.mesa;
 
-import com.fiap.tc.restaurantes.domain.entity.Mesa;
 import com.fiap.tc.restaurantes.domain.entity.Restaurante;
 import com.fiap.tc.restaurantes.domain.mapper.mesa.MesaMapper;
 import com.fiap.tc.restaurantes.domain.output.mesa.MesaResponse;
-import com.fiap.tc.restaurantes.domain.useCase.mesa.ListarMesasUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.mesa.ListarMesasUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

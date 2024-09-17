@@ -4,7 +4,7 @@ import com.fiap.tc.restaurantes.domain.entity.Mesa;
 import com.fiap.tc.restaurantes.domain.input.mesa.AtualizarMesaRequest;
 import com.fiap.tc.restaurantes.domain.mapper.mesa.MesaMapper;
 import com.fiap.tc.restaurantes.domain.output.mesa.MesaResponse;
-import com.fiap.tc.restaurantes.domain.useCase.mesa.AtualizarMesaUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.mesa.AtualizarMesaUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
