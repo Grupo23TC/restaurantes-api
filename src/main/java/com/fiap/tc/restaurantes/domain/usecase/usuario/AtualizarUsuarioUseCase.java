@@ -13,7 +13,12 @@ public class AtualizarUsuarioUseCase {
   }
 
   public Usuario atualizarUsuario(Long id, Usuario usuario) {
-    buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id);
-    return atualizarUsuarioInterface.atualizarUsuario(id, usuario);
+    Usuario usuarioBuscado = buscarUsuarioPorIdUseCase.buscarUsuarioPorId(id);
+
+    usuarioBuscado.setNome(usuario.getNome());
+    usuarioBuscado.setTelefone(usuario.getTelefone());
+    usuarioBuscado.setSenha(usuario.getSenha());
+
+    return atualizarUsuarioInterface.atualizarUsuario(id, usuarioBuscado);
   }
 }

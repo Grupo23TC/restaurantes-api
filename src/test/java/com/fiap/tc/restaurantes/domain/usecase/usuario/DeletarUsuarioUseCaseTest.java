@@ -56,12 +56,12 @@ public class DeletarUsuarioUseCaseTest {
     Long id = 2L;
 
     when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(any(Long.class)))
-        .thenThrow(new UsuarioNotFoundException("Id do usuário não encontrado"));
+        .thenThrow(new UsuarioNotFoundException("Usuário de id: " + id + " não encontrado."));
 
     // Act && Assert
     assertThatThrownBy(() -> deletarUsuarioUseCase.deletarUsuario(id))
         .isInstanceOf(UsuarioNotFoundException.class)
-        .hasMessage("Id do usuário não encontrado");
+        .hasMessage("Usuário de id: " + id + " não encontrado.");
 
     verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(any(Long.class));
     verify(deletarUsuarioInterface, never()).deletarUsuario(any(Long.class));

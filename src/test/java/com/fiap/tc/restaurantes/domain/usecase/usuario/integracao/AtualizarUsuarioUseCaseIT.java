@@ -23,7 +23,7 @@ public class AtualizarUsuarioUseCaseIT {
   void atualizarUsuario() {
     // Arrange
     Usuario usuarioBody = UsuarioHelper.gerarUsuarioValido();
-    Long id = 3L;
+    Long id = 5L;
 
     // Act
     Usuario usuarioAtualizado = atualizarUsuarioUseCase.atualizarUsuario(id, usuarioBody);
@@ -48,7 +48,7 @@ public class AtualizarUsuarioUseCaseIT {
         .isEqualTo(id);
 
     assertThat(usuarioAtualizado.getEmail())
-        .isEqualTo("lucas.franco@email.com");
+        .isEqualTo("maria.souza@email.com");
   }
 
   @Test
