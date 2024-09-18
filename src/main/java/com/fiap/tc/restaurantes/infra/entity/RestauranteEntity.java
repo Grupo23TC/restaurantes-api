@@ -1,10 +1,13 @@
 package com.fiap.tc.restaurantes.infra.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +16,15 @@ import lombok.Setter;
 @Entity
 @Table(name = "restaurante")
 public class RestauranteEntity {
+
+  public RestauranteEntity(Long restauranteId, String nome, EnderecoEntity endereco, String tipoDeCozinha, Integer capacidade, String horarioFuncionamento) {
+    this.restauranteId = restauranteId;
+    this.nome = nome;
+    this.endereco = endereco;
+    this.tipoDeCozinha = tipoDeCozinha;
+    this.capacidade = capacidade;
+    this.horarioFuncionamento = horarioFuncionamento;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +45,7 @@ public class RestauranteEntity {
 
   @Column(nullable = false)
   private String horarioFuncionamento;
+
+  @OneToMany(mappedBy = "restauranteEntity")
+  private List<MesaEntity> mesas;
 }
