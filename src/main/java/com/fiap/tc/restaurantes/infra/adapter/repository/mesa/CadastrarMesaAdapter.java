@@ -1,3 +1,6 @@
+package com.fiap.tc.restaurantes.infra.adapter.repository.mesa;
+
+
 import com.fiap.tc.restaurantes.domain.entity.Mesa;
 import com.fiap.tc.restaurantes.domain.gateway.mesa.CadastrarMesaInterface;
 import com.fiap.tc.restaurantes.infra.entity.MesaEntity;
@@ -14,12 +17,8 @@ public class CadastrarMesaAdapter implements CadastrarMesaInterface {
     private final MesaEntityMapper mesaEntityMapper;
 
     @Override
-    public Mesa cadastrarMesa(Long id, Mesa mesa) {
+    public Mesa cadastrarMesa(Mesa mesa) {
         MesaEntity mesaEntity = mesaEntityMapper.toMesaEntity(mesa);
-
-        mesaEntity.setMesaId(id);
-        MesaEntity mesaEntitySalva = mesaRepository.save(mesaEntity);
-
-        return mesaEntityMapper.toMesa(mesaEntitySalva);
+        return mesaEntityMapper.toMesa(mesaRepository.save(mesaEntity));
     }
 }

@@ -4,8 +4,6 @@ import com.fiap.tc.restaurantes.domain.entity.Mesa;
 
 import java.util.List;
 
-public interface ListarMesasInterface {
+public interface ListarMesasPorRestauranteInterface {
     List<Mesa> listarMesasPorRestaurante(Long restauranteId);
-
-    List<Mesa> listarMesas();
 }

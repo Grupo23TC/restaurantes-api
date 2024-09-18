@@ -1,5 +1,6 @@
 package com.fiap.tc.restaurantes.infra.adapter.repository.mesa;
 
+import com.fiap.tc.restaurantes.domain.gateway.mesa.DeletarMesaInterface;
 import com.fiap.tc.restaurantes.domain.mapper.mesa.MesaMapper;
 import com.fiap.tc.restaurantes.domain.mapper.restaurante.RestauranteMapper;
 import com.fiap.tc.restaurantes.infra.repository.MesaRepository;
@@ -8,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DeletarMesaAdapter {
+public class DeletarMesaAdapter implements DeletarMesaInterface {
 
     private final MesaRepository mesaRepository;
     private final MesaMapper mesaMapper;
@@ -18,12 +19,10 @@ public class DeletarMesaAdapter {
         this.mesaMapper = mesaMapper;
     }
 
-    public boolean deletarRestaurante(Long id) {
-        // TODO implementar verificacao se restaurante existe
-        mesaRepository.deleteById(id);
+    @Override
+    public boolean deletarMesa(Long mesaId) {
+        mesaRepository.deleteById(mesaId);
         return true;
     }
-
-
 
 }

@@ -21,10 +21,9 @@ public class AtualizarMesaController {
     }
 
     @PutMapping("/{mesaId}")
-    public ResponseEntity<MesaResponse> atualizarMesa(@PathVariable Long restauranteId,
-                                                      @PathVariable Long mesaId,
+    public ResponseEntity<MesaResponse> atualizarMesa(@PathVariable Long mesaId,
                                                       @RequestBody AtualizarMesaRequest mesaRequest) {
-        Mesa mesaAtualizada = atualizarMesaUseCase.atualizarMesa(restauranteId, mesaId, mesaMapper.toMesa(mesaRequest));
+        Mesa mesaAtualizada = atualizarMesaUseCase.atualizarMesa(mesaId, mesaMapper.toMesa(mesaRequest));
         MesaResponse mesaResponse = mesaMapper.toMesaResponse(mesaAtualizada);
 
         return ResponseEntity.ok(mesaResponse);

@@ -21,7 +21,7 @@ public class BuscarMesaPorIdController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MesaResponse> buscarMesa(@PathVariable Long id) {
-        Mesa mesaBuscada = buscarMesaPorIdUseCase.buscarPorId(id);
+        Mesa mesaBuscada = buscarMesaPorIdUseCase.buscarMesaPorId(id);
         return ResponseEntity.ok(mesaMapper.toMesaResponse(mesaBuscada));
     }
 }

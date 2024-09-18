@@ -4,13 +4,19 @@ import com.fiap.tc.restaurantes.domain.gateway.mesa.DeletarMesaInterface;
 
 public class DeletarMesaUseCase {
 
+    private final BuscarMesaPorIdUseCase buscarMesaPorIdUseCase;
     private final DeletarMesaInterface deletarMesaInterface;
 
-    public DeletarMesaUseCase(DeletarMesaInterface deletarMesaInterface) {
+    public DeletarMesaUseCase(
+            DeletarMesaInterface deletarMesaInterface,
+            BuscarMesaPorIdUseCase buscarMesaPorIdUseCase
+    ) {
         this.deletarMesaInterface = deletarMesaInterface;
+        this.buscarMesaPorIdUseCase = buscarMesaPorIdUseCase;
     }
 
-    public void execute(Long restauranteId, Long mesaId) {
-        deletarMesaInterface.deletarMesa(restauranteId, mesaId);
+    public boolean deletarMesa(Long mesaId) {
+        buscarMesaPorIdUseCase.buscarMesaPorId(mesaId);
+        return deletarMesaInterface.deletarMesa(mesaId);
     }
 }

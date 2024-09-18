@@ -1,10 +1,8 @@
 package com.fiap.tc.restaurantes.domain.mapper.mesa;
 
 import com.fiap.tc.restaurantes.domain.entity.Mesa;
-import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.input.mesa.AtualizarMesaRequest;
 import com.fiap.tc.restaurantes.domain.input.mesa.CadastrarMesaRequest;
-import com.fiap.tc.restaurantes.domain.input.usuario.CadastrarUsuarioRequest;
 import com.fiap.tc.restaurantes.domain.output.mesa.MesaResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,6 +13,7 @@ public interface MesaMapper {
   MesaMapper INSTANCE = Mappers.getMapper(MesaMapper.class);
 
   @Mapping(target = "mesaId", ignore = true)
+  @Mapping(target = "restaurante.restauranteId", source = "restauranteId")
   Mesa toMesa(CadastrarMesaRequest cadastrarMesaRequest);
 
   @Mapping(target = "mesaId", ignore = true)
@@ -22,5 +21,6 @@ public interface MesaMapper {
 
   @Mapping(source = "mesaId", target = "id")
   @Mapping(source = "quantidadeAssentos", target = "capacidade")
+  @Mapping(target = "restauranteId", source = "restaurante.restauranteId")
   MesaResponse toMesaResponse(Mesa mesa);
 }

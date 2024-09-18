@@ -11,6 +11,6 @@ public class CadastrarMesaConfig {
 
   @Bean
   public CadastrarMesaUseCase cadastrarMesaUseCase(CadastrarMesaInterface cadastrarMesaInterface) {
-    return new CadastrarMesaUseCase((MesaRepository) cadastrarMesaInterface);
+    return new CadastrarMesaUseCase(cadastrarMesaInterface);
   }
 }

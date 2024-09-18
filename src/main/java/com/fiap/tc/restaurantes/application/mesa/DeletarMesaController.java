@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/restaurantes/{restauranteId}/mesas")
+@RequestMapping("/mesas")
 public class DeletarMesaController {
 
     private final DeletarMesaUseCase deletarMesaUseCase;
 
     @DeleteMapping("/{mesaId}")
-    public ResponseEntity<Void> deletarMesa(@PathVariable Long restauranteId, @PathVariable Long mesaId) {
-        deletarMesaUseCase.execute(restauranteId, mesaId);
+    public ResponseEntity<Void> deletarMesa(@PathVariable Long mesaId) {
+        deletarMesaUseCase.deletarMesa(mesaId);
         return ResponseEntity.noContent().build();
     }
 }

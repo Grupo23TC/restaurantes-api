@@ -2,6 +2,7 @@ package com.fiap.tc.restaurantes.domain.entity;
 
 import com.fiap.tc.restaurantes.domain.enums.TipoCozinhaEnum;
 
+import java.util.List;
 
 public class Restaurante {
 
@@ -11,6 +12,7 @@ public class Restaurante {
     private TipoCozinhaEnum tipoDeCozinha;
     private Integer capacidade;
     private String horarioFuncionamento;
+    private List<Mesa> mesas;
 
     public Restaurante(Long restauranteId, String nome, Endereco endereco, TipoCozinhaEnum tipoDeCozinha, Integer capacidade, String horarioFuncionamento) {
         this.restauranteId = restauranteId;
@@ -70,5 +72,13 @@ public class Restaurante {
 
     public void setHorarioFuncionamento(String horarioFuncionamento) {
         this.horarioFuncionamento = horarioFuncionamento;
+    }
+
+    public List<Mesa> getMesas() {
+        return mesas;
+    }
+
+    public void setMesas(List<Mesa> mesas) {
+        this.mesas = mesas;
     }
 }

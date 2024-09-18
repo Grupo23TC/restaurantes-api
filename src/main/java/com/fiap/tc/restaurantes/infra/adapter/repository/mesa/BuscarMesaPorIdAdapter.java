@@ -6,6 +6,7 @@ import com.fiap.tc.restaurantes.infra.repository.mapper.MesaEntityMapper;
 import com.fiap.tc.restaurantes.domain.entity.Mesa;
 import com.fiap.tc.restaurantes.domain.gateway.mesa.BuscarMesaPorIdInterface;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class BuscarMesaPorIdAdapter implements BuscarMesaPorIdInterface {
@@ -18,11 +19,10 @@ public class BuscarMesaPorIdAdapter implements BuscarMesaPorIdInterface {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Mesa buscarMesaPorId(Long id) {
-        Mesa mesaBuscada = mesaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Id da mesa não encontrado"));
-
-
+        MesaEntity mesaBuscada = mesaRepository.findById(id)
+                .orElse(null);
         return mesaEntityMapper.toMesa(mesaBuscada);
     }
 }

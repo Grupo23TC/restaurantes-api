@@ -1,5 +1,6 @@
 package com.fiap.tc.restaurantes.infra.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,6 +46,6 @@ public class RestauranteEntity {
   @Column(nullable = false)
   private String horarioFuncionamento;
 
-  @OneToMany(mappedBy = "restaurante")
+  @OneToMany(mappedBy = "restauranteEntity")
   private List<MesaEntity> mesas;
 }
