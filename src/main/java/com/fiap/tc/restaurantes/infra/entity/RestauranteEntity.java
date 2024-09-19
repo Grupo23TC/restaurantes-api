@@ -33,7 +33,7 @@ public class RestauranteEntity {
   @Column(nullable = false)
   private String nome;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.REMOVE)
   @JoinColumn(name="enderecoId")
   private EnderecoEntity endereco;
 
@@ -46,6 +46,6 @@ public class RestauranteEntity {
   @Column(nullable = false)
   private String horarioFuncionamento;
 
-  @OneToMany(mappedBy = "restauranteEntity")
+  @OneToMany(mappedBy = "restauranteEntity", cascade = CascadeType.REMOVE)
   private List<MesaEntity> mesas;
 }

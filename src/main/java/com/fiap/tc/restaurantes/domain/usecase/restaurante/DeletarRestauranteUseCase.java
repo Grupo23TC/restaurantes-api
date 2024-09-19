@@ -10,6 +10,7 @@ public class DeletarRestauranteUseCase {
     this.deletarRestauranteInterface = deletarRestauranteInterface;
   }
 
+  // TODO: Deletar avaliação do restaurante
   public boolean deletarRestaurante(Long id) {
     return deletarRestauranteInterface.deletarRestaurante(id);
   }

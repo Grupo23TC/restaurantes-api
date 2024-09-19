@@ -1,9 +1,14 @@
 package com.fiap.tc.restaurantes.domain.entity;
 
 import com.fiap.tc.restaurantes.domain.enums.TipoCozinhaEnum;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+@Builder
 public class Restaurante {
 
     private Long restauranteId;
@@ -14,13 +19,14 @@ public class Restaurante {
     private String horarioFuncionamento;
     private List<Mesa> mesas;
 
-    public Restaurante(Long restauranteId, String nome, Endereco endereco, TipoCozinhaEnum tipoDeCozinha, Integer capacidade, String horarioFuncionamento) {
+    public Restaurante(Long restauranteId, String nome, Endereco endereco, TipoCozinhaEnum tipoDeCozinha, Integer capacidade, String horarioFuncionamento, List<Mesa> mesas) {
         this.restauranteId = restauranteId;
         this.nome = nome;
         this.endereco = endereco;
         this.tipoDeCozinha = tipoDeCozinha;
         this.capacidade = capacidade;
         this.horarioFuncionamento = horarioFuncionamento;
+        this.mesas = mesas;
     }
 
     public Restaurante() {
