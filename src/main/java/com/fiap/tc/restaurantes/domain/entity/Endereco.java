@@ -1,7 +1,9 @@
 package com.fiap.tc.restaurantes.domain.entity;
 
 import com.fiap.tc.restaurantes.domain.enums.EstadoEnum;
+import lombok.Builder;
 
+@Builder
 public class Endereco {
 
     private String rua;
