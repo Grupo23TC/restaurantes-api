@@ -20,7 +20,7 @@ class BuscarAvaliacoesPorUsuarioIT {
     void devePermitirBuscarAvaliacoesPorUsuario() {
         var usuarioId = 1L;
 
-        var listAvaliacoes = buscarAvaliacoesPorUsuarioUseCase.execute(usuarioId);
+        var listAvaliacoes = buscarAvaliacoesPorUsuarioUseCase.buscarAvaliacoesPorUsuario(usuarioId);
 
         assertThat(listAvaliacoes)
                 .isNotEmpty()

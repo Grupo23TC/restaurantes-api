@@ -25,7 +25,7 @@ class CadastrarAvaliacaoIT {
     void devePermitirCadastrarAvaliacao() {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
 
-        var avaliacaoArmazenada = cadastrarAvaliacaoUseCase.execute(avaliacao);
+        var avaliacaoArmazenada = cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao);
 
         assertThat(avaliacaoArmazenada)
                 .isNotNull()
@@ -44,7 +44,7 @@ class CadastrarAvaliacaoIT {
         var restauranteId = 123456798L;
         avaliacao.getRestaurante().setRestauranteId(restauranteId);
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao))
                 .isInstanceOf(RestauranteNotFoundException.class)
                 .hasMessage("Restaurante de id: " + restauranteId + " não encontrado.");
     }
@@ -55,7 +55,7 @@ class CadastrarAvaliacaoIT {
         var usuarioId = 123456798L;
         avaliacao.getUsuario().setUsuarioId(usuarioId);
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao))
                 .isInstanceOf(UsuarioNotFoundException.class)
                 .hasMessage("Usuário de id: " + usuarioId + " não encontrado.");
     }
@@ -65,7 +65,7 @@ class CadastrarAvaliacaoIT {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         avaliacao.setNota(30);
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("A Nota deve ser entre 0 e 5");
     }

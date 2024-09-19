@@ -12,7 +12,7 @@ public class BuscarAvaliacaoPorIdUseCase {
         this.buscarAvaliacaoPorIdInterface = buscarAvaliacaoPorIdInterface;
     }
 
-    public Avaliacao execute(Long id) {
+    public Avaliacao buscarAvalacaoPorId(Long id) {
 
         Avaliacao avaliacao = buscarAvaliacaoPorIdInterface.buscarAvaliacaoPorId(id);
         if (avaliacao == null) {

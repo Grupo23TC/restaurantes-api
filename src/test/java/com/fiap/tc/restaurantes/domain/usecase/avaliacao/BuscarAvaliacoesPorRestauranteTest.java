@@ -43,7 +43,7 @@ class BuscarAvaliacoesPorRestauranteTest {
         var listAvaliacoes = Arrays.asList(avaliacao1, avaliacao2);
         when(buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(anyLong())).thenReturn(listAvaliacoes);
 
-        var listaObtida = buscarAvaliacoesPorRestauranteUseCase.execute(1L);
+        var listaObtida = buscarAvaliacoesPorRestauranteUseCase.buscarAvaliacoesPorRestaurante(1L);
 
         assertThat(listaObtida)
                 .isNotEmpty()

@@ -13,7 +13,7 @@ public class BuscarAvaliacoesPorRestauranteUseCase {
         this.buscarAvaliacoesPorRestaurante = buscarAvaliacoesPorRestaurante;
     }
 
-    public List<Avaliacao> execute(Long restauranteId) {
+    public List<Avaliacao> buscarAvaliacoesPorRestaurante(Long restauranteId) {
         return buscarAvaliacoesPorRestaurante.buscarAvaliacoesPorRestaurante(restauranteId);
     }
 }

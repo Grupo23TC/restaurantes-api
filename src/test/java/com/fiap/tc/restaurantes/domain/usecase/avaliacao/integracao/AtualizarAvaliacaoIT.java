@@ -30,7 +30,7 @@ class AtualizarAvaliacaoIT {
         avaliacaoNova.setNota(0);
         avaliacaoNova.setComentario("Péssimo");
 
-        var avaliacaoAtualizada = atualizarAvaliacaoUseCase.execute(id, avaliacaoNova);
+        var avaliacaoAtualizada = atualizarAvaliacaoUseCase.atualizarAvaliacao(id, avaliacaoNova);
 
         assertThat(avaliacaoAtualizada)
                 .isNotNull()
@@ -48,7 +48,7 @@ class AtualizarAvaliacaoIT {
         var id = 123456798L;
         var avaliacaoNova = AvaliacaoHelper.gerarAvaliacao();
 
-        assertThatThrownBy(() -> atualizarAvaliacaoUseCase.execute(id, avaliacaoNova))
+        assertThatThrownBy(() -> atualizarAvaliacaoUseCase.atualizarAvaliacao(id, avaliacaoNova))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliação de id: " + id + " não encontrada.");
     }
@@ -59,7 +59,7 @@ class AtualizarAvaliacaoIT {
         var avaliacaoNova = AvaliacaoHelper.gerarAvaliacao();
         avaliacaoNova.setNota(3000);
 
-        assertThatThrownBy(() -> atualizarAvaliacaoUseCase.execute(id, avaliacaoNova))
+        assertThatThrownBy(() -> atualizarAvaliacaoUseCase.atualizarAvaliacao(id, avaliacaoNova))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("A Nota deve ser entre 0 e 5");
     }

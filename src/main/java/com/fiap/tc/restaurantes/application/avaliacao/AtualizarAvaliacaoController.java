@@ -23,7 +23,7 @@ public class AtualizarAvaliacaoController {
                                                                 @RequestBody AtualizarAvaliacaoRequest atualizarAvaliacaoRequest) {
         Avaliacao avaliacao = avaliacaoMapper.toAvaliacao(atualizarAvaliacaoRequest);
 
-        AvaliacaoResponse avaliacaoResponse = avaliacaoMapper.toAvaliacaoResponse(atualizarAvaliacaoUseCase.execute(id, avaliacao));
+        AvaliacaoResponse avaliacaoResponse = avaliacaoMapper.toAvaliacaoResponse(atualizarAvaliacaoUseCase.atualizarAvaliacao(id, avaliacao));
 
         return ResponseEntity.status(HttpStatus.OK).body(avaliacaoResponse);
     }

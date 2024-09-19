@@ -15,7 +15,7 @@ public class DeletarAvaliacaoUseCase {
     public boolean execute(Long avaliacaoId) {
 
         //Valida se avaliacao existe
-        buscarAvaliacaoPorIdUseCase.execute(avaliacaoId);
+        buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(avaliacaoId);
 
         try {
             deletarAvaliacaoInterface.deletarAvaliacao(avaliacaoId);

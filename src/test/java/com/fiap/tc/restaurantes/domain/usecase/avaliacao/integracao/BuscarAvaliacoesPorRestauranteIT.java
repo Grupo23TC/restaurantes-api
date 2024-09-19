@@ -21,7 +21,7 @@ class BuscarAvaliacoesPorRestauranteIT {
     void devePermitirBuscarAvaliacoesPorRestaurante() {
         var restauranteId = 1L;
 
-        var listAvaliacoes = buscarAvaliacoesPorRestauranteUseCase.execute(restauranteId);
+        var listAvaliacoes = buscarAvaliacoesPorRestauranteUseCase.buscarAvaliacoesPorRestaurante(restauranteId);
 
         assertThat(listAvaliacoes)
                 .isNotEmpty()

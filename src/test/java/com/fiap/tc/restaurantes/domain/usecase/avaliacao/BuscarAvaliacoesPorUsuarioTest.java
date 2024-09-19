@@ -43,7 +43,7 @@ class BuscarAvaliacoesPorUsuarioTest {
         var listAvaliacoes = Arrays.asList(avaliacao1, avaliacao2);
         when(buscarAvaliacoesPorUsuarioInterface.buscarAvaliacoesPorUsuario(anyLong())).thenReturn(listAvaliacoes);
 
-        var listaObtida = buscarAvaliacoesPorUsuarioUseCase.execute(1L);
+        var listaObtida = buscarAvaliacoesPorUsuarioUseCase.buscarAvaliacoesPorUsuario(1L);
 
         assertThat(listaObtida)
                 .isNotEmpty()

@@ -18,7 +18,7 @@ public class CadastrarAvaliacaoUseCase {
         this.buscarRestaurantePorIdUseCase = buscarRestaurantePorIdUseCase;
     }
 
-    public Avaliacao execute(Avaliacao avaliacao) {
+    public Avaliacao cadastrarAvaliacao(Avaliacao avaliacao) {
 
         //Valida se Usuario existe
         buscarUsuarioPorIdUseCase.buscarUsuarioPorId(avaliacao.getUsuario().getUsuarioId());
