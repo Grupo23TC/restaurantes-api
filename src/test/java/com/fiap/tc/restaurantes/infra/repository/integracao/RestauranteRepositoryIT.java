@@ -56,7 +56,7 @@ public class RestauranteRepositoryIT {
         @Test
         void devePermitirBuscarRestauranteEntityPorNome() {
             // Arrange
-            String nome = "restaurante teste";
+            String nome = "restaurante teste 2";
 
             // Act
             List<RestauranteEntity> restaurantes = repository.findByNomeContaining(nome);
