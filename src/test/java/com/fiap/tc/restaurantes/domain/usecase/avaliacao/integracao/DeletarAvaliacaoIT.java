@@ -23,7 +23,7 @@ class DeletarAvaliacaoIT {
     void devePermitirDeletarAvaliacao() {
         var id = 1L;
 
-        var avaliacaoRemovida = deletarAvaliacaoUseCase.execute(id);
+        var avaliacaoRemovida = deletarAvaliacaoUseCase.deletarAvaliacao(id);
 
         assertThat(avaliacaoRemovida).isTrue();
     }
@@ -32,7 +32,7 @@ class DeletarAvaliacaoIT {
     void deveGerarExcecao_QuandoDeletarAvaliacao_IdNaoEncontrado() {
         var id = 123465L;
 
-        assertThatThrownBy(() -> deletarAvaliacaoUseCase.execute(id))
+        assertThatThrownBy(() -> deletarAvaliacaoUseCase.deletarAvaliacao(id))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliação de id: " + id + " não encontrada.");
     }

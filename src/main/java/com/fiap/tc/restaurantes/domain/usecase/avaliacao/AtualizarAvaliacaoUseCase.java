@@ -16,7 +16,7 @@ public class AtualizarAvaliacaoUseCase {
 
     public Avaliacao atualizarAvaliacao(Long id, Avaliacao avaliacaoNova) {
 
-        Avaliacao avaliacao = buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(id);
+        Avaliacao avaliacao = buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(id);
 
         avaliacao.setNota(avaliacaoNova.getNota());
         avaliacao.setComentario(avaliacaoNova.getComentario());

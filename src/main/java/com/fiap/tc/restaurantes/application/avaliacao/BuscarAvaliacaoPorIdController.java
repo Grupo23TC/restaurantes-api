@@ -22,7 +22,7 @@ public class BuscarAvaliacaoPorIdController {
 
     @GetMapping("{id}")
     public ResponseEntity<AvaliacaoResponse> buscarAvaliacaoPorId(@PathVariable Long id) {
-        Avaliacao avaliacao = buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(id);
+        Avaliacao avaliacao = buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(avaliacaoMapper.toAvaliacaoResponse(avaliacao));
     }

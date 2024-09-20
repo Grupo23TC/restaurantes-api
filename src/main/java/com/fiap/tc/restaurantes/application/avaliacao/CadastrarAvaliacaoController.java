@@ -25,7 +25,8 @@ public class CadastrarAvaliacaoController {
     public ResponseEntity<AvaliacaoResponse> cadastrarAvaliacao(@RequestBody CadastrarAvaliacaoRequest cadastrarAvaliacaoRequest) {
 
         Avaliacao avaliacao = avaliacaoMapper.toAvaliacao(cadastrarAvaliacaoRequest);
-        AvaliacaoResponse response = avaliacaoMapper.toAvaliacaoResponse(cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao));
+        avaliacao = cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, cadastrarAvaliacaoRequest.restauranteId(), cadastrarAvaliacaoRequest.usuarioId());
+        AvaliacaoResponse response = avaliacaoMapper.toAvaliacaoResponse(avaliacao);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

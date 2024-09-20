@@ -18,6 +18,6 @@ public class DeletarAvaliacaoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deletarAvaliacao(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(deletarAvaliacaoUseCase.execute(id));
+        return ResponseEntity.status(HttpStatus.OK).body(deletarAvaliacaoUseCase.deletarAvaliacao(id));
     }
 }

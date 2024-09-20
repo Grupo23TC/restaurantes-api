@@ -26,7 +26,7 @@ class BuscarAvaliacaoPorIdIT {
     void devePermitirBuscarAvaliacaoPorId() {
         var id = 1L;
 
-        var avaliacaoObtida = buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(id);
+        var avaliacaoObtida = buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(id);
 
         assertThat(avaliacaoObtida)
                 .isNotNull()
@@ -43,7 +43,7 @@ class BuscarAvaliacaoPorIdIT {
     void deveGerarExcecao_QuandoBuscarAvaliacaoPorId_IdNaoEncontrado() {
         var id = 123465789L;
 
-        assertThatThrownBy(() -> buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(id))
+        assertThatThrownBy(() -> buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(id))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliação de id: " + id + " não encontrada.");
     }

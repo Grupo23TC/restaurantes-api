@@ -1,45 +1,55 @@
 package com.fiap.tc.restaurantes.application.avaliacao.integracao;
 
-import com.fiap.tc.restaurantes.application.avaliacao.DeletarAvaliacaoController;
-import com.fiap.tc.restaurantes.domain.usecase.avaliacao.DeletarAvaliacaoUseCase;
-import org.junit.jupiter.api.AfterEach;
+import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
 class DeletarAvaliacaoControllerIT {
 
-    @Mock
-    private DeletarAvaliacaoUseCase deletarAvaliacaoUseCase;
-
-    private MockMvc mockMvc;
-
-    AutoCloseable mock;
+    @LocalServerPort
+    private int port;
 
     @BeforeEach
     public void setUp() {
-        mock = MockitoAnnotations.openMocks(this);
-        DeletarAvaliacaoController controller = new DeletarAvaliacaoController(deletarAvaliacaoUseCase);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        mock.close();
+        RestAssured.port = port;
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
     @Test
     void devePermitirDeletarAvaliacao() {
-        fail("Não implementado");
+        var id = 3L;
+
+        given()
+                .log().all()
+        .when()
+                .delete("/avaliacoes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoDeletadaResponse.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoDeletarAvaliacao_IdNaoEncontrado() {
-        fail("Não implementado");
+        var id = 1502825L;
+
+        given()
+                .log().all()
+        .when()
+                .delete("/avaliacoes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 }

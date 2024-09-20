@@ -47,7 +47,7 @@ class AtualizarAvaliacaoTest {
         var avaliacaoNova = AvaliacaoHelper.gerarAvaliacao();
         avaliacaoNova.setNota(2);
         avaliacaoNova.setComentario("comentário novo");
-        when(buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(anyLong())).thenReturn(avaliacaoAntiga);
+        when(buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(anyLong())).thenReturn(avaliacaoAntiga);
         when(atualizarAvaliacaoInterface.atualizarAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
         var avaliacaoAtualizada = atualizarAvaliacaoUseCase.atualizarAvaliacao(1L, avaliacaoNova);
@@ -62,18 +62,18 @@ class AtualizarAvaliacaoTest {
 
         assertThat(avaliacaoAtualizada.getNota()).isEqualTo(avaliacaoNova.getNota());
         assertThat(avaliacaoAtualizada.getComentario()).isEqualTo(avaliacaoNova.getComentario());
-        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvalacaoPorId(anyLong());
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvaliacaoPorId(anyLong());
         verify(atualizarAvaliacaoInterface, times(1)).atualizarAvaliacao(any(Avaliacao.class));
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarAvaliacao_IdNaoEncontrado() {
-        when(buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(anyLong())).thenThrow(new AvaliacaoNotFoundException("Avaliacao não encontrada"));
+        when(buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(anyLong())).thenThrow(new AvaliacaoNotFoundException("Avaliacao não encontrada"));
 
         assertThatThrownBy(() -> atualizarAvaliacaoUseCase.atualizarAvaliacao(1L, AvaliacaoHelper.gerarAvaliacao()))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliacao não encontrada");
-        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvalacaoPorId(anyLong());
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvaliacaoPorId(anyLong());
         verify(atualizarAvaliacaoInterface, never()).atualizarAvaliacao(any(Avaliacao.class));
     }
 
@@ -83,13 +83,13 @@ class AtualizarAvaliacaoTest {
         avaliacaoAntiga.setAvaliacaoId(1L);
         var avaliacaoNova = AvaliacaoHelper.gerarAvaliacao();
         avaliacaoNova.setNota(10000);
-        when(buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(anyLong())).thenReturn(avaliacaoAntiga);
+        when(buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(anyLong())).thenReturn(avaliacaoAntiga);
         when(atualizarAvaliacaoInterface.atualizarAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
         assertThatThrownBy(() -> atualizarAvaliacaoUseCase.atualizarAvaliacao(1L, avaliacaoNova))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("A Nota deve ser entre 0 e 5");
-        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvalacaoPorId(anyLong());
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvaliacaoPorId(anyLong());
         verify(atualizarAvaliacaoInterface, never()).atualizarAvaliacao(any(Avaliacao.class));
     }
 

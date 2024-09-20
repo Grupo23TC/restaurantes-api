@@ -1,6 +1,8 @@
 package com.fiap.tc.restaurantes.domain.usecase.avaliacao;
 
 import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
+import com.fiap.tc.restaurantes.domain.entity.Restaurante;
+import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.entity.validations.AvaliacaoValidation;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.CadastrarAvaliacaoInterface;
 import com.fiap.tc.restaurantes.domain.usecase.restaurante.BuscarRestaurantePorIdUseCase;
@@ -18,12 +20,15 @@ public class CadastrarAvaliacaoUseCase {
         this.buscarRestaurantePorIdUseCase = buscarRestaurantePorIdUseCase;
     }
 
-    public Avaliacao cadastrarAvaliacao(Avaliacao avaliacao) {
+    public Avaliacao cadastrarAvaliacao(Avaliacao avaliacao, Long restauranteId, Long usuarioId) {
 
         //Valida se Usuario existe
-        buscarUsuarioPorIdUseCase.buscarUsuarioPorId(avaliacao.getUsuario().getUsuarioId());
+        Usuario usuario = buscarUsuarioPorIdUseCase.buscarUsuarioPorId(usuarioId);
         //Valida se Restaurate existe
-        buscarRestaurantePorIdUseCase.buscarRestaurantePorId(avaliacao.getRestaurante().getRestauranteId());
+        Restaurante restaurante = buscarRestaurantePorIdUseCase.buscarRestaurantePorId(restauranteId);
+
+        avaliacao.setUsuario(usuario);
+        avaliacao.setRestaurante(restaurante);
 
         AvaliacaoValidation.validate(avaliacao);
 

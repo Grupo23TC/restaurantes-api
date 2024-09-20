@@ -40,7 +40,7 @@ class BuscarAvaliacaoPorIdTest {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         when(buscarAvaliacaoPorIdInterface.buscarAvaliacaoPorId(anyLong())).thenReturn(avaliacao);
 
-        var avaliacaoObtida = buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(1L);
+        var avaliacaoObtida = buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(1L);
 
         assertThat(avaliacaoObtida)
                 .isInstanceOf(Avaliacao.class)
@@ -57,7 +57,7 @@ class BuscarAvaliacaoPorIdTest {
     void deveGerarExcecao_QuandoBuscarAvaliacaoPorId_IdNaoEncontrado() {
         when(buscarAvaliacaoPorIdInterface.buscarAvaliacaoPorId(anyLong())).thenReturn(null);
 
-        assertThatThrownBy(() -> buscarAvaliacaoPorIdUseCase.buscarAvalacaoPorId(1L))
+        assertThatThrownBy(() -> buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(1L))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliação de id: " + 1L + " não encontrada.");
     }

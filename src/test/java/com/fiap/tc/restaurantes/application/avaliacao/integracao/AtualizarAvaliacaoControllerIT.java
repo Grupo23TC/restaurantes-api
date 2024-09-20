@@ -1,55 +1,79 @@
 package com.fiap.tc.restaurantes.application.avaliacao.integracao;
 
-import com.fiap.tc.restaurantes.application.avaliacao.AtualizarAvaliacaoController;
-import com.fiap.tc.restaurantes.domain.mapper.avaliacao.AvaliacaoMapper;
-import com.fiap.tc.restaurantes.domain.usecase.avaliacao.AtualizarAvaliacaoUseCase;
-import org.junit.jupiter.api.AfterEach;
+import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
 class AtualizarAvaliacaoControllerIT {
 
-    @Mock
-    private AtualizarAvaliacaoUseCase atualizarAvaliacaoUseCase;
-
-    @Mock
-    private AvaliacaoMapper mapper;
-
-    private MockMvc mockMvc;
-
-    AutoCloseable mock;
+    @LocalServerPort
+    private int port;
 
     @BeforeEach
     public void setUp() {
-        mock = MockitoAnnotations.openMocks(this);
-        AtualizarAvaliacaoController controller = new AtualizarAvaliacaoController(mapper, atualizarAvaliacaoUseCase);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        mock.close();
+        RestAssured.port = port;
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
     @Test
     void devePermitirAtualizarAvaliacao() {
-        fail("Não implementado");
+        var id = 1L;
+        var request = AvaliacaoHelper.gerarAtualizarAvaliacaoRequest();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/avaliacoes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoResponse.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarAvaliacao_IdNaoEncontrado() {
-        fail("Não implementado");
+        var id = 1502825L;
+        var request = AvaliacaoHelper.gerarAtualizarAvaliacaoRequest();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/avaliacoes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarAvaliacao_NotaInvalida() {
-        fail("Não implementado");
+        var id = 1L;
+        var request = AvaliacaoHelper.gerarAtualizarAvaliacaoRequestComNotaInvalida();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/avaliacoes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
 }

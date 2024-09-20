@@ -1,44 +1,41 @@
 package com.fiap.tc.restaurantes.application.avaliacao.integracao;
 
-import com.fiap.tc.restaurantes.application.avaliacao.BuscarAvaliacoesPorUsuarioController;
-import com.fiap.tc.restaurantes.domain.mapper.avaliacao.AvaliacaoMapper;
-import com.fiap.tc.restaurantes.domain.usecase.avaliacao.BuscarAvaliacoesPorUsuarioUseCase;
-import org.junit.jupiter.api.AfterEach;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
 class BuscarAvaliacoesPorUsuarioControllerIT {
 
-    @Mock
-    private BuscarAvaliacoesPorUsuarioUseCase buscarAvaliacoesPorUsuarioUseCase;
-
-    @Mock
-    private AvaliacaoMapper mapper;
-
-    private MockMvc mockMvc;
-
-    AutoCloseable mock;
+    @LocalServerPort
+    private int port;
 
     @BeforeEach
     public void setUp() {
-        mock = MockitoAnnotations.openMocks(this);
-        BuscarAvaliacoesPorUsuarioController controller = new BuscarAvaliacoesPorUsuarioController(mapper, buscarAvaliacoesPorUsuarioUseCase);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        mock.close();
+        RestAssured.port = port;
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
     @Test
     void devePermitirBuscarAvaliacoesPorUsuario() {
-        fail("Não implementado");
+        var id = 1L;
+
+        given()
+                .param("usuarioId", id)
+                .log().all()
+        .when()
+                .get("/avaliacoes/usuario")
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoResponseList.schema.json"))
+                .log().all();
     }
 }
