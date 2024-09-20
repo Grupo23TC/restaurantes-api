@@ -30,6 +30,18 @@ public class AvaliacaoHelper {
         return avaliacao;
     }
 
+    public static AvaliacaoResponse gerarAvaliacaoResponse() {
+        AvaliacaoResponse avaliacao = new AvaliacaoResponse(
+                1L,
+                1L,
+                1L,
+                1,
+                "Horrivel"
+        );
+
+        return avaliacao;
+    }
+
     public static CadastrarAvaliacaoRequest gerarCadastrarAvaliacaoRequest() {
         CadastrarAvaliacaoRequest avaliacao = new CadastrarAvaliacaoRequest(
                 1L,
