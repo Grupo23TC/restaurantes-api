@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
-class DeletarAvaliacaoIT {
+class DeletarAvaliacaoUseCaseIT {
 
     @Autowired
     private DeletarAvaliacaoUseCase deletarAvaliacaoUseCase;

@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
-class CadastrarAvaliacaoIT {
+class CadastrarAvaliacaoUseCaseIT {
 
     @Autowired
     private CadastrarAvaliacaoUseCase cadastrarAvaliacaoUseCase;
