@@ -31,8 +31,6 @@ class DeletarRestauranteControllerTest {
     @Mock
     private RestauranteMapper restauranteMapper;
 
-    private RestauranteResponse restauranteResponse;
-
     AutoCloseable openMocks;
 
     @BeforeEach

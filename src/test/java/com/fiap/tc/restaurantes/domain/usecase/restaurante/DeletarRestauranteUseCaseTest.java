@@ -18,8 +18,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class DeletarRestauranteUseCaseTest {
-
-    @Mock
     private DeletarRestauranteUseCase useCase;
 
     @Mock
@@ -63,7 +61,8 @@ class DeletarRestauranteUseCaseTest {
 
         when(buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(any(Long.class))).thenReturn(avaliacoes);
         when(deletarAvaliacaoInterface.deletarAvaliacao(any(Long.class))).thenReturn(true);
-        when(useCase.deletarRestaurante(any(Long.class))).thenReturn(true);
+        when(deletarRestauranteInterface.deletarRestaurante(any(Long.class))).thenReturn(true);
+
 
         // Act
         useCase.deletarRestaurante(identificador);
@@ -80,8 +79,8 @@ class DeletarRestauranteUseCaseTest {
         List<Avaliacao> avaliacoes = List.of();
         var identificador = 3L;
 
-        when(useCase.deletarRestaurante(any(Long.class))).thenReturn(true);
         when(buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(any(Long.class))).thenReturn(avaliacoes);
+        when(deletarRestauranteInterface.deletarRestaurante(any(Long.class))).thenReturn(true);
 
 
         // Act
