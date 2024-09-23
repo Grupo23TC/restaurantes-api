@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
-class BuscarAvaliacoesPorRestauranteIT {
+class BuscarAvaliacoesPorRestauranteUseCaseIT {
 
     @Autowired
     private BuscarAvaliacoesPorRestauranteUseCase buscarAvaliacoesPorRestauranteUseCase;
@@ -21,7 +21,7 @@ class BuscarAvaliacoesPorRestauranteIT {
     void devePermitirBuscarAvaliacoesPorRestaurante() {
         var restauranteId = 1L;
 
-        var listAvaliacoes = buscarAvaliacoesPorRestauranteUseCase.execute(restauranteId);
+        var listAvaliacoes = buscarAvaliacoesPorRestauranteUseCase.buscarAvaliacoesPorRestaurante(restauranteId);
 
         assertThat(listAvaliacoes)
                 .isNotEmpty()

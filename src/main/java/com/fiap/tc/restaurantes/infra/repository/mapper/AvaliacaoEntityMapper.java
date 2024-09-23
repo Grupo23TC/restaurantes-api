@@ -17,6 +17,7 @@ public interface AvaliacaoEntityMapper {
      */
     @Mapping(target = "restaurante.restauranteId", source = "restauranteEntity.restauranteId")
     @Mapping(target = "usuario.usuarioId", source = "usuarioEntity.usuarioId")
+    @Mapping(target = "restaurante.mesas", ignore = true)
     Avaliacao toAvaliacao(AvaliacaoEntity avaliacaoEntity);
 
     /**

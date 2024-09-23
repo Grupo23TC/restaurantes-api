@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
-class BuscarAvaliacoesPorUsuarioIT {
+class BuscarAvaliacoesPorUsuarioUseCaseIT {
 
     @Autowired
     private BuscarAvaliacoesPorUsuarioUseCase buscarAvaliacoesPorUsuarioUseCase;
@@ -20,7 +20,7 @@ class BuscarAvaliacoesPorUsuarioIT {
     void devePermitirBuscarAvaliacoesPorUsuario() {
         var usuarioId = 1L;
 
-        var listAvaliacoes = buscarAvaliacoesPorUsuarioUseCase.execute(usuarioId);
+        var listAvaliacoes = buscarAvaliacoesPorUsuarioUseCase.buscarAvaliacoesPorUsuario(usuarioId);
 
         assertThat(listAvaliacoes)
                 .isNotEmpty()

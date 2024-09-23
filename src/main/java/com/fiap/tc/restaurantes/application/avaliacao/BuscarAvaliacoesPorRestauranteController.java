@@ -24,7 +24,7 @@ public class BuscarAvaliacoesPorRestauranteController {
     @GetMapping("/restaurante")
     public ResponseEntity<List<AvaliacaoResponse>> buscarAvaliacoesPorRestaurante(@RequestParam Long restauranteId) {
 
-        List<AvaliacaoResponse> avaliacaoResponseList = buscarAvaliacoesPorRestauranteUseCase.execute(restauranteId)
+        List<AvaliacaoResponse> avaliacaoResponseList = buscarAvaliacoesPorRestauranteUseCase.buscarAvaliacoesPorRestaurante(restauranteId)
                 .stream()
                 .map(avaliacaoMapper::toAvaliacaoResponse)
                 .toList();

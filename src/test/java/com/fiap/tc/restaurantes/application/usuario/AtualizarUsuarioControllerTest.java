@@ -1,14 +1,13 @@
 package com.fiap.tc.restaurantes.application.usuario;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fiap.tc.restaurantes.application.handler.usuario.UsuarioExceptionHandler;
+import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.input.usuario.AtualizarUsuarioRequest;
 import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioResponse;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.AtualizarUsuarioUseCase;
+import com.fiap.tc.restaurantes.utils.generic.JsonStringHelper;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +44,7 @@ public class AtualizarUsuarioControllerTest {
     mock = MockitoAnnotations.openMocks(this);
     AtualizarUsuarioController controller = new AtualizarUsuarioController(usuarioMapper, atualizarUsuarioUseCase);
     mockMvc = MockMvcBuilders.standaloneSetup(controller)
-        .setControllerAdvice(new UsuarioExceptionHandler())
+        .setControllerAdvice(new GlobalExceptionHandler())
         .addFilter((request, response, chain) -> {
           response.setCharacterEncoding("UTF-8");
           chain.doFilter(request, response);
@@ -67,6 +66,7 @@ public class AtualizarUsuarioControllerTest {
     usuario.setTelefone("00000000001");
     usuario.setSenha("bB@7aw85");
     UsuarioResponse usuarioResponse = UsuarioHelper.gerarUsuarioResponseAtualizado();
+    AtualizarUsuarioRequest usuarioRequest = UsuarioHelper.gerarAtualizarUsuarioRequest();
 
     when(atualizarUsuarioUseCase.atualizarUsuario(any(Long.class), any(Usuario.class))).thenReturn(usuario);
     when(usuarioMapper.toUsuario(any(AtualizarUsuarioRequest.class))).thenReturn(usuario);
@@ -74,7 +74,7 @@ public class AtualizarUsuarioControllerTest {
 
     // Act & Assert
     mockMvc.perform(put("/usuarios/{id}", id)
-        .content(asJsonString(usuarioResponse))
+        .content(JsonStringHelper.asJsonString(usuarioRequest))
         .contentType(MediaType.APPLICATION_JSON)
     )
         .andDo(print())
@@ -98,6 +98,7 @@ public class AtualizarUsuarioControllerTest {
     usuario.setNome("João");
     usuario.setTelefone("00000000001");
     usuario.setSenha("bB@7aw85");
+    AtualizarUsuarioRequest usuarioRequest = UsuarioHelper.gerarAtualizarUsuarioRequest();
 
     when(usuarioMapper.toUsuario(any(AtualizarUsuarioRequest.class))).thenReturn(usuario);
     when(atualizarUsuarioUseCase.atualizarUsuario(any(Long.class), any(Usuario.class))).thenThrow(new UsuarioNotFoundException("Usuário de id: " + id + " não encontrado."));
@@ -105,7 +106,7 @@ public class AtualizarUsuarioControllerTest {
 
     // Act & Assert
     mockMvc.perform(put("/usuarios/{id}", id)
-          .content(asJsonString(usuario))
+          .content(JsonStringHelper.asJsonString(usuarioRequest))
           .contentType(MediaType.APPLICATION_JSON)
         )
         .andDo(print())
@@ -120,9 +121,4 @@ public class AtualizarUsuarioControllerTest {
     verify(usuarioMapper, never()).toUsuarioResponse(null);
   }
 
-  private String asJsonString(final Object object) throws Exception {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.registerModule(new JavaTimeModule());
-    return mapper.writeValueAsString(object);
-  }
 }

@@ -1,8 +1,6 @@
 package com.fiap.tc.restaurantes.application.usuario;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fiap.tc.restaurantes.application.handler.usuario.UsuarioExceptionHandler;
+import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
@@ -41,7 +39,7 @@ public class BuscarUsuarioPorIdControllerTest {
     mock = MockitoAnnotations.openMocks(this);
     BuscarUsuarioPorIdController controller = new BuscarUsuarioPorIdController(usuarioMapper, buscarUsuarioPorIdUseCase);
     mockMvc = MockMvcBuilders.standaloneSetup(controller)
-        .setControllerAdvice(new UsuarioExceptionHandler())
+        .setControllerAdvice(new GlobalExceptionHandler())
         .addFilter((request, response, chain) -> {
           response.setCharacterEncoding("UTF-8");
           chain.doFilter(request, response);
@@ -65,10 +63,7 @@ public class BuscarUsuarioPorIdControllerTest {
     when(usuarioMapper.toUsuarioResponse(usuario)).thenReturn(usuarioResponse);
 
     // Act & Arrange
-    mockMvc.perform(get("/usuarios/{id}", id)
-        .content(asJsonString(usuarioResponse))
-        .contentType(MediaType.APPLICATION_JSON)
-    )
+    mockMvc.perform(get("/usuarios/{id}", id))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.usuarioId").value(id))
@@ -103,9 +98,4 @@ public class BuscarUsuarioPorIdControllerTest {
     verify(usuarioMapper, never()).toUsuarioResponse(null);
   }
 
-  private String asJsonString(final Object object) throws Exception {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.registerModule(new JavaTimeModule());
-    return mapper.writeValueAsString(object);
-  }
 }

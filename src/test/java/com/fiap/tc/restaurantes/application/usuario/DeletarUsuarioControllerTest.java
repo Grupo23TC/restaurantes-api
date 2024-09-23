@@ -1,10 +1,7 @@
 package com.fiap.tc.restaurantes.application.usuario;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fiap.tc.restaurantes.application.handler.usuario.UsuarioExceptionHandler;
+import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
-import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioDeletadoResponse;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.DeletarUsuarioUseCase;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
@@ -38,7 +35,7 @@ public class DeletarUsuarioControllerTest {
     mock = MockitoAnnotations.openMocks(this);
     DeletarUsuarioController controller = new DeletarUsuarioController(deletarUsuarioUseCase);
     mockMvc = MockMvcBuilders.standaloneSetup(controller)
-        .setControllerAdvice(new UsuarioExceptionHandler())
+        .setControllerAdvice(new GlobalExceptionHandler())
         .addFilter((request, response, chain) -> {
           response.setCharacterEncoding("UTF-8");
           chain.doFilter(request, response);
@@ -55,15 +52,10 @@ public class DeletarUsuarioControllerTest {
   void deveDeletarUsuario() throws Exception {
     // Arrange
     Long id = 1L;
-    UsuarioDeletadoResponse usuarioDeletado = UsuarioHelper.gerarUsuarioDeletadoReponse();
-
     when(deletarUsuarioUseCase.deletarUsuario(any(Long.class))).thenReturn(true);
 
     // Act & Assert
-    mockMvc.perform(delete("/usuarios/{id}", id)
-        .content(asJsonString(usuarioDeletado))
-        .contentType(MediaType.APPLICATION_JSON)
-    )
+    mockMvc.perform(delete("/usuarios/{id}", id))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.deletado").value(true));
@@ -92,9 +84,4 @@ public class DeletarUsuarioControllerTest {
     verify(deletarUsuarioUseCase, times(1)).deletarUsuario(any(Long.class));
   }
 
-  private String asJsonString(final Object object) throws Exception {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.registerModule(new JavaTimeModule());
-    return mapper.writeValueAsString(object);
-  }
 }

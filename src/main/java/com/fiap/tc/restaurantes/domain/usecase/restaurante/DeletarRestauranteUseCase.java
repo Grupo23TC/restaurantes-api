@@ -1,17 +1,35 @@
 package com.fiap.tc.restaurantes.domain.usecase.restaurante;
 
 
+import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
+import com.fiap.tc.restaurantes.domain.gateway.avaliacao.BuscarAvaliacoesPorRestauranteInterface;
+import com.fiap.tc.restaurantes.domain.gateway.avaliacao.DeletarAvaliacaoInterface;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.DeletarRestauranteInterface;
+
+import java.util.List;
 
 public class DeletarRestauranteUseCase {
   private final DeletarRestauranteInterface deletarRestauranteInterface;
+  private final BuscarAvaliacoesPorRestauranteInterface buscarAvaliacoesPorRestauranteInterface;
+  private final DeletarAvaliacaoInterface deletarAvaliacaoInterface;
 
-  public DeletarRestauranteUseCase(DeletarRestauranteInterface deletarRestauranteInterface) {
+  public DeletarRestauranteUseCase(
+          DeletarRestauranteInterface deletarRestauranteInterface,
+          BuscarAvaliacoesPorRestauranteInterface buscarAvaliacoesPorRestauranteInterface,
+          DeletarAvaliacaoInterface deletarAvaliacaoInterface
+  ) {
     this.deletarRestauranteInterface = deletarRestauranteInterface;
+    this.buscarAvaliacoesPorRestauranteInterface = buscarAvaliacoesPorRestauranteInterface;
+    this.deletarAvaliacaoInterface = deletarAvaliacaoInterface;
   }
 
-  // TODO: Deletar avaliação do restaurante
   public boolean deletarRestaurante(Long id) {
+    List<Avaliacao> listaAvaliacaoRestaurante = buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(id);
+
+    listaAvaliacaoRestaurante.forEach(avaliacao -> {
+      deletarAvaliacaoInterface.deletarAvaliacao(avaliacao.getAvaliacaoId());
+    });
+
     return deletarRestauranteInterface.deletarRestaurante(id);
   }
 }

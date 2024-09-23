@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
-class BuscarAvaliacaoPorIdIT {
+class BuscarAvaliacaoPorIdUseCaseIT {
 
     @Autowired
     private BuscarAvaliacaoPorIdUseCase buscarAvaliacaoPorIdUseCase;
@@ -26,7 +26,7 @@ class BuscarAvaliacaoPorIdIT {
     void devePermitirBuscarAvaliacaoPorId() {
         var id = 1L;
 
-        var avaliacaoObtida = buscarAvaliacaoPorIdUseCase.execute(id);
+        var avaliacaoObtida = buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(id);
 
         assertThat(avaliacaoObtida)
                 .isNotNull()
@@ -43,7 +43,7 @@ class BuscarAvaliacaoPorIdIT {
     void deveGerarExcecao_QuandoBuscarAvaliacaoPorId_IdNaoEncontrado() {
         var id = 123465789L;
 
-        assertThatThrownBy(() -> buscarAvaliacaoPorIdUseCase.execute(id))
+        assertThatThrownBy(() -> buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(id))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliação de id: " + id + " não encontrada.");
     }

@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-class DeletarAvaliacaoTest {
+class DeletarAvaliacaoUseCaseTest {
 
     private DeletarAvaliacaoUseCase deletarAvaliacaoUseCase;
 
@@ -39,36 +39,36 @@ class DeletarAvaliacaoTest {
 
     @Test
     void devePermitirDeletarAvaliacao() {
-        when(buscarAvaliacaoPorIdUseCase.execute(anyLong())).thenReturn(AvaliacaoHelper.gerarAvaliacao());
+        when(buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(anyLong())).thenReturn(AvaliacaoHelper.gerarAvaliacao());
         when(deletarAvaliacaoInterface.deletarAvaliacao(anyLong())).thenReturn(true);
 
-        var avaliacaRemovida = deletarAvaliacaoUseCase.execute(1L);
+        var avaliacaRemovida = deletarAvaliacaoUseCase.deletarAvaliacao(1L);
 
         assertThat(avaliacaRemovida).isTrue();
-        verify(buscarAvaliacaoPorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvaliacaoPorId(anyLong());
         verify(deletarAvaliacaoInterface, times(1)).deletarAvaliacao(anyLong());
     }
 
     @Test
     void deveGerarExcecao_QuandoDeletarAvaliacao_IdNaoEncontrado() {
-        when(buscarAvaliacaoPorIdUseCase.execute(anyLong())).thenThrow(new AvaliacaoNotFoundException("Avaliacao não encontrada"));
+        when(buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(anyLong())).thenThrow(new AvaliacaoNotFoundException("Avaliacao não encontrada"));
 
-        assertThatThrownBy(() -> deletarAvaliacaoUseCase.execute(1L))
+        assertThatThrownBy(() -> deletarAvaliacaoUseCase.deletarAvaliacao(1L))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliacao não encontrada");
-        verify(buscarAvaliacaoPorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvaliacaoPorId(anyLong());
         verify(deletarAvaliacaoInterface, never()).deletarAvaliacao(anyLong());
     }
 
     @Test
     void naoDeveDeletarAvaliacao_QuandoDeletarAvaliacao_ExceptionDeRepository() {
-        when(buscarAvaliacaoPorIdUseCase.execute(anyLong())).thenReturn(AvaliacaoHelper.gerarAvaliacao());
+        when(buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(anyLong())).thenReturn(AvaliacaoHelper.gerarAvaliacao());
         when(deletarAvaliacaoInterface.deletarAvaliacao(anyLong())).thenThrow(new RuntimeException("Generic Database Exception"));
 
-        var avaliacaRemovida = deletarAvaliacaoUseCase.execute(1L);
+        var avaliacaRemovida = deletarAvaliacaoUseCase.deletarAvaliacao(1L);
 
         assertThat(avaliacaRemovida).isFalse();
-        verify(buscarAvaliacaoPorIdUseCase, times(1)).execute(anyLong());
+        verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvaliacaoPorId(anyLong());
         verify(deletarAvaliacaoInterface, times(1)).deletarAvaliacao(anyLong());
     }
 }
