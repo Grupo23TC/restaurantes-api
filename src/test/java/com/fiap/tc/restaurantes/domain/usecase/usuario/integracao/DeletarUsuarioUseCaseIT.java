@@ -20,7 +20,7 @@ public class DeletarUsuarioUseCaseIT {
   @Test
   void devePermitirDeletarUsuario() {
     // Arrange
-    Long id = 4L;
+    Long id = 1L;
 
     // Act
     boolean usuarioFoiDeletado = deletarUsuarioUseCase.deletarUsuario(id);

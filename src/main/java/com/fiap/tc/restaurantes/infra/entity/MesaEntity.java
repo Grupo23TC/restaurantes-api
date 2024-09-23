@@ -22,6 +22,7 @@ public class MesaEntity {
   @JoinColumn(name = "restaurante_id", nullable = false)
   private RestauranteEntity restauranteEntity;
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private Integer quantidadeAssentos;
 }

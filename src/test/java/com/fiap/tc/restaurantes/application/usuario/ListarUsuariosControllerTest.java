@@ -1,12 +1,11 @@
 package com.fiap.tc.restaurantes.application.usuario;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioResponse;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.ListarUsuariosUseCase;
+import com.fiap.tc.restaurantes.utils.generic.JsonStringHelper;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,10 +70,7 @@ public class ListarUsuariosControllerTest {
     when(usuarioMapper.toUsuarioResponse(any(Usuario.class))).thenReturn(usuarioResponse1, usuarioResponse2, usuarioResponse3);
 
     // Act & Assert
-    mockMvc.perform(get("/usuarios")
-      .content(asJsonString(usuariosResponses))
-      .contentType(MediaType.APPLICATION_JSON)
-    )
+    mockMvc.perform(get("/usuarios"))
     .andDo(print())
     .andExpect(status().isOk())
     .andExpect(jsonPath("$.length()").value(usuariosResponses.size()))
@@ -88,9 +84,4 @@ public class ListarUsuariosControllerTest {
     verify(usuarioMapper, times(3)).toUsuarioResponse(any(Usuario.class));
   }
 
-  private String asJsonString(final Object object) throws Exception {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.registerModule(new JavaTimeModule());
-    return mapper.writeValueAsString(object);
-  }
 }

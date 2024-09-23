@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class CadastrarAvaliacaoTest {
+class CadastrarAvaliacaoUseCaseTest {
 
     private CadastrarAvaliacaoUseCase cadastrarAvaliacaoUseCase;
 
@@ -52,7 +52,7 @@ class CadastrarAvaliacaoTest {
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(avaliacao.getUsuario());
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
-        var avaliacaoArmazenada = cadastrarAvaliacaoUseCase.execute(avaliacao);
+        var avaliacaoArmazenada = cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, avaliacao.getRestaurante().getRestauranteId(), avaliacao.getUsuario().getUsuarioId());
 
         assertThat(avaliacaoArmazenada)
                 .isInstanceOf(Avaliacao.class)
@@ -76,7 +76,7 @@ class CadastrarAvaliacaoTest {
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenThrow(new UsuarioNotFoundException("Usuário não encontrado"));
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, avaliacao.getRestaurante().getRestauranteId(), avaliacao.getUsuario().getUsuarioId()))
                 .isInstanceOf(UsuarioNotFoundException.class)
                 .hasMessage("Usuário não encontrado");
         verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(anyLong());
@@ -92,7 +92,7 @@ class CadastrarAvaliacaoTest {
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(avaliacao.getUsuario());
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, avaliacao.getRestaurante().getRestauranteId(), avaliacao.getUsuario().getUsuarioId()))
                 .isInstanceOf(RestauranteNotFoundException.class)
                 .hasMessage("Restaurante não encontrado");
         verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(anyLong());
@@ -109,7 +109,7 @@ class CadastrarAvaliacaoTest {
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(avaliacao.getUsuario());
         when(cadastrarAvaliacaoInterface.cadastraAvaliacao(any(Avaliacao.class))).thenAnswer(answer -> answer.getArgument(0));
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.execute(avaliacao))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, avaliacao.getRestaurante().getRestauranteId(), avaliacao.getUsuario().getUsuarioId()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("A Nota deve ser entre 0 e 5");
     }

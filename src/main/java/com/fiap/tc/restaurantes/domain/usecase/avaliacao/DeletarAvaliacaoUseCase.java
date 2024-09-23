@@ -12,10 +12,10 @@ public class DeletarAvaliacaoUseCase {
         this.buscarAvaliacaoPorIdUseCase = buscarAvaliacaoPorIdUseCase;
     }
 
-    public boolean execute(Long avaliacaoId) {
+    public boolean deletarAvaliacao(Long avaliacaoId) {
 
         //Valida se avaliacao existe
-        buscarAvaliacaoPorIdUseCase.execute(avaliacaoId);
+        buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(avaliacaoId);
 
         try {
             deletarAvaliacaoInterface.deletarAvaliacao(avaliacaoId);

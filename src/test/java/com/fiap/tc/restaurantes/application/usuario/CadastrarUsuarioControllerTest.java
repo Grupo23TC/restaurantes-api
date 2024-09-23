@@ -1,12 +1,11 @@
 package com.fiap.tc.restaurantes.application.usuario;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.input.usuario.CadastrarUsuarioRequest;
 import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioResponse;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.CadastrarUsuarioUseCase;
+import com.fiap.tc.restaurantes.utils.generic.JsonStringHelper;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,6 +55,7 @@ public class CadastrarUsuarioControllerTest {
     // Arrange
     Usuario usuario = UsuarioHelper.gerarUsuarioValido();
     UsuarioResponse usuarioResponse = UsuarioHelper.gerarUsuarioResponse();
+    CadastrarUsuarioRequest usuarioRequest = UsuarioHelper.gerarCadastrarUsuarioRequest();
 
     URI uri = URI.create("http://localhost/usuarios/" + usuarioResponse.usuarioId());
 
@@ -65,7 +65,7 @@ public class CadastrarUsuarioControllerTest {
 
     // Act & Assert
     mockMvc.perform(post("/usuarios")
-        .content(asJsonString(usuarioResponse))
+        .content(JsonStringHelper.asJsonString(usuarioRequest))
         .contentType(MediaType.APPLICATION_JSON)
     )
         .andDo(print())
@@ -82,9 +82,4 @@ public class CadastrarUsuarioControllerTest {
     verify(usuarioMapper, times(1)).toUsuarioResponse(any(Usuario.class));
   }
 
-  private String asJsonString(final Object object) throws Exception {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.registerModule(new JavaTimeModule());
-    return mapper.writeValueAsString(object);
-  }
 }

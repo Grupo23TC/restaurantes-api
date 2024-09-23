@@ -13,7 +13,7 @@ public class BuscarAvaliacoesPorUsuarioUseCase {
         this.buscarAvaliacoesPorUsuarioInterface = buscarAvaliacoesPorUsuarioInterface;
     }
 
-    public List<Avaliacao> execute(Long usuarioId) {
+    public List<Avaliacao> buscarAvaliacoesPorUsuario(Long usuarioId) {
         return buscarAvaliacoesPorUsuarioInterface.buscarAvaliacoesPorUsuario(usuarioId);
     }
 }
