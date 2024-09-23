@@ -2,6 +2,7 @@ package com.fiap.tc.restaurantes.application.handler;
 
 import com.fiap.tc.restaurantes.application.handler.exception.ErroCustomizado;
 import com.fiap.tc.restaurantes.domain.exception.avaliacao.AvaliacaoNotFoundException;
+import com.fiap.tc.restaurantes.domain.exception.reserva.ReservaNotFoundException;
 import com.fiap.tc.restaurantes.domain.exception.restaurante.RestauranteNotFoundException;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,8 +55,34 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(erro, status);
     }
 
+    @ExceptionHandler(ReservaNotFoundException.class)
+    public ResponseEntity<ErroCustomizado> handleReservaNotFoundException(ReservaNotFoundException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ErroCustomizado erro = new ErroCustomizado(
+                Instant.now(),
+                ex.getMessage(),
+                status.value(),
+                request.getRequestURI()
+        );
+
+        return new ResponseEntity<>(erro, status);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErroCustomizado> handleIllegalArgumentException(IllegalArgumentException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErroCustomizado erro = new ErroCustomizado(
+                Instant.now(),
+                ex.getMessage(),
+                status.value(),
+                request.getRequestURI()
+        );
+
+        return new ResponseEntity<>(erro, status);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErroCustomizado> handleIllegalStateException(IllegalStateException ex, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ErroCustomizado erro = new ErroCustomizado(
                 Instant.now(),
