@@ -28,16 +28,16 @@ VALUES (1, 1, 5, 'Muito boa a comida!', '2024-09-10T11:47:37.912019300'),
        (1, 2, 4, 'Atendimento top!', '2024-09-10T11:47:37.912019300'),
        (2, 2, 3, 'Mais ou menos', '2024-09-10T11:47:37.912019300');
 
-INSERT INTO Mesa (restaurante_id, status, quantidade_Assentos)
-VALUES (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (2, 'DISPONIVEL', 4),
-        (2, 'DISPONIVEL', 4),
-        (2, 'DISPONIVEL', 4),
-        (3, 'DISPONIVEL', 4),
-        (3, 'DISPONIVEL', 4),
-        (3, 'DISPONIVEL', 4);
+INSERT INTO Mesa (restaurante_id, quantidade_Assentos)
+VALUES (1, 4),
+        (1, 4),
+        (1, 4),
+        (1, 4),
+        (1, 4),
+        (2, 4),
+        (2, 4),
+        (2, 4),
+        (3, 4),
+        (3, 4),
+        (3, 4);
 
