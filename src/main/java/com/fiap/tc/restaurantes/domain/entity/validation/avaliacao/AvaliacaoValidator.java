@@ -1,10 +1,10 @@
-package com.fiap.tc.restaurantes.domain.entity.validations;
+package com.fiap.tc.restaurantes.domain.entity.validation.avaliacao;
 
 import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
 
-public class AvaliacaoValidation {
+public class AvaliacaoValidator {
 
-    private AvaliacaoValidation() {
+    private AvaliacaoValidator() {
     }
 
     public static void validate(Avaliacao avaliacao) {

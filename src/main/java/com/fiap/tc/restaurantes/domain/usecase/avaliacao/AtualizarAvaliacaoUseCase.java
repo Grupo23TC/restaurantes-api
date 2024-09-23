@@ -1,7 +1,7 @@
 package com.fiap.tc.restaurantes.domain.usecase.avaliacao;
 
 import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
-import com.fiap.tc.restaurantes.domain.entity.validations.AvaliacaoValidation;
+import com.fiap.tc.restaurantes.domain.entity.validation.avaliacao.AvaliacaoValidator;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.AtualizarAvaliacaoInterface;
 
 public class AtualizarAvaliacaoUseCase {
@@ -21,7 +21,7 @@ public class AtualizarAvaliacaoUseCase {
         avaliacao.setNota(avaliacaoNova.getNota());
         avaliacao.setComentario(avaliacaoNova.getComentario());
 
-        AvaliacaoValidation.validate(avaliacao);
+        AvaliacaoValidator.validate(avaliacao);
 
         return atualizarAvaliacaoInterface.atualizarAvaliacao(avaliacao);
 

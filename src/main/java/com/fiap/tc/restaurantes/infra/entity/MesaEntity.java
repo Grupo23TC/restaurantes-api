@@ -1,6 +1,5 @@
 package com.fiap.tc.restaurantes.infra.entity;
 
-import com.fiap.tc.restaurantes.domain.enums.StatusMesaEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +21,6 @@ public class MesaEntity {
   @ManyToOne
   @JoinColumn(name = "restaurante_id", nullable = false)
   private RestauranteEntity restauranteEntity;
-
-  @Column(nullable = false)
-  private StatusMesaEnum status;
 
   @Column(nullable = false)
   private Integer quantidadeAssentos;
