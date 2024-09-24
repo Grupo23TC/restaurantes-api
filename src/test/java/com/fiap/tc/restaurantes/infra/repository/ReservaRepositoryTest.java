@@ -1,6 +1,7 @@
 package com.fiap.tc.restaurantes.infra.repository;
 
 import com.fiap.tc.restaurantes.infra.entity.ReservaEntity;
+import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -8,11 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -38,7 +39,15 @@ class ReservaRepositoryTest {
 
         @Test
         void devePermitirCadastrarReserva() {
-            fail("Não implementado.");
+            var reserva = ReservaHelper.gerarReservaEntity();
+            when(reservaRepository.save(any())).thenReturn(reserva);
+
+            var reservaCadastrada = reservaRepository.save(reserva);
+            assertThat(reservaCadastrada)
+                    .isNotNull()
+                    .isInstanceOf(ReservaEntity.class)
+                    .isEqualTo(reserva);
+            verify(reservaRepository, times(1)).save(reserva);
         }
 
     }
@@ -48,22 +57,50 @@ class ReservaRepositoryTest {
 
         @Test
         void devePermitirBuscarReservaPorId() {
-            fail("Não implementado.");
+            var reserva = ReservaHelper.gerarReservaEntity();
+            when(reservaRepository.findById(anyLong())).thenReturn(Optional.of(reserva));
+            var reservaObtidaOpt = reservaRepository.findById(1L);
+
+            assertThat(reservaObtidaOpt)
+                    .isPresent()
+                    .contains(reserva);
+            verify(reservaRepository, times(1)).findById(anyLong());
         }
 
         @Test
         void devePermitirBuscarReservasPorMesa() {
-            fail("Não implementado.");
+            var reserva = ReservaHelper.gerarReservaEntity();
+            when(reservaRepository.buscarReservasPorMesa(anyLong())).thenReturn(Arrays.asList(reserva));
+
+            var reservaObtida = reservaRepository.buscarReservasPorMesa(1L);
+            assertThat(reservaObtida)
+                    .hasSize(1)
+                    .containsExactlyInAnyOrder(reserva);
+            verify(reservaRepository,times(1)).buscarReservasPorMesa(anyLong());
         }
 
         @Test
         void devePermitirBuscarReservasPorMesaEPeriodo() {
-            fail("Não implementado.");
+            var reserva = ReservaHelper.gerarReservaEntity();
+            when(reservaRepository.buscarReservasPorMesaEPeriodo(anyLong(), any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(Arrays.asList(reserva));
+
+            var reservaObtida = reservaRepository.buscarReservasPorMesaEPeriodo(1L, LocalDateTime.now(), LocalDateTime.now());
+            assertThat(reservaObtida)
+                    .hasSize(1)
+                    .containsExactlyInAnyOrder(reserva);
+            verify(reservaRepository, times(1)).buscarReservasPorMesaEPeriodo(anyLong(), any(LocalDateTime.class), any(LocalDateTime.class));
         }
 
         @Test
         void devePermitirBuscarReservasPorUsuario() {
-            fail("Não implementado.");
+            var reserva = ReservaHelper.gerarReservaEntity();
+            when(reservaRepository.buscarReservasPorUsuario(anyLong())).thenReturn(Arrays.asList(reserva));
+
+            var reservaObtida = reservaRepository.buscarReservasPorUsuario(1L);
+            assertThat(reservaObtida)
+                    .hasSize(1)
+                    .containsExactlyInAnyOrder(reserva);
+            verify(reservaRepository,times(1)).buscarReservasPorUsuario(anyLong());
         }
 
     }
@@ -73,7 +110,9 @@ class ReservaRepositoryTest {
 
         @Test
         void devePermitirDeletarReserva() {
-            fail("Não implementado.");
+            doNothing().when(reservaRepository).deleteById(anyLong());
+            reservaRepository.deleteById(1L);
+            verify(reservaRepository, times(1)).deleteById(anyLong());
         }
 
     }

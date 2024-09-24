@@ -1,6 +1,5 @@
 package com.fiap.tc.restaurantes.application.reserva;
 
-import com.fiap.tc.restaurantes.application.avaliacao.AtualizarAvaliacaoController;
 import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
 import com.fiap.tc.restaurantes.domain.mapper.reserva.ReservaMapper;
 import com.fiap.tc.restaurantes.domain.usecase.reserva.AtualizarReservaUseCase;
