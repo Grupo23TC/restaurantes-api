@@ -70,14 +70,15 @@ public class MesaRepositoryTest {
 
         // Assert
         assertThat(mesaBuscada)
-                .isPresent()
-                .isInstanceOf(MesaEntity.class);
+                .isPresent();
 
-        assertThat(mesaBuscada.get().getQuantidadeAssentos())
-                .isEqualTo(mesa.getQuantidadeAssentos());
+        mesaBuscada.ifPresent(mesaPresente -> {
+          assertThat(mesaPresente.getQuantidadeAssentos())
+              .isEqualTo(mesa.getQuantidadeAssentos());
 
-        assertThat(mesaBuscada.get().getRestauranteEntity().getRestauranteId())
-                .isEqualTo(mesa.getRestauranteEntity().getRestauranteId());
+          assertThat(mesaPresente.getRestauranteEntity().getRestauranteId())
+              .isEqualTo(mesa.getRestauranteEntity().getRestauranteId());
+        });
 
         verify(mesaRepository, times(1)).findById(any(Long.class));
     }

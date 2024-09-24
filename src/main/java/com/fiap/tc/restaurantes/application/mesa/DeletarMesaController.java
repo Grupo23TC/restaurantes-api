@@ -1,5 +1,6 @@
 package com.fiap.tc.restaurantes.application.mesa;
 
+import com.fiap.tc.restaurantes.domain.output.mesa.MesaDeletadaResponse;
 import com.fiap.tc.restaurantes.domain.usecase.mesa.DeletarMesaUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,8 @@ public class DeletarMesaController {
     private final DeletarMesaUseCase deletarMesaUseCase;
 
     @DeleteMapping("/{mesaId}")
-    public ResponseEntity<Void> deletarMesa(@PathVariable Long mesaId) {
-        deletarMesaUseCase.deletarMesa(mesaId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<MesaDeletadaResponse> deletarMesa(@PathVariable Long mesaId) {
+        boolean mesaDeletada = deletarMesaUseCase.deletarMesa(mesaId);
+        return ResponseEntity.ok(new MesaDeletadaResponse(mesaDeletada));
     }
 }
