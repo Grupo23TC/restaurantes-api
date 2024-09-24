@@ -1,13 +1,21 @@
 package com.fiap.tc.restaurantes.domain.usecase.reserva;
 
 import com.fiap.tc.restaurantes.domain.gateway.reserva.BuscarReservasPorMesaEPeriodoInterface;
+import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 class BuscarReservasPorMesaEPeriodoUseCaseTest {
 
@@ -31,7 +39,18 @@ class BuscarReservasPorMesaEPeriodoUseCaseTest {
 
     @Test
     void devePermitirBuscarReservasPorMesaEPeriodo() {
-        fail("não implementado.");
+        var reserva1 = ReservaHelper.gerarReserva();
+        var reserva2 = ReservaHelper.gerarReserva();
+        var list = Arrays.asList(reserva1, reserva2);
+        when(buscarReservasPorMesaEPeriodoInterface.buscarReservasPorMesaEPeriodo(anyLong(), any(LocalDateTime.class), any(LocalDateTime.class)))
+                .thenReturn(list);
+
+        var listObtida = buscarReservasPorMesaEPeriodoUseCase.buscarReservasPorMesaEPeriodo(1L, LocalDateTime.now(), LocalDateTime.now());
+
+        assertThat(listObtida)
+                .isNotEmpty()
+                .hasSize(2)
+                .containsExactlyInAnyOrder(reserva1, reserva2);
     }
 }
 

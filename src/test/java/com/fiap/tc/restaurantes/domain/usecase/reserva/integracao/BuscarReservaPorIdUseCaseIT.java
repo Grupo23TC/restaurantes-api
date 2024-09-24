@@ -1,5 +1,7 @@
 package com.fiap.tc.restaurantes.domain.usecase.reserva.integracao;
 
+import com.fiap.tc.restaurantes.domain.entity.Reserva;
+import com.fiap.tc.restaurantes.domain.exception.reserva.ReservaNotFoundException;
 import com.fiap.tc.restaurantes.domain.usecase.reserva.BuscarReservaPorIdUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -19,11 +21,23 @@ class BuscarReservaPorIdUseCaseIT {
 
     @Test
     void devePermitirBuscarReservaPorId() {
-        fail("Não implementado.");
+        var id = 1L;
+
+        var reservaObtida = buscarReservaPorIdUseCase.buscarReservaPorId(id);
+
+        assertThat(reservaObtida)
+                .isNotNull()
+                .isInstanceOf(Reserva.class);
+        assertThat(reservaObtida.getReservaId()).isEqualTo(id);
     }
 
     @Test
     void deveGerarExcecao_QuandoBuscarReservaPorId_IdNaoEncontrado() {
-        fail("Não implementado.");
+        var id = 12345678L;
+        var mensagemException = "Reserva de id: " + id + " não encontrada.";
+
+        assertThatThrownBy(() -> buscarReservaPorIdUseCase.buscarReservaPorId(id))
+                .isInstanceOf(ReservaNotFoundException.class)
+                .hasMessage(mensagemException);
     }
 }

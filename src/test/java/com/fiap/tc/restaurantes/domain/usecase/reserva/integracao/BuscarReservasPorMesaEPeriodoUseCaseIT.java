@@ -7,7 +7,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.fail;
+import java.time.LocalDateTime;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -19,6 +21,14 @@ class BuscarReservasPorMesaEPeriodoUseCaseIT {
 
     @Test
     void devePermitirBuscarReservasPorMesaEPeriodo() {
-        fail("não implementado.");
+        var mesaId = 1L;
+        var dataInicio = LocalDateTime.of(2030,9,10,11,47,37);
+        var dataFim = LocalDateTime.of(2030,9,10,12,47,37);
+
+        var reservaListObtida = buscarReservasPorMesaEPeriodoUseCase.buscarReservasPorMesaEPeriodo(mesaId, dataInicio, dataFim);
+
+        assertThat(reservaListObtida)
+                .isNotEmpty()
+                .hasSize(1);
     }
 }

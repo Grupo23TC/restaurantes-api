@@ -31,8 +31,8 @@ public class ReservaHelper {
         reserva.setMesa(MesaHelper.gerarMesaComId());
 
         reserva.setStatus(StatusReservaEnum.ATIVA);
-        reserva.setDataInicio(LocalDateTime.of(2030, 1,1,0,0));
-        reserva.setDataFim(LocalDateTime.of(2030, 1,1,2,0));
+        reserva.setDataInicio(LocalDateTime.now().plusDays(1));
+        reserva.setDataFim(LocalDateTime.now().plusDays(1).plusHours(1));
 
         return reserva;
     }

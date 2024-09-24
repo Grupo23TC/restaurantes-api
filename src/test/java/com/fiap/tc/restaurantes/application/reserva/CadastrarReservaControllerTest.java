@@ -48,7 +48,12 @@ class CadastrarReservaControllerTest {
     }
 
     @Test
-    void deveGerarExcecao_QuandoCadastrarReserva_IdNaoEncontrado() {
+    void deveGerarExcecao_QuandoCadastrarReserva_UsuarioNaoEncontrado() {
+        fail("não implementado");
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoCadastrarReserva_MesaNaoEncontrada() {
         fail("não implementado");
     }
 

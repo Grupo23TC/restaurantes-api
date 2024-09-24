@@ -1,13 +1,18 @@
 package com.fiap.tc.restaurantes.domain.usecase.reserva;
 
+import com.fiap.tc.restaurantes.domain.exception.reserva.ReservaNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.reserva.DeletarReservaInterface;
+import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.assertj.core.api.Assertions.fail;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 
 class DeletarReservaUseCaseTest {
 
@@ -34,11 +39,29 @@ class DeletarReservaUseCaseTest {
 
     @Test
     void devePermitirDeletarReserva() {
-        fail("Não implementado");
+        var id = 1L;
+        when(buscarReservaPorIdUseCase.buscarReservaPorId(anyLong())).thenReturn(ReservaHelper.gerarReserva());
+        when(deletarReservaInterface.deletarReserva(anyLong())).thenReturn(true);
+
+        var reservaDeletada = deletarReservaUseCase.deletarReserva(id);
+
+        assertThat(reservaDeletada).isTrue();
+        verify(buscarReservaPorIdUseCase, times(1)).buscarReservaPorId(anyLong());
+        verify(deletarReservaInterface, times(1)).deletarReserva(anyLong());
     }
 
     @Test
     void deveGerarExcecao_QuandoDeletarReserva_IdNaoEncontrado() {
-        fail("Não implementado");
+        var id = 1L;
+        var mensagemException = "Reserva de id: " + id + " não encontrada.";
+        when(buscarReservaPorIdUseCase.buscarReservaPorId(anyLong())).thenThrow(new ReservaNotFoundException(mensagemException));
+        when(deletarReservaInterface.deletarReserva(anyLong())).thenReturn(true);
+
+        assertThatThrownBy(() -> deletarReservaUseCase.deletarReserva(id))
+                .isInstanceOf(ReservaNotFoundException.class)
+                        .hasMessage(mensagemException);
+
+        verify(buscarReservaPorIdUseCase, times(1)).buscarReservaPorId(anyLong());
+        verify(deletarReservaInterface, never()).deletarReserva(anyLong());
     }
 }

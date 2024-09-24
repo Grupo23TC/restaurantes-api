@@ -17,6 +17,6 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
     @Query("SELECT r FROM ReservaEntity r WHERE r.mesaEntity.mesaId = :mesaId")
     List<ReservaEntity> buscarReservasPorMesa(Long mesaId);
 
-    @Query("SELECT r FROM ReservaEntity r WHERE r.mesaEntity.mesaId = :mesaId AND (r.dataInicio < :dataFim AND r.dataFim > :dataInicio)")
+    @Query("SELECT r FROM ReservaEntity r WHERE r.mesaEntity.mesaId = :mesaId AND (r.dataInicio < :dataFim AND r.dataFim > :dataInicio) AND r.status = 'ATIVA'")
     List<ReservaEntity> buscarReservasPorMesaEPeriodo(Long mesaId, LocalDateTime dataInicio, LocalDateTime dataFim);
 }

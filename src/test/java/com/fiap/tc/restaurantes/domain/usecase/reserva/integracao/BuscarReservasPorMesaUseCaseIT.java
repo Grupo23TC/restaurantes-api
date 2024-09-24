@@ -7,7 +7,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
@@ -18,6 +19,10 @@ class BuscarReservasPorMesaUseCaseIT {
 
     @Test
     void devePermitirBuscarReservasPorMesa() {
-        fail("não implementado.");
+        var mesaId = 1L;
+
+        var listObtida = buscarReservasPorMesaUseCase.buscarReservasPorMesa(mesaId);
+
+        assertThat(listObtida).isNotEmpty().hasSize(2);
     }
 }
