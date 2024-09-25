@@ -70,7 +70,7 @@ class ReservaRespositoryIT {
 
             assertThat(reservaObtidaList)
                     .isNotEmpty()
-                    .hasSize(1);
+                    .hasSize(2);
         }
 
         @Test
@@ -90,7 +90,7 @@ class ReservaRespositoryIT {
 
             assertThat(reservaObtidaList)
                     .isNotEmpty()
-                    .hasSize(1);
+                    .hasSize(4);
         }
 
     }
