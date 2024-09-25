@@ -3,6 +3,8 @@ package com.fiap.tc.restaurantes.utils.restaurante;
 import com.fiap.tc.restaurantes.domain.entity.Endereco;
 import com.fiap.tc.restaurantes.domain.entity.Restaurante;
 import com.fiap.tc.restaurantes.domain.enums.TipoCozinhaEnum;
+import com.fiap.tc.restaurantes.domain.input.restaurante.AtualizarRestauranteRequest;
+import com.fiap.tc.restaurantes.domain.input.restaurante.CadastrarRestauranteRequest;
 import com.fiap.tc.restaurantes.domain.output.restaurante.RestauranteResponse;
 import com.fiap.tc.restaurantes.infra.entity.EnderecoEntity;
 import com.fiap.tc.restaurantes.infra.entity.RestauranteEntity;
@@ -10,6 +12,43 @@ import com.fiap.tc.restaurantes.infra.entity.RestauranteEntity;
 import java.util.List;
 
 public class RestauranteHelper {
+    public static CadastrarRestauranteRequest.Endereco gerarEnderecoRequest(){
+        return new CadastrarRestauranteRequest.Endereco(
+            "Rua teste",
+            "logradouro teste",
+            1,
+            "apto 1",
+            "bairro teste",
+            "cidade teste",
+            "01001001",
+            "SP"
+        );
+    }
+
+    public static CadastrarRestauranteRequest gerarRestauranteRequest() {
+        String nome = "Nome Teste";
+        Integer capacidade = 100;
+        String horarioFuncionamento = "10 as 11";
+        return new CadastrarRestauranteRequest(
+            nome,
+            gerarEnderecoRequest(),
+            "MEXICANA",
+            capacidade,
+            horarioFuncionamento);
+    }
+
+    public static AtualizarRestauranteRequest gerarAtualizarRestauranteRequest() {
+        String nome = "Nome Teste";
+        Integer capacidade = 100;
+        String horarioFuncionamento = "10 as 11";
+        return new AtualizarRestauranteRequest(
+            nome,
+            gerarEnderecoRequest(),
+            "MEXICANA",
+            capacidade,
+            horarioFuncionamento);
+    }
+
     public static Restaurante gerarRestaurante() {
         String nome = "Nome Teste";
         Integer capacidade = 100;
