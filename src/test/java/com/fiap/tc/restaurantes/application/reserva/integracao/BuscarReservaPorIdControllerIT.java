@@ -5,8 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.assertj.core.api.Assertions.fail;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -24,11 +26,29 @@ class BuscarReservaPorIdControllerIT {
 
     @Test
     void devePermitirBuscarReservaPorId() {
-        fail("Não implementado.");
+        var id = 1L;
+
+        given()
+                .log().all()
+        .when()
+                .get("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponse.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoBuscarReservaPorId_IdNaoEncontrado() {
-        fail("Não implementado.");
+        var id = 145616L;
+
+        given()
+                .log().all()
+        .when()
+                .get("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 }

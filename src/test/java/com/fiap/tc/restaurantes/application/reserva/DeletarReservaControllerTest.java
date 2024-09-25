@@ -1,6 +1,7 @@
 package com.fiap.tc.restaurantes.application.reserva;
 
 import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
+import com.fiap.tc.restaurantes.domain.exception.reserva.ReservaNotFoundException;
 import com.fiap.tc.restaurantes.domain.mapper.reserva.ReservaMapper;
 import com.fiap.tc.restaurantes.domain.usecase.reserva.DeletarReservaUseCase;
 import org.junit.jupiter.api.AfterEach;
@@ -8,10 +9,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.assertj.core.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 class DeletarReservaControllerTest {
 
@@ -40,13 +48,31 @@ class DeletarReservaControllerTest {
     }
 
     @Test
-    void devePermitirDeletarReserva() {
-        fail("Não implementado");
+    void devePermitirDeletarReserva() throws Exception {
+        var id = 1L;
+        when(deletarReservaUseCase.deletarReserva(anyLong())).thenReturn(true);
+
+        mockMvc.perform(delete("/reservas/{id}", id))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+        verify(deletarReservaUseCase, times(1)).deletarReserva(anyLong());
     }
 
     @Test
-    void deveGerarExcecao_QuandoDeletarReserva_IdNaoEncontrado() {
-        fail("Não implementado");
+    void deveGerarExcecao_QuandoDeletarReserva_IdNaoEncontrado() throws Exception {
+        var id = 1L;
+        var mensagemException = "Reserva de id: " + id + " não encontrada.";
+        when(deletarReservaUseCase.deletarReserva(anyLong())).thenThrow(new ReservaNotFoundException(mensagemException));
+
+        mockMvc.perform(delete("/reservas/{id}", id))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.erro").value(mensagemException))
+                .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
+                .andExpect(jsonPath("$.horario").exists())
+                .andExpect(jsonPath("$.rota").value("/reservas/" + id));
+        verify(deletarReservaUseCase, times(1)).deletarReserva(anyLong());
     }
 
 }

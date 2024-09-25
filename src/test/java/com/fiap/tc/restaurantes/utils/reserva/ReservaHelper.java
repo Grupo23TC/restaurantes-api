@@ -2,6 +2,9 @@ package com.fiap.tc.restaurantes.utils.reserva;
 
 import com.fiap.tc.restaurantes.domain.entity.Reserva;
 import com.fiap.tc.restaurantes.domain.enums.StatusReservaEnum;
+import com.fiap.tc.restaurantes.domain.input.reserva.AtualizarReservaRequest;
+import com.fiap.tc.restaurantes.domain.input.reserva.CadastrarReservaRequest;
+import com.fiap.tc.restaurantes.domain.output.reserva.ReservaResponse;
 import com.fiap.tc.restaurantes.infra.entity.ReservaEntity;
 import com.fiap.tc.restaurantes.utils.mesa.MesaHelper;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
@@ -35,5 +38,107 @@ public class ReservaHelper {
         reserva.setDataFim(LocalDateTime.now().plusDays(1).plusHours(1));
 
         return reserva;
+    }
+
+    public static AtualizarReservaRequest gerarAtualizarReservaRequest() {
+        return new AtualizarReservaRequest(LocalDateTime.now().plusDays(10),
+                LocalDateTime.now().plusDays(10).plusHours(1),
+                StatusReservaEnum.INATIVA);
+    }
+
+    public static AtualizarReservaRequest gerarAtualizarReservaRequestComDataInicioAntesDeHoje() {
+        return new AtualizarReservaRequest(LocalDateTime.now().minusDays(1),
+                LocalDateTime.now().plusDays(1).plusHours(1),
+                StatusReservaEnum.ATIVA);
+    }
+
+    public static AtualizarReservaRequest gerarAtualizarReservaRequestComDataFimAntesDeHoje() {
+        return new AtualizarReservaRequest(LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().minusDays(1).plusHours(1),
+                StatusReservaEnum.ATIVA);
+    }
+
+    public static AtualizarReservaRequest gerarAtualizarReservaRequestComDataFimAntesDataInicio() {
+        return new AtualizarReservaRequest(LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(1).minusHours(1),
+                StatusReservaEnum.ATIVA);
+    }
+
+    public static AtualizarReservaRequest gerarAtualizarReservaRequestComMesaJaReservada() {
+        return new AtualizarReservaRequest(LocalDateTime.of(2030,9,10,11,47,37),
+                LocalDateTime.of(2030,9,10,12,47,37),
+                StatusReservaEnum.ATIVA);
+    }
+
+    public static CadastrarReservaRequest gerarCadastrarReservaRequest() {
+        return new CadastrarReservaRequest(
+                1L,
+                1L,
+                LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(1).plusHours(1)
+        );
+    }
+
+    public static CadastrarReservaRequest gerarCadastrarReservaRequestComUsuarioNaoEncontrado() {
+        return new CadastrarReservaRequest(
+                1151565L,
+                1L,
+                LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(1).plusHours(1)
+        );
+    }
+
+    public static CadastrarReservaRequest gerarCadastrarReservaRequestComMesaNaoEncontrada() {
+        return new CadastrarReservaRequest(
+                1L,
+                11561564654L,
+                LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(1).plusHours(1)
+        );
+    }
+
+    public static CadastrarReservaRequest gerarCadastrarReservaRequestComDataInicioAntesDeHoje() {
+        return new CadastrarReservaRequest(
+                1L,
+                1L,
+                LocalDateTime.now().minusDays(1),
+                LocalDateTime.now().plusDays(1).plusHours(1)
+        );
+    }
+
+    public static CadastrarReservaRequest gerarCadastrarReservaRequestComDataFimAntesDeHoje() {
+        return new CadastrarReservaRequest(
+                1L,
+                1L,
+                LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().minusDays(1).plusHours(1)
+        );
+    }
+
+    public static CadastrarReservaRequest gerarCadastrarReservaRequestComDataFimAntesDeDataInicio() {
+        return new CadastrarReservaRequest(
+                1L,
+                1L,
+                LocalDateTime.now().plusDays(1).plusHours(2),
+                LocalDateTime.now().plusDays(1).plusHours(1)
+        );
+    }
+
+    public static CadastrarReservaRequest gerarCadastrarReservaRequestComMesaJaReservada() {
+        return new CadastrarReservaRequest(
+                1L,
+                1L,
+                LocalDateTime.of(2030,9,10,11,47,37),
+                LocalDateTime.of(2030,9,10,12,47,37)
+        );
+    }
+
+    public static ReservaResponse gerarReservaResponse() {
+        return new ReservaResponse(1L,
+                1L,
+                1L,
+                StatusReservaEnum.ATIVA,
+                LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(2));
     }
 }

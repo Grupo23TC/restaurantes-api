@@ -2,6 +2,7 @@ package com.fiap.tc.restaurantes.application.handler;
 
 import com.fiap.tc.restaurantes.application.handler.exception.ErroCustomizado;
 import com.fiap.tc.restaurantes.domain.exception.avaliacao.AvaliacaoNotFoundException;
+import com.fiap.tc.restaurantes.domain.exception.mesa.MesaNotFoundException;
 import com.fiap.tc.restaurantes.domain.exception.reserva.ReservaNotFoundException;
 import com.fiap.tc.restaurantes.domain.exception.restaurante.RestauranteNotFoundException;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
@@ -44,6 +45,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AvaliacaoNotFoundException.class)
     public ResponseEntity<ErroCustomizado> handleAvaliacaoNotFoundException(AvaliacaoNotFoundException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ErroCustomizado erro = new ErroCustomizado(
+                Instant.now(),
+                ex.getMessage(),
+                status.value(),
+                request.getRequestURI()
+        );
+
+        return new ResponseEntity<>(erro, status);
+    }
+
+    @ExceptionHandler(MesaNotFoundException.class)
+    public ResponseEntity<ErroCustomizado> handleMesaNotFoundException(MesaNotFoundException ex, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ErroCustomizado erro = new ErroCustomizado(
                 Instant.now(),

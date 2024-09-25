@@ -5,8 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.assertj.core.api.Assertions.fail;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -24,6 +27,16 @@ class BuscarReservasPorMesaControllerIT {
 
     @Test
     void devePermitirBuscarReservasPorMesa() {
-        fail("não implementado.");
+        var mesaId = 1L;
+
+        given()
+                .param("mesaId", mesaId)
+                .log().all()
+        .when()
+                .get("/reservas/mesa")
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponseList.schema.json"))
+                .log().all();
     }
 }

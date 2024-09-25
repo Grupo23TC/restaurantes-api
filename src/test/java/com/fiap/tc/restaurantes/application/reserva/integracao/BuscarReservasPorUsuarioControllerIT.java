@@ -5,7 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.assertj.core.api.Assertions.fail;
 
 @SpringBootTest(
@@ -24,6 +27,16 @@ class BuscarReservasPorUsuarioControllerIT {
 
     @Test
     void devePermitirBuscarReservasPorUsuario() {
-        fail("não implementado.");
+        var usuarioId = 1L;
+
+        given()
+                .param("usuarioId", usuarioId)
+                .log().all()
+        .when()
+                .get("/reservas/usuario")
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponseList.schema.json"))
+                .log().all();
     }
 }

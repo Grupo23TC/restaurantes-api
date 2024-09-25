@@ -1,12 +1,15 @@
 package com.fiap.tc.restaurantes.application.reserva.integracao;
 
+import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.assertj.core.api.Assertions.fail;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -24,36 +27,113 @@ class CadastrarReservaControllerIT {
 
     @Test
     void devePermitirCadastrarReserva() {
-        fail("não implementado");
+        var request = ReservaHelper.gerarCadastrarReservaRequest();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .post("/reservas")
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponse.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_UsuarioNaoEncontrado() {
-        fail("não implementado");
+        var request = ReservaHelper.gerarCadastrarReservaRequestComUsuarioNaoEncontrado();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .post("/reservas")
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_MesaNaoEncontrada() {
-        fail("não implementado");
+        var request = ReservaHelper.gerarCadastrarReservaRequestComMesaNaoEncontrada();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .post("/reservas")
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataInicioAntesDeHoje() {
-        fail("não implementado");
+        var request = ReservaHelper.gerarCadastrarReservaRequestComDataInicioAntesDeHoje();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .post("/reservas")
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataFimAntesDeHoje() {
-        fail("não implementado");
+        var request = ReservaHelper.gerarCadastrarReservaRequestComDataFimAntesDeHoje();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .post("/reservas")
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataInicioMaiorQueDataFim() {
-        fail("não implementado");
+        var request = ReservaHelper.gerarCadastrarReservaRequestComDataFimAntesDeDataInicio();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .post("/reservas")
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_MesaJaReservada() {
-        fail("não implementado");
+        var request = ReservaHelper.gerarCadastrarReservaRequestComMesaJaReservada();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .post("/reservas")
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 }

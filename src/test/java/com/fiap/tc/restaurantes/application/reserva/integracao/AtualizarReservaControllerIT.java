@@ -1,12 +1,15 @@
 package com.fiap.tc.restaurantes.application.reserva.integracao;
 
+import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 
-import static org.assertj.core.api.Assertions.fail;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -24,31 +27,103 @@ class AtualizarReservaControllerIT {
 
     @Test
     void devePermitirAtualizarReserva() {
-        fail("não implementado");
+        var id = 2L;
+        var request = ReservaHelper.gerarAtualizarReservaRequest();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponse.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarReserva_IdNaoEncontrado() {
-        fail("não implementado");
+        var id = 12345678L;
+        var request = ReservaHelper.gerarAtualizarReservaRequest();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarReserva_DataInicioAntesDeHoje() {
-        fail("não implementado");
+        var id = 2L;
+        var request = ReservaHelper.gerarAtualizarReservaRequestComDataInicioAntesDeHoje();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarReserva_DataFimAntesDeHoje() {
-        fail("não implementado");
+        var id = 2L;
+        var request = ReservaHelper.gerarAtualizarReservaRequestComDataFimAntesDeHoje();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarReserva_DataInicioMaiorQueDataFim() {
-        fail("não implementado");
+        var id = 2L;
+        var request = ReservaHelper.gerarAtualizarReservaRequestComDataFimAntesDataInicio();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 
     @Test
     void deveGerarExcecao_QuandoAtualizarReserva_MesaJaReservada() {
-        fail("não implementado");
+        var id = 2L;
+        var request = ReservaHelper.gerarAtualizarReservaRequestComMesaJaReservada();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/reservas/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
     }
 }

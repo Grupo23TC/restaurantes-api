@@ -1,17 +1,27 @@
 package com.fiap.tc.restaurantes.application.reserva;
 
 import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
+import com.fiap.tc.restaurantes.domain.entity.Reserva;
+import com.fiap.tc.restaurantes.domain.exception.reserva.ReservaNotFoundException;
 import com.fiap.tc.restaurantes.domain.mapper.reserva.ReservaMapper;
 import com.fiap.tc.restaurantes.domain.usecase.reserva.BuscarReservaPorIdUseCase;
+import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class BuscarReservaPorIdControllerTest {
 
@@ -43,12 +53,42 @@ class BuscarReservaPorIdControllerTest {
     }
 
     @Test
-    void devePermitirBuscarReservaPorId() {
-        fail("Não implementado.");
+    void devePermitirBuscarReservaPorId() throws Exception {
+        var id = 1L;
+        var reserva = ReservaHelper.gerarReserva();
+        var response = ReservaHelper.gerarReservaResponse();
+        when(buscarReservaPorIdUseCase.buscarReservaPorId(anyLong())).thenReturn(reserva);
+        when(mapper.toReservaResponse(any(Reserva.class))).thenReturn(response);
+
+        mockMvc.perform(get("/reservas/{id}", id))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.reservaId").value(id))
+                .andExpect(jsonPath("$.status").value(response.status().toString()))
+                .andExpect(jsonPath("$.usuarioId").value(response.usuarioId()))
+                .andExpect(jsonPath("$.mesaId").value(response.mesaId()))
+                .andExpect(jsonPath("$.dataInicio").exists())
+                .andExpect(jsonPath("$.dataFim").exists());
+        verify(buscarReservaPorIdUseCase, times(1)).buscarReservaPorId(anyLong());
+        verify(mapper, times(1)).toReservaResponse(any(Reserva.class));
     }
 
     @Test
-    void deveGerarExcecao_QuandoBuscarReservaPorId_IdNaoEncontrado() {
-        fail("Não implementado.");
+    void deveGerarExcecao_QuandoBuscarReservaPorId_IdNaoEncontrado() throws Exception {
+        var id = 1L;
+        var response = ReservaHelper.gerarReservaResponse();
+        var mensagemException = "Reserva de id: " + id + " não encontrada.";
+        when(buscarReservaPorIdUseCase.buscarReservaPorId(anyLong())).thenThrow(new ReservaNotFoundException(mensagemException));
+        when(mapper.toReservaResponse(any(Reserva.class))).thenReturn(response);
+
+        mockMvc.perform(get("/reservas/{id}", id))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.erro").value(mensagemException))
+                .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
+                .andExpect(jsonPath("$.horario").exists())
+                .andExpect(jsonPath("$.rota").value("/reservas/" + id));
+        verify(buscarReservaPorIdUseCase, times(1)).buscarReservaPorId(anyLong());
+        verify(mapper, never()).toReservaResponse(any(Reserva.class));
     }
 }
