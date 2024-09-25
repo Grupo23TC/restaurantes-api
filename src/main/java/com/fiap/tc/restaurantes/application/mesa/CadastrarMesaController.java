@@ -31,7 +31,7 @@ public class CadastrarMesaController {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(mesaResponse)
+                .buildAndExpand(mesaResponse.id())
                 .toUri();
 
         return ResponseEntity.created(uri).body(mesaResponse);

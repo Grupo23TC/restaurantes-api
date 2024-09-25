@@ -3,7 +3,7 @@ package com.fiap.tc.restaurantes.domain.usecase.avaliacao;
 import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
 import com.fiap.tc.restaurantes.domain.entity.Restaurante;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
-import com.fiap.tc.restaurantes.domain.entity.validations.AvaliacaoValidation;
+import com.fiap.tc.restaurantes.domain.entity.validation.avaliacao.AvaliacaoValidator;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.CadastrarAvaliacaoInterface;
 import com.fiap.tc.restaurantes.domain.usecase.restaurante.BuscarRestaurantePorIdUseCase;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.BuscarUsuarioPorIdUseCase;
@@ -30,7 +30,7 @@ public class CadastrarAvaliacaoUseCase {
         avaliacao.setUsuario(usuario);
         avaliacao.setRestaurante(restaurante);
 
-        AvaliacaoValidation.validate(avaliacao);
+        AvaliacaoValidator.validate(avaliacao);
 
         return cadastrarAvaliacaoInterface.cadastraAvaliacao(avaliacao);
     }

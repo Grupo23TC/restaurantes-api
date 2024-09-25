@@ -17,7 +17,6 @@ public class AtualizarMesaUseCase {
 
         Mesa mesa = buscarMesaPorIdUseCase.buscarMesaPorId(mesaId);
 
-        mesa.setStatus(mesaNova.getStatus());
         mesa.setQuantidadeAssentos(mesaNova.getQuantidadeAssentos());
 
         return atualizarMesaInterface.atualizarMesa(mesa);

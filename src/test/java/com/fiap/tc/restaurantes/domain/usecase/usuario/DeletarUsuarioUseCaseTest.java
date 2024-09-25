@@ -1,12 +1,16 @@
 package com.fiap.tc.restaurantes.domain.usecase.usuario;
 
 import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
+import com.fiap.tc.restaurantes.domain.entity.Reserva;
 import com.fiap.tc.restaurantes.domain.entity.Usuario;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.usuario.DeletarUsuarioInterface;
 import com.fiap.tc.restaurantes.domain.usecase.avaliacao.BuscarAvaliacoesPorUsuarioUseCase;
 import com.fiap.tc.restaurantes.domain.usecase.avaliacao.DeletarAvaliacaoUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.reserva.BuscarReservasPorUsuarioUseCase;
+import com.fiap.tc.restaurantes.domain.usecase.reserva.DeletarReservaUseCase;
 import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
+import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +37,10 @@ public class DeletarUsuarioUseCaseTest {
   private BuscarAvaliacoesPorUsuarioUseCase buscarAvaliacoesPorUsuarioUseCase;
   @Mock
   private DeletarAvaliacaoUseCase deletarAvaliacaoUseCase;
+  @Mock
+  private BuscarReservasPorUsuarioUseCase buscarReservasPorUsuarioUseCase;
+  @Mock
+  private DeletarReservaUseCase deletarReservaUseCase;
 
   @BeforeEach
   public void setUp() {
@@ -40,8 +48,40 @@ public class DeletarUsuarioUseCaseTest {
         deletarUsuarioInterface,
         buscarUsuarioPorIdUseCase,
         buscarAvaliacoesPorUsuarioUseCase,
-        deletarAvaliacaoUseCase
+        deletarAvaliacaoUseCase,
+        buscarReservasPorUsuarioUseCase,
+        deletarReservaUseCase
     );
+  }
+
+  @Test
+  void deveDeletarUsuario_ComReserva() {
+    Reserva reserva1 = ReservaHelper.gerarReserva();
+    Reserva reserva2 = ReservaHelper.gerarReserva();
+    Reserva reserva3 = ReservaHelper.gerarReserva();
+    reserva1.setReservaId(1L);
+    reserva2.setReservaId(2L);
+    reserva3.setReservaId(3L);
+    List<Reserva> reservas = List.of(reserva1, reserva2, reserva3);
+
+    Long id = 1L;
+    Usuario usuarioBuscado = UsuarioHelper.gerarUsuarioValido();
+    usuarioBuscado.setUsuarioId(id);
+
+    when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(any(Long.class))).thenReturn(usuarioBuscado);
+    when(deletarReservaUseCase.deletarReserva(any(Long.class))).thenReturn(true);
+    when(buscarReservasPorUsuarioUseCase.buscarReservasPorUsuario(any(Long.class))).thenReturn(reservas);
+    when(deletarUsuarioInterface.deletarUsuario(any(Long.class))).thenReturn(true);
+
+    boolean usuarioDeletado = deletarUsuarioUseCase.deletarUsuario(id);
+
+    assertThat(usuarioDeletado).isTrue();
+
+    verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(any(Long.class));
+    verify(buscarReservasPorUsuarioUseCase, times(1)).buscarReservasPorUsuario(any(Long.class));
+    verify(deletarReservaUseCase, times(3)).deletarReserva(any(Long.class));
+    verify(deletarUsuarioInterface, times(1)).deletarUsuario(any(Long.class));
+
   }
 
   @Test

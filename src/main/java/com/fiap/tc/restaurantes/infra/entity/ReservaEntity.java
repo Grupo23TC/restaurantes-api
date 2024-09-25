@@ -1,19 +1,36 @@
 package com.fiap.tc.restaurantes.infra.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fiap.tc.restaurantes.domain.enums.StatusReservaEnum;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
+@Entity
+@Table(name = "reserva")
 public class ReservaEntity {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long reservaId;
-  private Long mesaId;
-  private Long usuarioId;
-  private LocalDateTime data;
+
+  @ManyToOne
+  @JoinColumn(name = "mesaId")
+  private MesaEntity mesaEntity;
+
+  @ManyToOne
+  @JoinColumn(name = "usuarioId")
+  private UsuarioEntity usuarioEntity;
+
+  @Enumerated(EnumType.STRING)
+  private StatusReservaEnum status;
+
+  private LocalDateTime dataInicio;
+
+  private LocalDateTime dataFim;
 }

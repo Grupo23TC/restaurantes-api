@@ -1,12 +1,24 @@
 INSERT INTO Endereco (rua, logradouro, numero, complemento, bairro, cidade, cep, estado, uf)
 VALUES ('rua teste', 'logradouro teste', 10, 'apto 1', 'bairro teste', 'cidade teste', '00000-000', 'estado teste', 'IT'),
-        ('rua teste 2', 'logradouro teste 2', 10, 'apto 2', 'bairro teste 2', 'cidade teste 2', '20000-000', 'estado teste 2', 'IT'),
-        ('rua teste 3', 'logradouro teste 3', 10, 'apto 3', 'bairro teste 3', 'cidade teste 3', '30000-000', 'estado teste 3', 'IT');
+       ('rua teste 2', 'logradouro teste 2', 10, 'apto 2', 'bairro teste 2', 'cidade teste 2', '20000-000', 'estado teste 2', 'IT'),
+       ('rua teste 3', 'logradouro teste 3', 10, 'apto 3', 'bairro teste 3', 'cidade teste 3', '30000-000', 'estado teste 3', 'IT'),
+       ('rua teste 4', 'logradouro teste 4', 10, 'apto 4', 'bairro teste 4', 'cidade teste 4', '30000-000', 'estado teste 4', 'IT'),
+       ('rua teste 5', 'logradouro teste 5', 10, 'apto 5', 'bairro teste 5', 'cidade teste 5', '30000-000', 'estado teste 5', 'IT'),
+       ('rua teste 6', 'logradouro teste 6', 10, 'apto 6', 'bairro teste 6', 'cidade teste 6', '30000-000', 'estado teste 6', 'IT'),
+       ('rua teste 7', 'logradouro teste 7', 10, 'apto 7', 'bairro teste 7', 'cidade teste 7', '30000-000', 'estado teste 7', 'IT'),
+       ('rua teste 8', 'logradouro teste 8', 10, 'apto 8', 'bairro teste 8', 'cidade teste 8', '30000-000', 'estado teste 8', 'IT'),
+       ('rua teste 9', 'logradouro teste 9', 10, 'apto 9', 'bairro teste 9', 'cidade teste 9', '30000-000', 'estado teste 9', 'IT');
 
-INSERT INTO Restaurante (nome, endereco_Id, tipo_De_Cozinha, capacidade, horario_Funcionamento)
+INSERT INTO Restaurante (nome, endereco_id, tipo_de_cozinha, capacidade, horario_funcionamento)
 VALUES ('restaurante teste', 1, 'MEXICANA', 150, '12h às 23h'),
         ('restaurante teste 2', 2, 'MEXICANA', 150, '12h às 23h'),
-        ('restaurante teste 3', 3, 'JAPONESA', 150, '12h às 23h');
+        ('restaurante teste 3', 3, 'JAPONESA', 150, '12h às 23h'),
+        ('restaurante teste 4', 4, 'JAPONESA', 150, '12h às 23h'),
+        ('restaurante teste 5', 5, 'JAPONESA', 150, '12h às 23h'),
+        ('restaurante teste 6', 6, 'JAPONESA', 150, '12h às 23h'),
+        ('restaurante teste 7', 7, 'JAPONESA', 150, '12h às 23h'),
+        ('restaurante teste 8', 8, 'JAPONESA', 150, '12h às 23h'),
+        ('restaurante teste 9', 9, 'JAPONESA', 150, '12h às 23h');
 
 INSERT INTO Usuario (nome, email, senha, telefone)
 VALUES ('usuario teste', 'teste@email.com','Senha@90','99999-9999'),
@@ -28,16 +40,40 @@ VALUES (1, 1, 5, 'Muito boa a comida!', '2024-09-10T11:47:37.912019300'),
        (1, 2, 4, 'Atendimento top!', '2024-09-10T11:47:37.912019300'),
        (2, 2, 3, 'Mais ou menos', '2024-09-10T11:47:37.912019300');
 
-INSERT INTO Mesa (restaurante_id, status, quantidade_Assentos)
-VALUES (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (1, 'DISPONIVEL', 4),
-        (2, 'DISPONIVEL', 4),
-        (2, 'DISPONIVEL', 4),
-        (2, 'DISPONIVEL', 4),
-        (3, 'DISPONIVEL', 4),
-        (3, 'DISPONIVEL', 4),
-        (3, 'DISPONIVEL', 4);
+INSERT INTO Mesa (restaurante_id, quantidade_Assentos)
+VALUES (1, 4),
+       (1, 4),
+       (1, 4),
+       (1, 4),
+       (1, 4),
+       (2, 4),
+       (2, 4),
+       (2, 4),
+       (3, 4),
+       (3, 4),
+       (3, 4),
+       (4, 4),
+       (4, 4),
+       (4, 4),
+       (5, 4),
+       (5, 4),
+       (5, 4),
+       (6, 4),
+       (6, 4),
+       (6, 4),
+       (7, 4),
+       (7, 4),
+       (7, 4),
+       (8, 4),
+       (8, 4),
+       (8, 4),
+       (9, 4),
+       (9, 4),
+       (9, 4);
+
+INSERT INTO reserva (usuario_Id, mesa_Id, status, data_inicio, data_fim)
+VALUES (1, 1, 'ATIVA', '2030-09-10T11:47:37', '2030-09-10T12:47:37'),
+        (1, 1, 'ATIVA', '2030-09-10T13:47:37', '2030-09-10T14:47:37'),
+        (1, 2, 'ATIVA', '2030-09-11T11:47:37', '2030-09-11T12:47:37'),
+        (1, 3, 'ATIVA', '2030-09-12T11:47:37', '2030-09-12T12:47:37')
 
