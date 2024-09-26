@@ -31,9 +31,9 @@ public class DeletarRestauranteUseCase {
 
     List<Avaliacao> listaAvaliacaoRestaurante = buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(id);
 
-    listaAvaliacaoRestaurante.forEach(avaliacao -> {
-      deletarAvaliacaoInterface.deletarAvaliacao(avaliacao.getAvaliacaoId());
-    });
+    listaAvaliacaoRestaurante.forEach(avaliacao ->
+      deletarAvaliacaoInterface.deletarAvaliacao(avaliacao.getAvaliacaoId())
+    );
 
     return deletarRestauranteInterface.deletarRestaurante(id);
   }

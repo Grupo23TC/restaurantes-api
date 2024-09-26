@@ -5,7 +5,6 @@ import com.fiap.tc.restaurantes.domain.exception.restaurante.RestauranteNotFound
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.BuscarAvaliacoesPorRestauranteInterface;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.DeletarAvaliacaoInterface;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.DeletarRestauranteInterface;
-import com.fiap.tc.restaurantes.infra.repository.RestauranteRepository;
 import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
 import com.fiap.tc.restaurantes.utils.restaurante.RestauranteHelper;
 import org.junit.jupiter.api.AfterEach;

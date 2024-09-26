@@ -14,7 +14,7 @@ public record AtualizarRestauranteRequest(
   public record Endereco(
       @NotNull Integer numero,
       @NotBlank String complemento,
-      @NotBlank @Pattern(regexp = "[0-9]{8}",
+      @NotBlank @Pattern(regexp = "\\d{8}",
           message = "O CEP deve conter somente número com 8 posições") String cep) {
   }
 }

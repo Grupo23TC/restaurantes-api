@@ -15,7 +15,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class CadastrarRestauranteControllerIT {
+class CadastrarRestauranteControllerIT {
 
     @LocalServerPort
     private int port;
@@ -43,7 +43,7 @@ public class CadastrarRestauranteControllerIT {
     }
 
     @Test
-    void deveGerarExcecao_QuandoCadastrarRestaurante_CepNaoEncontrado() throws Exception {
+    void deveGerarExcecao_QuandoCadastrarRestaurante_CepNaoEncontrado() {
         CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarCadastrarRestauranteRequestComCepInexistente();
 
         given()
@@ -59,7 +59,7 @@ public class CadastrarRestauranteControllerIT {
     }
 
     @Test
-    void deveGerarExcecao_QuandoCadastrarRestaurante_NomeNaoInformado() throws Exception {
+    void deveGerarExcecao_QuandoCadastrarRestaurante_NomeNaoInformado() {
         CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarCadastrarRestauranteRequestComNomeNulo();
 
         given()
@@ -75,7 +75,7 @@ public class CadastrarRestauranteControllerIT {
     }
 
     @Test
-    void deveGerarExcecao_QuandoCadastrarRestaurante_CapacidadeNaoInformado() throws Exception {
+    void deveGerarExcecao_QuandoCadastrarRestaurante_CapacidadeNaoInformado() {
         CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarCadastrarRestauranteRequestComCapacidadeNula();
 
         given()

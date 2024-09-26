@@ -6,4 +6,7 @@ public class EmailValidator {
   public static boolean isValid(String email) {
     return email.matches(EMAIL_REGEX);
   }
+
+  private EmailValidator() {
+  }
 }

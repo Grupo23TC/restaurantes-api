@@ -1,7 +1,6 @@
 package com.fiap.tc.restaurantes.application.usuario;
 
 
-import com.fiap.tc.restaurantes.domain.mapper.usuario.UsuarioMapper;
 import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioDeletadoResponse;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.DeletarUsuarioUseCase;
 import lombok.RequiredArgsConstructor;

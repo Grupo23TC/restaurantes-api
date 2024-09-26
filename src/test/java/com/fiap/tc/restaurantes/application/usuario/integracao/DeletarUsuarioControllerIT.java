@@ -13,7 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class DeletarUsuarioControllerIT {
+class DeletarUsuarioControllerIT {
   @LocalServerPort
   private int port;
 

@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class CadastrarUsuarioControllerTest {
+class CadastrarUsuarioControllerTest {
   @Mock
   private CadastrarUsuarioUseCase cadastrarUsuarioUseCase;
   @Mock

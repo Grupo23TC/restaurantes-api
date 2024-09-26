@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-public class ListarUsuariosControllerTest {
+class ListarUsuariosControllerTest {
   @Mock
   private ListarUsuariosUseCase listarUsuariosUseCase;
 

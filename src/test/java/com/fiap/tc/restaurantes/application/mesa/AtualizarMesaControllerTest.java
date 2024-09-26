@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
-public class AtualizarMesaControllerTest {
+class AtualizarMesaControllerTest {
   @Mock
   private MesaMapper mapper;
 

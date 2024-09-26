@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class DeletarUsuarioUseCaseIT {
+class DeletarUsuarioUseCaseIT {
   @Autowired
   private DeletarUsuarioUseCase deletarUsuarioUseCase;
 

@@ -2,9 +2,7 @@ package com.fiap.tc.restaurantes.application.usuario;
 
 import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
-import com.fiap.tc.restaurantes.domain.output.usuario.UsuarioDeletadoResponse;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.DeletarUsuarioUseCase;
-import com.fiap.tc.restaurantes.utils.usuario.UsuarioHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class DeletarUsuarioControllerTest {
+class DeletarUsuarioControllerTest {
   @Mock
   private DeletarUsuarioUseCase deletarUsuarioUseCase;
 

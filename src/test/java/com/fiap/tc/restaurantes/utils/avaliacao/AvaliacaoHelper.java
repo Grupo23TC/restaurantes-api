@@ -31,76 +31,62 @@ public class AvaliacaoHelper {
     }
 
     public static AvaliacaoResponse gerarAvaliacaoResponse() {
-        AvaliacaoResponse avaliacao = new AvaliacaoResponse(
+        return new AvaliacaoResponse(
                 1L,
                 1L,
                 1L,
                 1,
                 "Horrivel"
         );
-
-        return avaliacao;
     }
 
     public static CadastrarAvaliacaoRequest gerarCadastrarAvaliacaoRequest() {
-        CadastrarAvaliacaoRequest avaliacao = new CadastrarAvaliacaoRequest(
+        return new CadastrarAvaliacaoRequest(
                 1L,
                 1L,
                 4,
                 "Muito Bom"
         );
-
-        return avaliacao;
     }
 
     public static CadastrarAvaliacaoRequest gerarCadastrarAvaliacaoRequestRestauranteInexistente() {
-        CadastrarAvaliacaoRequest avaliacao = new CadastrarAvaliacaoRequest(
+        return new CadastrarAvaliacaoRequest(
                 151984515588L,
                 1L,
                 4,
                 "Muito Bom"
         );
-
-        return avaliacao;
     }
 
     public static CadastrarAvaliacaoRequest gerarCadastrarAvaliacaoRequestUsuarioInexistente() {
-        CadastrarAvaliacaoRequest avaliacao = new CadastrarAvaliacaoRequest(
+        return new CadastrarAvaliacaoRequest(
                 1L,
                 51658495122L,
                 4,
                 "Muito Bom"
         );
-
-        return avaliacao;
     }
 
     public static CadastrarAvaliacaoRequest gerarCadastrarAvaliacaoRequestNotaInvalida() {
-        CadastrarAvaliacaoRequest avaliacao = new CadastrarAvaliacaoRequest(
+        return new CadastrarAvaliacaoRequest(
                 1L,
                 1L,
                 15522,
                 "Muito Bom"
         );
-
-        return avaliacao;
     }
 
     public static AtualizarAvaliacaoRequest gerarAtualizarAvaliacaoRequest() {
-        AtualizarAvaliacaoRequest avaliacao = new AtualizarAvaliacaoRequest(
+        return new AtualizarAvaliacaoRequest(
                 1,
                 "Horrivel"
         );
-
-        return avaliacao;
     }
 
     public static AtualizarAvaliacaoRequest gerarAtualizarAvaliacaoRequestComNotaInvalida() {
-        AtualizarAvaliacaoRequest avaliacao = new AtualizarAvaliacaoRequest(
+        return new AtualizarAvaliacaoRequest(
                 18,
                 "Horrivel"
         );
-
-        return avaliacao;
     }
 }

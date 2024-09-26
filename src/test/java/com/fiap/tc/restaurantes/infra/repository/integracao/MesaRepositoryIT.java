@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class MesaRepositoryIT {
+class MesaRepositoryIT {
   @Autowired
   private MesaRepository mesaRepository;
 

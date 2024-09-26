@@ -2,7 +2,6 @@ package com.fiap.tc.restaurantes.application.reserva;
 
 import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
 import com.fiap.tc.restaurantes.domain.exception.reserva.ReservaNotFoundException;
-import com.fiap.tc.restaurantes.domain.mapper.reserva.ReservaMapper;
 import com.fiap.tc.restaurantes.domain.usecase.reserva.DeletarReservaUseCase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;

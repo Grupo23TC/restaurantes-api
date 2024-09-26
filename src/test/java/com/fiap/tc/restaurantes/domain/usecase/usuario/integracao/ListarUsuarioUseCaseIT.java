@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class ListarUsuarioUseCaseIT {
+class ListarUsuarioUseCaseIT {
   @Autowired
   private ListarUsuariosUseCase listarUsuariosUseCase;
 

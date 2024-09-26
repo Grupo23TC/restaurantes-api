@@ -4,7 +4,6 @@ import com.fiap.tc.restaurantes.domain.entity.Reserva;
 import com.fiap.tc.restaurantes.domain.exception.mesa.MesaNotFoundException;
 import com.fiap.tc.restaurantes.domain.exception.usuario.UsuarioNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.reserva.CadastrarReservaInterface;
-import com.fiap.tc.restaurantes.domain.usecase.avaliacao.CadastrarAvaliacaoUseCase;
 import com.fiap.tc.restaurantes.domain.usecase.mesa.BuscarMesaPorIdUseCase;
 import com.fiap.tc.restaurantes.domain.usecase.usuario.BuscarUsuarioPorIdUseCase;
 import com.fiap.tc.restaurantes.utils.mesa.MesaHelper;
@@ -90,13 +89,14 @@ class CadastrarReservaUseCaseTest {
         var usuarioId = 1L;
         var mensagemException = "Usuário de id: " + usuarioId + " não encontrado.";
         var mesa = MesaHelper.gerarMesaComId();
+        var mesaId = mesa.getMesaId();
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenThrow(new UsuarioNotFoundException(mensagemException));
         when(buscarMesaPorIdUseCase.buscarMesaPorId(anyLong())).thenReturn(mesa);
         when(buscarReservasPorMesaEPeriodoUseCase.buscarReservasPorMesaEPeriodo(anyLong(), any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(new ArrayList<>());
         when(cadastrarReservaInterface.cadastrarReserva(any(Reserva.class))).thenReturn(reserva);
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesa.getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(UsuarioNotFoundException.class)
                 .hasMessage(mensagemException);
         verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(anyLong());
@@ -110,13 +110,14 @@ class CadastrarReservaUseCaseTest {
         var mesaId = 1L;
         var mensagemException = "Mesa de id: " + mesaId + " não encontrada";
         var usuario = UsuarioHelper.gerarUsuarioValidoComId();
+        var usuarioId = usuario.getUsuarioId();
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(usuario);
         when(buscarMesaPorIdUseCase.buscarMesaPorId(anyLong())).thenThrow(new MesaNotFoundException(mensagemException));
         when(buscarReservasPorMesaEPeriodoUseCase.buscarReservasPorMesaEPeriodo(anyLong(), any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(new ArrayList<>());
         when(cadastrarReservaInterface.cadastrarReserva(any(Reserva.class))).thenReturn(reserva);
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuario.getUsuarioId(), mesaId))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(MesaNotFoundException.class)
                 .hasMessage(mensagemException);
         verify(buscarUsuarioPorIdUseCase, times(1)).buscarUsuarioPorId(anyLong());
@@ -129,6 +130,8 @@ class CadastrarReservaUseCaseTest {
         var reserva = ReservaHelper.gerarReserva();
         var usuario = UsuarioHelper.gerarUsuarioValidoComId();
         var mesa = MesaHelper.gerarMesaComId();
+        var mesaId = mesa.getMesaId();
+        var usuarioId = usuario.getUsuarioId();
         var mensagemException = "Só é possível reservar para datas futuras.";
         reserva.setDataInicio(LocalDateTime.now().minusDays(1));
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(usuario);
@@ -137,7 +140,7 @@ class CadastrarReservaUseCaseTest {
                 .thenReturn(new ArrayList<>());
         when(cadastrarReservaInterface.cadastrarReserva(any(Reserva.class))).thenReturn(reserva);
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuario.getUsuarioId(), mesa.getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(mensagemException);
 
@@ -151,6 +154,8 @@ class CadastrarReservaUseCaseTest {
         var reserva = ReservaHelper.gerarReserva();
         var usuario = UsuarioHelper.gerarUsuarioValidoComId();
         var mesa = MesaHelper.gerarMesaComId();
+        var mesaId = mesa.getMesaId();
+        var usuarioId = usuario.getUsuarioId();
         var mensagemException = "Só é possível reservar para datas futuras.";
         reserva.setDataFim(LocalDateTime.now().minusDays(1));
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(usuario);
@@ -159,7 +164,7 @@ class CadastrarReservaUseCaseTest {
                 .thenReturn(new ArrayList<>());
         when(cadastrarReservaInterface.cadastrarReserva(any(Reserva.class))).thenReturn(reserva);
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuario.getUsuarioId(), mesa.getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(mensagemException);
 
@@ -173,6 +178,8 @@ class CadastrarReservaUseCaseTest {
         var reserva = ReservaHelper.gerarReserva();
         var usuario = UsuarioHelper.gerarUsuarioValidoComId();
         var mesa = MesaHelper.gerarMesaComId();
+        var mesaId = mesa.getMesaId();
+        var usuarioId = usuario.getUsuarioId();
         var mensagemException = "A Data inicio da reserva deve ser anterior a data fim.";
         reserva.setDataInicio(LocalDateTime.now().plusDays(2));
         reserva.setDataFim(LocalDateTime.now().plusDays(1));
@@ -182,7 +189,7 @@ class CadastrarReservaUseCaseTest {
                 .thenReturn(new ArrayList<>());
         when(cadastrarReservaInterface.cadastrarReserva(any(Reserva.class))).thenReturn(reserva);
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuario.getUsuarioId(), mesa.getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(mensagemException);
 
@@ -196,6 +203,8 @@ class CadastrarReservaUseCaseTest {
         var reserva = ReservaHelper.gerarReserva();
         var usuario = UsuarioHelper.gerarUsuarioValidoComId();
         var mesa = MesaHelper.gerarMesaComId();
+        var mesaId = mesa.getMesaId();
+        var usuarioId = usuario.getUsuarioId();
         var mensagemException = "A Mesa de id: " + mesa.getMesaId() + " já está reservada no período selecionado.";
         when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(anyLong())).thenReturn(usuario);
         when(buscarMesaPorIdUseCase.buscarMesaPorId(anyLong())).thenReturn(mesa);
@@ -203,7 +212,7 @@ class CadastrarReservaUseCaseTest {
                 .thenReturn(Arrays.asList(ReservaHelper.gerarReserva(), ReservaHelper.gerarReserva()));
         when(cadastrarReservaInterface.cadastrarReserva(any(Reserva.class))).thenReturn(reserva);
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuario.getUsuarioId(), mesa.getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage(mensagemException);
 

@@ -42,9 +42,10 @@ class CadastrarAvaliacaoUseCaseIT {
     void deveGerarExcecao_QuandoCadastrarAvaliacao_RestauranteNaoEncontrado() {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         var restauranteId = 123456798L;
+        var usuarioId = avaliacao.getUsuario().getUsuarioId();
         avaliacao.getRestaurante().setRestauranteId(restauranteId);
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, avaliacao.getRestaurante().getRestauranteId(), avaliacao.getUsuario().getUsuarioId()))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, restauranteId, usuarioId))
                 .isInstanceOf(RestauranteNotFoundException.class)
                 .hasMessage("Restaurante de id: " + restauranteId + " não encontrado.");
     }
@@ -53,9 +54,10 @@ class CadastrarAvaliacaoUseCaseIT {
     void deveGerarExcecao_QuandoCadastrarAvaliacao_UsuarioNaoEncontrado() {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         var usuarioId = 123456798L;
+        var restauranteId = avaliacao.getRestaurante().getRestauranteId();
         avaliacao.getUsuario().setUsuarioId(usuarioId);
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, avaliacao.getRestaurante().getRestauranteId(), avaliacao.getUsuario().getUsuarioId()))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, restauranteId, usuarioId))
                 .isInstanceOf(UsuarioNotFoundException.class)
                 .hasMessage("Usuário de id: " + usuarioId + " não encontrado.");
     }
@@ -63,9 +65,11 @@ class CadastrarAvaliacaoUseCaseIT {
     @Test
     void deveGerarExcecao_QuandoCadastrarAvaliacao_NotaInvalida() {
         var avaliacao = AvaliacaoHelper.gerarAvaliacao();
+        var restauranteId = avaliacao.getRestaurante().getRestauranteId();
+        var usuarioId = avaliacao.getUsuario().getUsuarioId();
         avaliacao.setNota(30);
 
-        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, avaliacao.getRestaurante().getRestauranteId(), avaliacao.getUsuario().getUsuarioId()))
+        assertThatThrownBy(() -> cadastrarAvaliacaoUseCase.cadastrarAvaliacao(avaliacao, restauranteId, usuarioId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("A Nota deve ser entre 0 e 5");
     }

@@ -113,7 +113,7 @@ class AtualizarRestauranteControllerTest {
     void deveGerarExcecao_QuandoAtualizarRestaurante_CepNaoEncontrado() throws Exception {
         Long id = 1L;
         var restaurante = RestauranteHelper.gerarRestauranteValido();
-        var request = RestauranteHelper.gerarAtualizarRestauranteRequest();
+        var request = RestauranteHelper.gerarAtualizarRestauranteRequestComCepInexistente();
         var mensagemException = "CEP inexistente.";
         when(atualizarRestauranteUseCase.atualizarRestaurante(anyLong(), any(Restaurante.class))).thenThrow(new IllegalArgumentException(mensagemException));
         when(mapper.toRestaurante(any(AtualizarRestauranteRequest.class))).thenReturn(restaurante);
@@ -138,7 +138,7 @@ class AtualizarRestauranteControllerTest {
     void deveGerarExcecao_QuandoAtualizarRestaurante_NomeNaoInformado() throws Exception {
         Long id = 1L;
         var restaurante = RestauranteHelper.gerarRestauranteValido();
-        var request = RestauranteHelper.gerarAtualizarRestauranteRequest();
+        var request = RestauranteHelper.gerarAtualizarRestauranteRequestComNomeNulo();
         var mensagemException = "O nome do restaurante deve ser informado.";
         when(atualizarRestauranteUseCase.atualizarRestaurante(anyLong(), any(Restaurante.class))).thenThrow(new IllegalArgumentException(mensagemException));
         when(mapper.toRestaurante(any(AtualizarRestauranteRequest.class))).thenReturn(restaurante);
@@ -163,7 +163,7 @@ class AtualizarRestauranteControllerTest {
     void deveGerarExcecao_QuandoAtualizarRestaurante_CapacidadeNaoInformado() throws Exception {
         Long id = 1L;
         var restaurante = RestauranteHelper.gerarRestauranteValido();
-        var request = RestauranteHelper.gerarAtualizarRestauranteRequest();
+        var request = RestauranteHelper.gerarAtualizarRestauranteRequestComCapacidadeNula();
         var mensagemException = "A capacidade do restaurante deve ser informada.";
         when(atualizarRestauranteUseCase.atualizarRestaurante(anyLong(), any(Restaurante.class))).thenThrow(new IllegalArgumentException(mensagemException));
         when(mapper.toRestaurante(any(AtualizarRestauranteRequest.class))).thenReturn(restaurante);

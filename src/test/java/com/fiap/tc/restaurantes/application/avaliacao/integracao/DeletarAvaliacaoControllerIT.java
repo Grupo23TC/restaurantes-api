@@ -1,6 +1,5 @@
 package com.fiap.tc.restaurantes.application.avaliacao.integracao;
 
-import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

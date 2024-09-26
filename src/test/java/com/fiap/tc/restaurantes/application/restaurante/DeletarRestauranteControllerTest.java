@@ -4,17 +4,13 @@ package com.fiap.tc.restaurantes.application.restaurante;
 import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
 import com.fiap.tc.restaurantes.domain.exception.restaurante.RestauranteNotFoundException;
 import com.fiap.tc.restaurantes.domain.mapper.restaurante.RestauranteMapper;
-import com.fiap.tc.restaurantes.domain.output.restaurante.RestauranteResponse;
 import com.fiap.tc.restaurantes.domain.usecase.restaurante.DeletarRestauranteUseCase;
-import com.fiap.tc.restaurantes.utils.generic.JsonStringHelper;
-import com.fiap.tc.restaurantes.utils.restaurante.RestauranteHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 

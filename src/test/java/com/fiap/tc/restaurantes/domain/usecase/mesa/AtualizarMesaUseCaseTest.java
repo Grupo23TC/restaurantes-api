@@ -4,7 +4,6 @@ import com.fiap.tc.restaurantes.domain.entity.Mesa;
 import com.fiap.tc.restaurantes.domain.exception.mesa.MesaNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.mesa.AtualizarMesaInterface;
 import com.fiap.tc.restaurantes.utils.mesa.MesaHelper;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class AtualizarMesaUseCaseTest {
+class AtualizarMesaUseCaseTest {
   private AtualizarMesaUseCase atualizarMesaUseCase;
 
   @Mock

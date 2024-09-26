@@ -2,11 +2,9 @@ package com.fiap.tc.restaurantes.application.restaurante;
 
 
 import com.fiap.tc.restaurantes.application.handler.GlobalExceptionHandler;
-import com.fiap.tc.restaurantes.domain.entity.Endereco;
 import com.fiap.tc.restaurantes.domain.entity.Restaurante;
 import com.fiap.tc.restaurantes.domain.input.restaurante.CadastrarRestauranteRequest;
 import com.fiap.tc.restaurantes.domain.mapper.restaurante.RestauranteMapper;
-import com.fiap.tc.restaurantes.domain.output.restaurante.RestauranteResponse;
 import com.fiap.tc.restaurantes.domain.usecase.restaurante.CadastrarRestauranteUseCase;
 import com.fiap.tc.restaurantes.utils.generic.JsonStringHelper;
 import com.fiap.tc.restaurantes.utils.restaurante.RestauranteHelper;
@@ -20,9 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.net.URI;
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -95,7 +90,7 @@ class CadastrarRestauranteControllerTest {
     void deveGerarExcecao_QuandoCadastrarRestaurante_CepNaoEncontrado() throws Exception {
         // Arrange
         var restaurante = RestauranteHelper.gerarRestauranteValido();
-        var request = RestauranteHelper.gerarCadastrarRestauranteRequest();
+        var request = RestauranteHelper.gerarCadastrarRestauranteRequestComCepInexistente();
         var response = RestauranteHelper.gerarRestauranteResponse();
         var mensagemException = "CEP inexistente.";
 
@@ -125,7 +120,7 @@ class CadastrarRestauranteControllerTest {
     void deveGerarExcecao_QuandoCadastrarRestaurante_NomeNaoInformado() throws Exception {
         // Arrange
         var restaurante = RestauranteHelper.gerarRestauranteValido();
-        var request = RestauranteHelper.gerarCadastrarRestauranteRequest();
+        var request = RestauranteHelper.gerarCadastrarRestauranteRequestComNomeNulo();
         var response = RestauranteHelper.gerarRestauranteResponse();
         var mensagemException = "O nome do restaurante deve ser informado.";
 
@@ -155,7 +150,7 @@ class CadastrarRestauranteControllerTest {
     void deveGerarExcecao_QuandoCadastrarRestaurante_CapacidadeNaoInformado() throws Exception {
         // Arrange
         var restaurante = RestauranteHelper.gerarRestauranteValido();
-        var request = RestauranteHelper.gerarCadastrarRestauranteRequest();
+        var request = RestauranteHelper.gerarCadastrarRestauranteRequestComCapacidadeNula();
         var response = RestauranteHelper.gerarRestauranteResponse();
         var mensagemException = "A capacidade do restaurante deve ser informada.";
 

@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class ListarMesaPorRestauranteUseCaseTest {
+class ListarMesaPorRestauranteUseCaseTest {
   private ListarMesasPorRestauranteUseCase listarMesasPorRestauranteUseCase;
 
   @Mock
@@ -35,7 +35,7 @@ public class ListarMesaPorRestauranteUseCaseTest {
     Mesa mesa = MesaHelper.gerarMesa();
     Mesa mesa2 = MesaHelper.gerarMesa();
     mesa.getRestaurante().setRestauranteId(restauranteId);
-    mesa2.getRestaurante().setRestauranteId(restauranteId);;
+    mesa2.getRestaurante().setRestauranteId(restauranteId);
     List<Mesa> listaMesas = List.of(mesa, mesa2);
 
     when(listarMesasPorRestauranteInterface.listarMesasPorRestaurante(any(Long.class))).thenReturn(listaMesas);

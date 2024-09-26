@@ -12,4 +12,7 @@ public class RestauranteValidator {
             throw new IllegalArgumentException("A capacidade do restaurante deve ser informada.");
         }
     }
+
+    private RestauranteValidator() {
+    }
 }

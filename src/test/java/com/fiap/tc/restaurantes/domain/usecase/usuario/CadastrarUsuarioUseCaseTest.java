@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CadastrarUsuarioUseCaseTest {
+class CadastrarUsuarioUseCaseTest {
   private CadastrarUsuarioUseCase cadastrarUsuarioUseCase;
 
   @Mock

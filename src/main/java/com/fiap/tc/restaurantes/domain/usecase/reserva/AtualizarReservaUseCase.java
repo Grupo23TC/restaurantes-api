@@ -37,12 +37,13 @@ public class AtualizarReservaUseCase {
                 reserva.getDataInicio(),
                 reserva.getDataFim());
 
-        if (!reservaList.isEmpty()) {
-            if (reservaList.size() > 1 || // Se há mais de uma reserva para o horario, jogamos a exceção
-                    !reservaList.get(0).getReservaId().equals(reserva.getReservaId())) { // Se só retornar 1 reserva e for ela mesma, não jogamos exceção
-                throw new IllegalStateException("A Mesa de id: " + reserva.getMesa().getMesaId() + " já está reservada no período selecionado.");
-            }
+
+        if (!reservaList.isEmpty() &&
+                (reservaList.size() > 1 || // Se há mais de uma reserva para o horario, jogamos a exceção
+                !reservaList.get(0).getReservaId().equals(reserva.getReservaId()))) { // Se só retornar 1 reserva e for ela mesma, não jogamos exceção
+            throw new IllegalStateException("A Mesa de id: " + reserva.getMesa().getMesaId() + " já está reservada no período selecionado.");
         }
+
 
         return atualizarReservaInterface.atualizarReserva(reserva);
     }

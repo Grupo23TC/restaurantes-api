@@ -16,7 +16,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class AtualizarRestauranteControllerIT {
+class AtualizarRestauranteControllerIT {
 
     @LocalServerPort
     private int port;
@@ -45,7 +45,7 @@ public class AtualizarRestauranteControllerIT {
     }
 
     @Test
-    void deveGerarExcecao_QuandoAtualizarRestaurante_IdNaoEncontrado() throws Exception {
+    void deveGerarExcecao_QuandoAtualizarRestaurante_IdNaoEncontrado() {
         Long id = 116515L;
         var request = RestauranteHelper.gerarAtualizarRestauranteRequest();
 
@@ -62,7 +62,7 @@ public class AtualizarRestauranteControllerIT {
     }
 
     @Test
-    void deveGerarExcecao_QuandoAtualizarRestaurante_CepNaoEncontrado() throws Exception {
+    void deveGerarExcecao_QuandoAtualizarRestaurante_CepNaoEncontrado() {
         Long id = 1L;
         var request = RestauranteHelper.gerarAtualizarRestauranteRequestComCepInexistente();
 
@@ -79,7 +79,7 @@ public class AtualizarRestauranteControllerIT {
     }
 
     @Test
-    void deveGerarExcecao_QuandoAtualizarRestaurante_NomeNaoInformado() throws Exception {
+    void deveGerarExcecao_QuandoAtualizarRestaurante_NomeNaoInformado() {
         Long id = 1L;
         var request = RestauranteHelper.gerarAtualizarRestauranteRequestComNomeNulo();
 
@@ -96,7 +96,7 @@ public class AtualizarRestauranteControllerIT {
     }
 
     @Test
-    void deveGerarExcecao_QuandoAtualizarRestaurante_CapacidadeNaoInformado() throws Exception {
+    void deveGerarExcecao_QuandoAtualizarRestaurante_CapacidadeNaoInformado() {
         Long id = 1L;
         var request = RestauranteHelper.gerarAtualizarRestauranteRequestComCapacidadeNula();
 

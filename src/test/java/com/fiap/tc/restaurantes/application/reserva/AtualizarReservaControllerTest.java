@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
+import java.time.LocalDateTime;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -115,6 +117,7 @@ class AtualizarReservaControllerTest {
         var reserva = ReservaHelper.gerarReserva();
         var request = ReservaHelper.gerarAtualizarReservaRequest();
         var response = ReservaHelper.gerarReservaResponse();
+        reserva.setDataInicio(LocalDateTime.now().minusDays(1));
         var mensagemException = "Só é possível reservar para datas futuras.";
         when(atualizarReservaUseCase.atualizarReserva(anyLong(), any(Reserva.class))).thenThrow(new IllegalArgumentException(mensagemException));
         when(mapper.toReserva(any(AtualizarReservaRequest.class))).thenReturn(reserva);
@@ -141,6 +144,7 @@ class AtualizarReservaControllerTest {
         var reserva = ReservaHelper.gerarReserva();
         var request = ReservaHelper.gerarAtualizarReservaRequest();
         var response = ReservaHelper.gerarReservaResponse();
+        reserva.setDataFim(LocalDateTime.now().minusDays(1));
         var mensagemException = "Só é possível reservar para datas futuras.";
         when(atualizarReservaUseCase.atualizarReserva(anyLong(), any(Reserva.class))).thenThrow(new IllegalArgumentException(mensagemException));
         when(mapper.toReserva(any(AtualizarReservaRequest.class))).thenReturn(reserva);
@@ -167,6 +171,8 @@ class AtualizarReservaControllerTest {
         var reserva = ReservaHelper.gerarReserva();
         var request = ReservaHelper.gerarAtualizarReservaRequest();
         var response = ReservaHelper.gerarReservaResponse();
+        reserva.setDataInicio(LocalDateTime.now().plusDays(2));
+        reserva.setDataFim(LocalDateTime.now().plusDays(1));
         var mensagemException = "A Data inicio da reserva deve ser anterior a data fim.";
         when(atualizarReservaUseCase.atualizarReserva(anyLong(), any(Reserva.class))).thenThrow(new IllegalArgumentException(mensagemException));
         when(mapper.toReserva(any(AtualizarReservaRequest.class))).thenReturn(reserva);
