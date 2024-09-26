@@ -26,8 +26,6 @@ public class Restaurante {
         this.mesas = mesas;
     }
 
-    public Restaurante() {
-    }
 
     public Long getRestauranteId() {
         return restauranteId;

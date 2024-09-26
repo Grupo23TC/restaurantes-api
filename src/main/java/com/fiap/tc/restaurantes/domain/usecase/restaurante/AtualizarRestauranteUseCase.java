@@ -4,6 +4,7 @@ import com.fiap.tc.restaurantes.domain.entity.Restaurante;
 import com.fiap.tc.restaurantes.domain.entity.validation.restaurante.RestauranteValidator;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.AtualizarRestauranteInterface;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.ConsultarEnderecoPorCepInterface;
+import feign.FeignException;
 
 public class AtualizarRestauranteUseCase {
 
@@ -22,13 +23,22 @@ public class AtualizarRestauranteUseCase {
     Restaurante restaurante = buscarRestaurantePorIdUseCase.buscarRestaurantePorId(restauranteId);
 
     if (!restaurante.getEndereco().getCep().equals(restauranteNovo.getEndereco().getCep())) {
-      var endereco = consultarEnderecoPorCepInterface.consultaPorCep(restauranteNovo.getEndereco().getCep());
-      if (endereco.getCep() == null)
-        throw new IllegalArgumentException("CEP inexistente.");
 
-      endereco.setComplemento(restauranteNovo.getEndereco().getComplemento());
-      endereco.setNumero(restauranteNovo.getEndereco().getNumero());
-      restaurante.setEndereco(endereco);
+      try {
+
+        var endereco = consultarEnderecoPorCepInterface.consultaPorCep(restauranteNovo.getEndereco().getCep());
+
+        if (endereco.getCep() == null)
+          throw new IllegalArgumentException("CEP inexistente.");
+
+        endereco.setComplemento(restauranteNovo.getEndereco().getComplemento());
+        endereco.setNumero(restauranteNovo.getEndereco().getNumero());
+        restaurante.setEndereco(endereco);
+
+      } catch (FeignException e) {
+        throw new IllegalArgumentException("CEP inexistente.");
+      }
+
     }
 
     restaurante.setNome(restauranteNovo.getNome());
