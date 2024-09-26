@@ -1,8 +1,6 @@
 package com.fiap.tc.restaurantes.infra.repository.integracao;
 
-import com.fiap.tc.restaurantes.infra.entity.EnderecoEntity;
 import com.fiap.tc.restaurantes.infra.entity.RestauranteEntity;
-import com.fiap.tc.restaurantes.infra.repository.EnderecoRepository;
 import com.fiap.tc.restaurantes.infra.repository.RestauranteRepository;
 import com.fiap.tc.restaurantes.utils.restaurante.RestauranteHelper;
 import org.junit.jupiter.api.Nested;
@@ -24,21 +22,14 @@ public class RestauranteRepositoryIT {
     @Autowired
     RestauranteRepository repository;
 
-    @Autowired
-    EnderecoRepository enderecoRepository;
-
     @Nested
     class CadastrarRestaurante {
         @Test
         void devePermitirCadastrarRestaurante(){
             // Arrange
             RestauranteEntity entidade = RestauranteHelper.gerarRestauranteEntityValido();
-            EnderecoEntity endereco = RestauranteHelper.enderecoEntityBuilder();
 
             // Act
-            EnderecoEntity enderecoSalvo = enderecoRepository.save(endereco);
-            entidade.setEndereco(enderecoSalvo);
-
             RestauranteEntity restauranteSalvo = repository.save(entidade);
 
             // Assert
@@ -48,11 +39,38 @@ public class RestauranteRepositoryIT {
 
             assertThat(restauranteSalvo.getNome())
                     .isEqualTo(entidade.getNome());
+            assertThat(restauranteSalvo.getEndereco().getLogradouro())
+                    .isEqualTo(entidade.getEndereco().getLogradouro());
         }
     }
 
     @Nested
     class BuscarRestaurantes{
+
+        @Test
+        void devePermitirBuscarRestauranteEntityPorId() {
+            var id = 1L;
+
+            var restauranteObtidoOpt = repository.findById(id);
+
+            assertThat(restauranteObtidoOpt).isPresent();
+            restauranteObtidoOpt.ifPresent(restaurante -> {
+                assertThat(restaurante)
+                        .isNotNull()
+                        .isInstanceOf(RestauranteEntity.class);
+            });
+        }
+
+        @Test
+        void devePermitirListarRestauranteEntity() {
+            // Act
+            List<RestauranteEntity> restauranteEntityList = repository.findAll();
+
+            // Assert
+            assertThat(restauranteEntityList)
+                    .hasSizeGreaterThan(2);
+        }
+
         @Test
         void devePermitirBuscarRestauranteEntityPorNome() {
             // Arrange
@@ -64,6 +82,28 @@ public class RestauranteRepositoryIT {
             // Assert
             assertThat(restaurantes).isNotNull();
             assertThat(nome).isEqualTo(restaurantes.get(0).getNome());
+        }
+
+        @Test
+        void findByTipoDeCozinha() {
+            var tipoCozinha = "MEXICANA";
+
+            List<RestauranteEntity> restauranteEntities = repository.findByTipoDeCozinha(tipoCozinha);
+
+            assertThat(restauranteEntities)
+                .isNotEmpty()
+                    .hasSize(2);
+        }
+
+        @Test
+        void findByLocalidade() {
+            var logradouro = "logradouro teste 2";
+
+            List<RestauranteEntity> restauranteEntities = repository.findByLocalidade(logradouro);
+
+            assertThat(restauranteEntities)
+                .isNotEmpty()
+                .hasSize(1);
         }
     }
 
@@ -78,21 +118,7 @@ public class RestauranteRepositoryIT {
             repository.deleteById(id);
             Optional<RestauranteEntity> restauranteExcluido = repository.findById(id);
 
-            assertThat(restauranteExcluido.isPresent()).isFalse();
-        }
-    }
-
-    @Nested
-    class ListarRestaurantes {
-        @Test
-        void devePermitirListarRestauranteEntity() {
-            // Act
-            List<RestauranteEntity> restauranteEntityList = repository.findAll();
-
-            // Assert
-            assertThat(restauranteEntityList)
-                    .hasSizeGreaterThan(2);
-
+            assertThat(restauranteExcluido).isNotPresent();
         }
     }
 }

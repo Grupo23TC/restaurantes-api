@@ -1,10 +1,10 @@
 package com.fiap.tc.restaurantes.domain.usecase.restaurante;
 
+import com.fiap.tc.restaurantes.domain.entity.Endereco;
 import com.fiap.tc.restaurantes.domain.entity.Restaurante;
+import com.fiap.tc.restaurantes.domain.exception.restaurante.RestauranteNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.AtualizarRestauranteInterface;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.ConsultarEnderecoPorCepInterface;
-import com.fiap.tc.restaurantes.infra.entity.RestauranteEntity;
-import com.fiap.tc.restaurantes.infra.repository.RestauranteRepository;
 import com.fiap.tc.restaurantes.utils.restaurante.RestauranteHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,13 +13,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class AtualizarRestauranteUseCaseTest {
-
-    @Mock
-    private RestauranteRepository repository;
 
     private AtualizarRestauranteUseCase useCase;
 
@@ -29,13 +27,16 @@ class AtualizarRestauranteUseCaseTest {
     @Mock
     private ConsultarEnderecoPorCepInterface consultarEnderecoPorCepInterface;
 
+    @Mock
+    private BuscarRestaurantePorIdUseCase buscarRestaurantePorIdUseCase;
+
     AutoCloseable openMocks;
 
 
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
-        useCase = new AtualizarRestauranteUseCase(atualizarRestauranteInterface, consultarEnderecoPorCepInterface);
+        useCase = new AtualizarRestauranteUseCase(atualizarRestauranteInterface, consultarEnderecoPorCepInterface, buscarRestaurantePorIdUseCase);
     }
 
     @AfterEach
@@ -46,27 +47,113 @@ class AtualizarRestauranteUseCaseTest {
     @Test
     void devePermitirAtualizarRestaurante() {
         // Arrange
-        Restaurante entidade = RestauranteHelper.gerarRestauranteValido();
-        var identificador = 1L;
+        var restauranteAntigo = RestauranteHelper.gerarRestauranteValido();
+        var restauranteNovo = RestauranteHelper.gerarRestauranteValido();
+        var id = 1L;
+        restauranteAntigo.setRestauranteId(id);
+        restauranteNovo.getEndereco().setCep("83010680");
+        restauranteNovo.setCapacidade(150);
 
-        when(repository.save(any(RestauranteEntity.class)))
-                .thenAnswer(answer -> answer.getArgument(0));
-
-        when(consultarEnderecoPorCepInterface.consultaPorCep(entidade.getEndereco().getCep())).thenReturn(RestauranteHelper.enderecoBuilder());
-        when(atualizarRestauranteInterface.atualizarRestaurante(identificador, entidade)).thenReturn(entidade);
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(restauranteAntigo);
+        when(consultarEnderecoPorCepInterface.consultaPorCep(anyString())).thenReturn(RestauranteHelper.enderecoBuilder());
+        when(atualizarRestauranteInterface.atualizarRestaurante(any(Restaurante.class))).thenReturn(restauranteAntigo);
 
         // Act
-        Restaurante restauranteSalvo = useCase.atualizarRestaurante(identificador, entidade);
+        Restaurante restauranteSalvo = useCase.atualizarRestaurante(id, restauranteNovo);
 
         // Assert
         assertThat(restauranteSalvo)
                 .isNotNull()
                 .isInstanceOf(Restaurante.class)
-                .isEqualTo(entidade);
+                .isEqualTo(restauranteAntigo);
 
         assertThat(restauranteSalvo.getNome())
-                .isEqualTo(entidade.getNome());
+                .isEqualTo(restauranteAntigo.getNome());
 
-        verify(atualizarRestauranteInterface, times(1)).atualizarRestaurante(any(), any(Restaurante.class));
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
+        verify(consultarEnderecoPorCepInterface, times(1)).consultaPorCep(anyString());
+        verify(atualizarRestauranteInterface, times(1)).atualizarRestaurante(any(Restaurante.class));
     }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_IdNaoEncontrado() {
+        Restaurante entidade = RestauranteHelper.gerarRestauranteValido();
+        var id = 1L;
+        entidade.setRestauranteId(id);
+        var mensagemException = "Restaurante de id: " + id + " não encontrado.";
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenThrow(new RestauranteNotFoundException(mensagemException));
+
+        assertThatThrownBy(() -> useCase.atualizarRestaurante(id, entidade))
+                .isInstanceOf(RestauranteNotFoundException.class)
+                .hasMessage(mensagemException);
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
+        verify(consultarEnderecoPorCepInterface, never()).consultaPorCep(anyString());
+        verify(atualizarRestauranteInterface, never()).atualizarRestaurante(any(Restaurante.class));
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_CepNaoEncontrado() {
+        var restauranteAntigo = RestauranteHelper.gerarRestauranteValido();
+        var restauranteNovo = RestauranteHelper.gerarRestauranteValido();
+        var id = 1L;
+        restauranteAntigo.setRestauranteId(id);
+        restauranteNovo.getEndereco().setCep("83010680");
+        restauranteNovo.setCapacidade(150);
+        var enderecoSemCep = Endereco.builder().cep(null).build();
+        var mensagemException = "CEP inexistente.";
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(restauranteAntigo);
+        when(consultarEnderecoPorCepInterface.consultaPorCep(anyString())).thenReturn(enderecoSemCep);
+
+        assertThatThrownBy(() -> useCase.atualizarRestaurante(id, restauranteNovo))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(mensagemException);
+
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
+        verify(consultarEnderecoPorCepInterface, times(1)).consultaPorCep(anyString());
+        verify(atualizarRestauranteInterface, never()).atualizarRestaurante(any(Restaurante.class));
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_NomeNaoInformado() {
+        var restauranteAntigo = RestauranteHelper.gerarRestauranteValido();
+        var restauranteNovo = RestauranteHelper.gerarRestauranteValido();
+        var id = 1L;
+        restauranteAntigo.setRestauranteId(id);
+        restauranteNovo.getEndereco().setCep("83010680");
+        restauranteNovo.setCapacidade(150);
+        restauranteNovo.setNome(null);
+        var mensagemException = "O nome do restaurante deve ser informado.";
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(restauranteAntigo);
+        when(consultarEnderecoPorCepInterface.consultaPorCep(anyString())).thenReturn(RestauranteHelper.enderecoBuilder());
+
+        assertThatThrownBy(() -> useCase.atualizarRestaurante(id, restauranteNovo))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(mensagemException);
+
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
+        verify(consultarEnderecoPorCepInterface, times(1)).consultaPorCep(anyString());
+        verify(atualizarRestauranteInterface, never()).atualizarRestaurante(any(Restaurante.class));
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_CapacidadeNaoInformado() {
+        var restauranteAntigo = RestauranteHelper.gerarRestauranteValido();
+        var restauranteNovo = RestauranteHelper.gerarRestauranteValido();
+        var id = 1L;
+        restauranteAntigo.setRestauranteId(id);
+        restauranteNovo.getEndereco().setCep("83010680");
+        restauranteNovo.setCapacidade(null);
+        var mensagemException = "A capacidade do restaurante deve ser informada.";
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(restauranteAntigo);
+        when(consultarEnderecoPorCepInterface.consultaPorCep(anyString())).thenReturn(RestauranteHelper.enderecoBuilder());
+
+        assertThatThrownBy(() -> useCase.atualizarRestaurante(id, restauranteNovo))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(mensagemException);
+
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
+        verify(consultarEnderecoPorCepInterface, times(1)).consultaPorCep(anyString());
+        verify(atualizarRestauranteInterface, never()).atualizarRestaurante(any(Restaurante.class));
+    }
+
 }

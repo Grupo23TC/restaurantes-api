@@ -26,7 +26,7 @@ public class DeletarRestauranteControllerIT {
 
     @Test
     void deveDeletarRestaurante() {
-        Long id = 3L;
+        Long id = 5L;
         when()
                 .delete("/restaurantes/{id}", id)
                 .then()

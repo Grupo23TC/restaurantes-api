@@ -24,7 +24,7 @@ public class AvaliacaoHelper {
         Avaliacao avaliacao = new Avaliacao();
 
         avaliacao.setUsuario(UsuarioHelper.gerarUsuarioValidoComId());
-        avaliacao.setRestaurante(RestauranteHelper.gerarRestaurante());
+        avaliacao.setRestaurante(RestauranteHelper.gerarRestauranteValido());
         avaliacao.setNota(5);
         avaliacao.setComentario("Comentário teste");
         return avaliacao;

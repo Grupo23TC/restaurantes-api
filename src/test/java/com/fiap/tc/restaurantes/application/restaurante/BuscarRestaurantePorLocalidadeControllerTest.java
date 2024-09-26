@@ -33,8 +33,6 @@ class BuscarRestaurantePorLocalidadeControllerTest {
     @Mock
     private RestauranteMapper restauranteMapper;
 
-    private RestauranteResponse restauranteResponse;
-
     AutoCloseable openMocks;
 
     @BeforeEach
@@ -71,5 +69,6 @@ class BuscarRestaurantePorLocalidadeControllerTest {
         ).andExpect(status().isOk());
 
         verify(buscarRestaurantePorLocalidadeUseCase, times(1)).buscarRestaurantePorLocalidade(anyString());
+        verify(restauranteMapper, times(2)).toRestauranteResponse(any(Restaurante.class));
     }
 }

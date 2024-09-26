@@ -37,7 +37,7 @@ public class CadastrarUsuarioControllerIT {
         .post("/usuarios")
     .then()
         .statusCode(HttpStatus.CREATED.value())
-        .body(matchesJsonSchemaInClasspath("schemas/usuario/cadastrarUsuarioRequest.schema.json"))
+        .body(matchesJsonSchemaInClasspath("schemas/usuario/usuario.schema.json"))
         .log().all();
   }
 }
