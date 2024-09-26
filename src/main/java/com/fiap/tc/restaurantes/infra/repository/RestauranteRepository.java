@@ -13,6 +13,6 @@ public interface RestauranteRepository extends JpaRepository<RestauranteEntity, 
   List<RestauranteEntity> findByNomeContaining(String nome);
   List<RestauranteEntity> findByTipoDeCozinha(String tipoCozinhaEnum);
 
-  @Query("SELECT r FROM RestauranteEntity r WHERE r.endereco.rua LIKE %:rua%")
-  List<RestauranteEntity> findByLocalidade(@Param("rua") String rua);
+  @Query("SELECT r FROM RestauranteEntity r WHERE r.endereco.logradouro LIKE %:logradouro%")
+  List<RestauranteEntity> findByLocalidade(@Param("logradouro") String logradouro);
 }

@@ -22,7 +22,6 @@
       "endereco": {
         "type": "object",
         "required": [
-          "rua",
           "logradouro",
           "numero",
           "complemento",

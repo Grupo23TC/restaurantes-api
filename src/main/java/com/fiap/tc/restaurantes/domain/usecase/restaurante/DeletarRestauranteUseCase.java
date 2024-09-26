@@ -12,18 +12,23 @@ public class DeletarRestauranteUseCase {
   private final DeletarRestauranteInterface deletarRestauranteInterface;
   private final BuscarAvaliacoesPorRestauranteInterface buscarAvaliacoesPorRestauranteInterface;
   private final DeletarAvaliacaoInterface deletarAvaliacaoInterface;
+  private final BuscarRestaurantePorIdUseCase buscarRestaurantePorIdUseCase;
 
   public DeletarRestauranteUseCase(
           DeletarRestauranteInterface deletarRestauranteInterface,
           BuscarAvaliacoesPorRestauranteInterface buscarAvaliacoesPorRestauranteInterface,
-          DeletarAvaliacaoInterface deletarAvaliacaoInterface
+          DeletarAvaliacaoInterface deletarAvaliacaoInterface,
+          BuscarRestaurantePorIdUseCase buscarRestaurantePorIdUseCase
   ) {
     this.deletarRestauranteInterface = deletarRestauranteInterface;
     this.buscarAvaliacoesPorRestauranteInterface = buscarAvaliacoesPorRestauranteInterface;
     this.deletarAvaliacaoInterface = deletarAvaliacaoInterface;
+    this.buscarRestaurantePorIdUseCase = buscarRestaurantePorIdUseCase;
   }
 
   public boolean deletarRestaurante(Long id) {
+    buscarRestaurantePorIdUseCase.buscarRestaurantePorId(id);
+
     List<Avaliacao> listaAvaliacaoRestaurante = buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(id);
 
     listaAvaliacaoRestaurante.forEach(avaliacao -> {

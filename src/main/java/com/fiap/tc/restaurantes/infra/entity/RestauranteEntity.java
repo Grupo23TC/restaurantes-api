@@ -33,7 +33,7 @@ public class RestauranteEntity {
   @Column(nullable = false)
   private String nome;
 
-  @OneToOne(cascade = CascadeType.REMOVE)
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="enderecoId")
   private EnderecoEntity endereco;
 

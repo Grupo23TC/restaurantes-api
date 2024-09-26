@@ -38,7 +38,7 @@ class BuscarRestaurantePorTipoCozinhaUseCaseTest {
     }
 
     @Test
-    void devePermitirbuscarRestaurantePorLocalidade() {
+    void devePermitirbuscarRestaurantePorTipoCozinha() {
         // Arrange
         Restaurante entidade1 = RestauranteHelper.gerarRestauranteValido();
         Restaurante entidade2 = RestauranteHelper.gerarRestauranteValido();

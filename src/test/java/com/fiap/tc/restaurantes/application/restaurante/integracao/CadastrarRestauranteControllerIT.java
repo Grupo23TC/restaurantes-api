@@ -10,6 +10,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -27,17 +28,65 @@ public class CadastrarRestauranteControllerIT {
 
     @Test
     void deveCadastrarRestaurante() {
-        CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarRestauranteRequest();
+        CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarCadastrarRestauranteRequest();
 
         given()
                 .contentType("application/json")
                 .body(restauranteRequest)
                 .log().all()
-                .when()
+        .when()
                 .post("/restaurantes")
-                .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value()) //TODO arrumar problema da chamada do CEP
-//                .body(matchesJsonSchemaInClasspath("schemas/restaurante/cadastrarRestauranteRequest.schema.json"))
+        .then()
+                .statusCode(HttpStatus.CREATED.value())
+                .body(matchesJsonSchemaInClasspath("schemas/restaurante/restaurante.schema.json"))
+                .log().all();
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoCadastrarRestaurante_CepNaoEncontrado() throws Exception {
+        CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarCadastrarRestauranteRequestComCepInexistente();
+
+        given()
+                .contentType("application/json")
+                .body(restauranteRequest)
+                .log().all()
+        .when()
+                .post("/restaurantes")
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoCadastrarRestaurante_NomeNaoInformado() throws Exception {
+        CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarCadastrarRestauranteRequestComNomeNulo();
+
+        given()
+                .contentType("application/json")
+                .body(restauranteRequest)
+                .log().all()
+        .when()
+                .post("/restaurantes")
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoCadastrarRestaurante_CapacidadeNaoInformado() throws Exception {
+        CadastrarRestauranteRequest restauranteRequest = RestauranteHelper.gerarCadastrarRestauranteRequestComCapacidadeNula();
+
+        given()
+                .contentType("application/json")
+                .body(restauranteRequest)
+                .log().all()
+        .when()
+                .post("/restaurantes")
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
                 .log().all();
     }
 }

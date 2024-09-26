@@ -2,6 +2,7 @@ package com.fiap.tc.restaurantes.infra.config.restaurante;
 
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.BuscarAvaliacoesPorRestauranteInterface;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.DeletarAvaliacaoInterface;
+import com.fiap.tc.restaurantes.domain.usecase.restaurante.BuscarRestaurantePorIdUseCase;
 import com.fiap.tc.restaurantes.domain.usecase.restaurante.DeletarRestauranteUseCase;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.DeletarRestauranteInterface;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +15,9 @@ public class DeletarRestauranteConfig {
   public DeletarRestauranteUseCase deletarRestauranteUseCase(
           DeletarRestauranteInterface outputPort,
           DeletarAvaliacaoInterface deletarAvaliacaoInterface,
-          BuscarAvaliacoesPorRestauranteInterface buscarAvaliacoesPorRestaurante
+          BuscarAvaliacoesPorRestauranteInterface buscarAvaliacoesPorRestaurante,
+          BuscarRestaurantePorIdUseCase buscarRestaurantePorIdUseCase
   ) {
-    return new DeletarRestauranteUseCase(outputPort, buscarAvaliacoesPorRestaurante, deletarAvaliacaoInterface);
+    return new DeletarRestauranteUseCase(outputPort, buscarAvaliacoesPorRestaurante, deletarAvaliacaoInterface, buscarRestaurantePorIdUseCase);
   }
 }

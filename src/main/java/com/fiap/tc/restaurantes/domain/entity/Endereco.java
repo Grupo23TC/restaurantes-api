@@ -1,12 +1,9 @@
 package com.fiap.tc.restaurantes.domain.entity;
 
-import com.fiap.tc.restaurantes.domain.enums.EstadoEnum;
 import lombok.Builder;
 
 @Builder
 public class Endereco {
-
-    private String rua;
 
     private String logradouro;
 
@@ -22,9 +19,7 @@ public class Endereco {
 
     private String uf;
 
-    @SuppressWarnings("squid:S107") // Evitar regra sonar sobre ter mais de 7 parametros no constructor
-    public Endereco(String rua, String logradouro, Integer numero, String complemento, String bairro, String cidade, String cep, String uf) {
-        this.rua = rua;
+    public Endereco(String logradouro, Integer numero, String complemento, String bairro, String cidade, String cep, String uf) {
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -35,14 +30,6 @@ public class Endereco {
     }
 
     public Endereco() {
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
     }
 
     public String getLogradouro() {
@@ -100,14 +87,4 @@ public class Endereco {
     public void setUf(String uf) {
         this.uf = uf;
     }
-
-    /**
-     * Retorna o nome do estado
-     * @return
-     */
-    public String getEstado() {
-        var estadoEnum = EstadoEnum.getEnum(uf);
-        return estadoEnum == null ? "" : estadoEnum.nome();
-    }
-
 }
