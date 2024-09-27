@@ -44,9 +44,18 @@ Este projeto apresenta o desenvolvimento de um novo sistema de Restaurantes, com
 <a href="https://junit.org/junit5/" target="_blank"> 
     <img src="https://camo.githubusercontent.com/47ab606787e47aee8033b92c8f1d05c0e74b9b81904550f35a8f54e39f6c993b/68747470733a2f2f6a756e69742e6f72672f6a756e6974352f6173736574732f696d672f6a756e6974352d6c6f676f2e706e67" alt="JUnit" width="40" height="40"/> 
 </a>
-<a href="https://www.h2database.com/" target="_blank"> 
-    <img src="https://www.h2database.com/html/images/h2-logo-2.png" alt="H2 Database" width="40" height="40"/> 
+
+<a href="https://www.mysql.com/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" width="40" /> </a>
+
+<a href="https://jmeter.apache.org/" target="_blank"> 
+    <img src="https://jmeter.apache.org/images/logo.svg" alt="JUnit" width="80" height="40"/> 
 </a>
+
+<a href="https://cucumber.io/" target="_blank"> 
+    <img src="https://github.com/cucumber/.github/blob/main/docs/img/cucumber-open-logo.png?raw=true" alt="JUnit" width="80" height="40"/> 
+</a>
+
+
 
 ## Acesso ao projeto
 
