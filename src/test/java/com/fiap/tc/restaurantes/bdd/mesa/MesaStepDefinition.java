@@ -21,20 +21,20 @@ public class MesaStepDefinition {
   private Response response;
   private MesaResponse mesaResponse;
   private RestauranteResponse restauranteResponse;
-  private final String ENDPOINT_API_MENSAGENS = "http://localhost:8080/mesas";
+  private final String ENDPOINT_API_MESAS = "http://localhost:8080/mesas";
 
-  @Dado("que um restaurante já está cadastrado")
-  public void que_um_restaurante_já_está_cadastrado() {
-    CadastrarRestauranteRequest request = RestauranteHelper.gerarCadastrarRestauranteRequest();
-
-    response = given()
-        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        .body(request)
-        .when()
-        .post(ENDPOINT_API_MENSAGENS);
-
-    restauranteResponse = response.as(RestauranteResponse.class);
-  }
+//  @Dado("que um restaurante já está cadastrado")
+//  public void que_um_restaurante_já_está_cadastrado() {
+//    CadastrarRestauranteRequest request = RestauranteHelper.gerarCadastrarRestauranteRequest();
+//
+//    response = given()
+//        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//        .body(request)
+//        .when()
+//        .post(ENDPOINT_API_MESAS);
+//
+//    restauranteResponse = response.as(RestauranteResponse.class);
+//  }
 
   @Quando("cadastrar uma mesa para o restaurante")
   public MesaResponse cadastrar_uma_mesa_para_o_restaurante() {
@@ -44,7 +44,7 @@ public class MesaStepDefinition {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(request)
         .when()
-        .post(ENDPOINT_API_MENSAGENS);
+        .post(ENDPOINT_API_MESAS);
 
     return response.then().extract().as(MesaResponse.class);
   }
@@ -59,5 +59,10 @@ public class MesaStepDefinition {
   public void a_mesa_deve_ser_apresentada() {
     response.then()
         .body(matchesJsonSchemaInClasspath("schemas/mesa/mesa.schema.json"));
+  }
+
+  @Dado("que a mesa já está cadastrada")
+  public void que_a_mesa_já_está_cadastrada() {
+    mesaResponse = cadastrar_uma_mesa_para_o_restaurante();
   }
 }

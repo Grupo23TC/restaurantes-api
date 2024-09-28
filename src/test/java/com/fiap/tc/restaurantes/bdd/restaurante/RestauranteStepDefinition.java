@@ -18,7 +18,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 public class RestauranteStepDefinition {
   private Response response;
   private RestauranteResponse restauranteResponse;
-  private final String ENDPOINT_API_MENSAGENS = "http://localhost:8080/restaurantes";
+  private final String ENDPOINT_API_RESTURANTES = "http://localhost:8080/restaurantes";
 
   @Quando("cadastrar um novo restaurante")
   public RestauranteResponse cadastrar_um_novo_restaurante() {
@@ -28,7 +28,7 @@ public class RestauranteStepDefinition {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(request)
         .when()
-        .post(ENDPOINT_API_MENSAGENS);
+        .post(ENDPOINT_API_RESTURANTES);
 
     return response.then().extract().as(RestauranteResponse.class);
   }
@@ -53,7 +53,7 @@ public class RestauranteStepDefinition {
   @Quando("efetuar a busca de restaurante")
   public void efetuar_a_busca_de_restaurante() {
     response = when()
-        .get(ENDPOINT_API_MENSAGENS + "/{id}", restauranteResponse.restauranteId());
+        .get(ENDPOINT_API_RESTURANTES + "/{id}", restauranteResponse.restauranteId());
   }
 
   @Então("o restaurante é exibido com sucesso")
@@ -71,7 +71,7 @@ public class RestauranteStepDefinition {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(request)
             .when()
-            .put(ENDPOINT_API_MENSAGENS + "/{id}", restauranteResponse.restauranteId());
+            .put(ENDPOINT_API_RESTURANTES + "/{id}", restauranteResponse.restauranteId());
   }
 
   @Então("o restaurante é atualizado com sucesso")
@@ -83,7 +83,7 @@ public class RestauranteStepDefinition {
   @Quando("requisitar a remoção do restaurante")
   public void requisitar_a_remoção_do_restaurante() {
     response = when()
-        .delete(ENDPOINT_API_MENSAGENS + "/{id}", restauranteResponse.restauranteId());
+        .delete(ENDPOINT_API_RESTURANTES + "/{id}", restauranteResponse.restauranteId());
   }
 
   @Então("o restaurante é removido com sucesso")

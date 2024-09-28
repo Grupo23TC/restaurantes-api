@@ -19,7 +19,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 public class UsuarioStepDefinition {
   private Response response;
   private UsuarioResponse usuarioResponse;
-  private final String ENDPOINT_API_MENSAGENS = "http://localhost:8080/usuarios";
+  private final String ENDPOINT_API_USUARIOS = "http://localhost:8080/usuarios";
 
   @Quando("registrar um novo usuario")
   public UsuarioResponse registrar_um_novo_usuario() {
@@ -29,7 +29,7 @@ public class UsuarioStepDefinition {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(request)
         .when()
-        .post(ENDPOINT_API_MENSAGENS);
+        .post(ENDPOINT_API_USUARIOS);
 
     return response.then().extract().as(UsuarioResponse.class);
   }
@@ -54,7 +54,7 @@ public class UsuarioStepDefinition {
   @Quando("efetuar a busca de usuario")
   public void efetuar_a_busca_de_usuario() {
     response = when()
-        .get(ENDPOINT_API_MENSAGENS + "/{id}", usuarioResponse.usuarioId());
+        .get(ENDPOINT_API_USUARIOS + "/{id}", usuarioResponse.usuarioId());
   }
 
   @Então("o usuario é exibido com sucesso")
@@ -82,7 +82,7 @@ public class UsuarioStepDefinition {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(request)
             .when()
-            .put(ENDPOINT_API_MENSAGENS + "/{id}", usuarioResponse.usuarioId());
+            .put(ENDPOINT_API_USUARIOS + "/{id}", usuarioResponse.usuarioId());
   }
 
   @Então("o usuario é atualizado com sucesso")
@@ -94,7 +94,7 @@ public class UsuarioStepDefinition {
   @Quando("requisitar a remoção do usuario")
   public void requisitar_a_remoção_do_usuario() {
     response = when()
-        .delete(ENDPOINT_API_MENSAGENS + "/{id}", usuarioResponse.usuarioId());
+        .delete(ENDPOINT_API_USUARIOS + "/{id}", usuarioResponse.usuarioId());
   }
 
   @Então("o usuario é removido com sucesso")
