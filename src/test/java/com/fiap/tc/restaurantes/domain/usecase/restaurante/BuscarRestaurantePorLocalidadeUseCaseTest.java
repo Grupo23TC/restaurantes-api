@@ -43,25 +43,19 @@ class BuscarRestaurantePorLocalidadeUseCaseTest {
         Restaurante entidade1 = RestauranteHelper.gerarRestauranteValido();
         Restaurante entidade2 = RestauranteHelper.gerarRestauranteValido();
 
-        String rua = "Rua Teste";
+        String logradouro = "logradouro teste";
 
         List<Restaurante> restaurantes = Arrays.asList(entidade1, entidade2);
 
         when(buscarRestaurantePorLocalidadeInterface.buscarRestaurantePorLocalidade(any())).thenReturn(restaurantes);
 
         //Act
-        List<Restaurante> resultado = useCase.buscarRestaurantePorLocalidade(rua);
+        List<Restaurante> resultado = useCase.buscarRestaurantePorLocalidade(logradouro);
 
         // Assert
         assertThat(resultado)
                 .hasSize(2)
                 .containsExactlyInAnyOrder(entidade1, entidade2);
-
-        assertThat(resultado.get(0).getEndereco().getRua())
-                .isEqualTo(entidade1.getEndereco().getRua());
-
-        assertThat(resultado.get(1).getEndereco().getRua())
-                .isEqualTo(entidade1.getEndereco().getRua());
 
         verify(buscarRestaurantePorLocalidadeInterface, times(1)).buscarRestaurantePorLocalidade(any());
     }

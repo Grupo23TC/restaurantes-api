@@ -7,12 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
-import static io.restassured.RestAssured.when;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class BuscarRestaurantePorTipoCozinhaControllerIT {
+class BuscarRestaurantePorTipoCozinhaControllerIT {
 
     @LocalServerPort
     private int port;
@@ -25,11 +26,15 @@ public class BuscarRestaurantePorTipoCozinhaControllerIT {
 
     @Test
     void deveBuscarRestaurantePorTipoCozinha() {
-        when()
-                .get("/restaurantes?tipoCozinha=MEXICANA")
-                .then()
+        var tipoCozinha = "MEXICANA";
+
+        given()
+                .param("tipoCozinha", tipoCozinha)
                 .log().all()
-                .statusCode(HttpStatus.OK.value());
-//                .body(matchesJsonSchemaInClasspath("schemas/usuario/usuario.schema.json"));
+        .when()
+                .get("/restaurantes/tipo")
+        .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/restaurante/listarRestaurantesResponse.schema.json"));
     }
 }

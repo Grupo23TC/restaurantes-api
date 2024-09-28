@@ -13,7 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class ListarUsuariosControllerIT {
+class ListarUsuariosControllerIT {
   @LocalServerPort
   private int port;
 

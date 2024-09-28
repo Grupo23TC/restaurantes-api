@@ -36,7 +36,7 @@ public class MesaHelper {
     public static Mesa gerarMesa() {
         Mesa mesa = new Mesa();
 
-        mesa.setRestaurante(RestauranteHelper.gerarRestaurante());
+        mesa.setRestaurante(RestauranteHelper.gerarRestauranteValido());
         mesa.setQuantidadeAssentos(4);
 
         return mesa;
@@ -46,7 +46,7 @@ public class MesaHelper {
         Mesa mesa = new Mesa();
 
         mesa.setMesaId(1L);
-        mesa.setRestaurante(RestauranteHelper.gerarRestaurante());
+        mesa.setRestaurante(RestauranteHelper.gerarRestauranteValido());
         mesa.setQuantidadeAssentos(4);
 
         return mesa;

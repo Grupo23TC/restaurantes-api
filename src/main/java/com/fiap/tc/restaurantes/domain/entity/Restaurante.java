@@ -1,10 +1,7 @@
 package com.fiap.tc.restaurantes.domain.entity;
 
 import com.fiap.tc.restaurantes.domain.enums.TipoCozinhaEnum;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -29,8 +26,6 @@ public class Restaurante {
         this.mesas = mesas;
     }
 
-    public Restaurante() {
-    }
 
     public Long getRestauranteId() {
         return restauranteId;

@@ -3,7 +3,6 @@ package com.fiap.tc.restaurantes.infra.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -21,15 +20,11 @@ public class EnderecoEntity {
     private Long enderecoId;
 
     @NotBlank
-    private String rua;
-
-    @NotBlank
     private String logradouro;
 
     @NotNull
     private Integer numero;
 
-    @NotBlank
     private String complemento;
 
     @NotBlank
@@ -38,12 +33,8 @@ public class EnderecoEntity {
     @NotBlank
     private String cidade;
 
-    @Pattern(regexp = "[0-9]{8}")
     @NotBlank
     private String cep;
-
-    @NotBlank
-    private String estado;
 
     @Size(min = 2, max = 2)
     @NotBlank

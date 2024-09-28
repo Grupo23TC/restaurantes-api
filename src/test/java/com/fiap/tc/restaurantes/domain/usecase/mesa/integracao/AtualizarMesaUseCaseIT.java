@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class AtualizarMesaUseCaseIT {
+class AtualizarMesaUseCaseIT {
   @Autowired
   private AtualizarMesaUseCase atualizarMesaUseCase;
 

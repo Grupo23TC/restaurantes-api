@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.when;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BuscarMesaPorIdControllerIT {
+class BuscarMesaPorIdControllerIT {
   @LocalServerPort
   private int port;
 

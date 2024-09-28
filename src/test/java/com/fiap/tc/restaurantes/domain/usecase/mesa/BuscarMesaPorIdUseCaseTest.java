@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class BuscarMesaPorIdUseCaseTest {
+class BuscarMesaPorIdUseCaseTest {
   private BuscarMesaPorIdUseCase buscarMesaPorIdUseCase;
 
   @Mock

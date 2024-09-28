@@ -68,9 +68,10 @@ class AtualizarAvaliacaoUseCaseTest {
 
     @Test
     void deveGerarExcecao_QuandoAtualizarAvaliacao_IdNaoEncontrado() {
+        var avaliacao = AvaliacaoHelper.gerarAvaliacao();
         when(buscarAvaliacaoPorIdUseCase.buscarAvaliacaoPorId(anyLong())).thenThrow(new AvaliacaoNotFoundException("Avaliacao não encontrada"));
 
-        assertThatThrownBy(() -> atualizarAvaliacaoUseCase.atualizarAvaliacao(1L, AvaliacaoHelper.gerarAvaliacao()))
+        assertThatThrownBy(() -> atualizarAvaliacaoUseCase.atualizarAvaliacao(1L, avaliacao))
                 .isInstanceOf(AvaliacaoNotFoundException.class)
                 .hasMessage("Avaliacao não encontrada");
         verify(buscarAvaliacaoPorIdUseCase, times(1)).buscarAvaliacaoPorId(anyLong());

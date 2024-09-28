@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class BuscarMesaPorIdUseCaseIT {
+class BuscarMesaPorIdUseCaseIT {
   @Autowired
   private BuscarMesaPorIdUseCase buscarMesaPorIdUseCase;
 

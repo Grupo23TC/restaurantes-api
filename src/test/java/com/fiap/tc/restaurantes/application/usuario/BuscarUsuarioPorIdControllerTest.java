@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class BuscarUsuarioPorIdControllerTest {
+class BuscarUsuarioPorIdControllerTest {
   @Mock
   private BuscarUsuarioPorIdUseCase buscarUsuarioPorIdUseCase;
 
@@ -78,7 +78,6 @@ public class BuscarUsuarioPorIdControllerTest {
   void deveGerarExcecao_QuandoBuscarUsuario_IdNaoExiste() throws Exception {
     // Arrange
     Long id = 100L;
-    Usuario usuario = UsuarioHelper.gerarUsuarioValidoComId();
 
     when(buscarUsuarioPorIdUseCase.buscarUsuarioPorId(any(Long.class))).thenThrow(new UsuarioNotFoundException("Usuário de id: " + id + " não encontrado."));
     when(usuarioMapper.toUsuarioResponse(any(Usuario.class))).thenReturn(null);

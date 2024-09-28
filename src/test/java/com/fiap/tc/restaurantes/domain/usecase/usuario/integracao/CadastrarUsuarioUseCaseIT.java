@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class CadastrarUsuarioUseCaseIT {
+class CadastrarUsuarioUseCaseIT {
   @Autowired
   private CadastrarUsuarioUseCase cadastrarUsuarioUseCase;
 

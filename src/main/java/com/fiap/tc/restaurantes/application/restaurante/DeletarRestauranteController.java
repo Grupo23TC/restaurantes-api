@@ -20,7 +20,6 @@ public class DeletarRestauranteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deletarRestaurante(@PathVariable Long id) {
-        //TODO implementar json de restaurante deletado
         Boolean foiDeletado = deletarRestauranteUseCase.deletarRestaurante(id);
         return ResponseEntity.status(HttpStatus.OK).body(foiDeletado);
     }

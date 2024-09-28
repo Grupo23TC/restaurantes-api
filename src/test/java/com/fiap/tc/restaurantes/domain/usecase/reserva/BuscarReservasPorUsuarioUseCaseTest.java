@@ -1,6 +1,5 @@
 package com.fiap.tc.restaurantes.domain.usecase.reserva;
 
-import com.fiap.tc.restaurantes.domain.gateway.reserva.BuscarReservasPorMesaInterface;
 import com.fiap.tc.restaurantes.domain.gateway.reserva.BuscarReservasPorUsuarioInterface;
 import com.fiap.tc.restaurantes.utils.reserva.ReservaHelper;
 import org.junit.jupiter.api.AfterEach;
@@ -12,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 

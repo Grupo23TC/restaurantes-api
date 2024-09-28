@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 
-public class MesaRepositoryTest {
+class MesaRepositoryTest {
     @Mock
     private MesaRepository mesaRepository;
 
@@ -90,7 +90,7 @@ public class MesaRepositoryTest {
         MesaEntity mesa = MesaHelper.gerarMesaEntity();
         MesaEntity mesa2 = MesaHelper.gerarMesaEntity();
         mesa.getRestauranteEntity().setRestauranteId(restauranteId);
-        mesa2.getRestauranteEntity().setRestauranteId(restauranteId);;
+        mesa2.getRestauranteEntity().setRestauranteId(restauranteId);
         List<MesaEntity> listaMesas = List.of(mesa, mesa2);
 
         when(mesaRepository.findByRestaurante(any(Long.class)))

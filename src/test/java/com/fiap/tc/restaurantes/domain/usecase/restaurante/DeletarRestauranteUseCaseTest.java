@@ -1,11 +1,12 @@
 package com.fiap.tc.restaurantes.domain.usecase.restaurante;
 
 import com.fiap.tc.restaurantes.domain.entity.Avaliacao;
+import com.fiap.tc.restaurantes.domain.exception.restaurante.RestauranteNotFoundException;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.BuscarAvaliacoesPorRestauranteInterface;
 import com.fiap.tc.restaurantes.domain.gateway.avaliacao.DeletarAvaliacaoInterface;
 import com.fiap.tc.restaurantes.domain.gateway.restaurante.DeletarRestauranteInterface;
-import com.fiap.tc.restaurantes.infra.repository.RestauranteRepository;
 import com.fiap.tc.restaurantes.utils.avaliacao.AvaliacaoHelper;
+import com.fiap.tc.restaurantes.utils.restaurante.RestauranteHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -29,6 +31,9 @@ class DeletarRestauranteUseCaseTest {
     @Mock
     private BuscarAvaliacoesPorRestauranteInterface buscarAvaliacoesPorRestauranteInterface;
 
+    @Mock
+    private BuscarRestaurantePorIdUseCase buscarRestaurantePorIdUseCase;
+
     AutoCloseable openMocks;
 
 
@@ -38,7 +43,8 @@ class DeletarRestauranteUseCaseTest {
         useCase = new DeletarRestauranteUseCase(
                 deletarRestauranteInterface,
                 buscarAvaliacoesPorRestauranteInterface,
-                deletarAvaliacaoInterface
+                deletarAvaliacaoInterface,
+                buscarRestaurantePorIdUseCase
         );
     }
 
@@ -59,6 +65,7 @@ class DeletarRestauranteUseCaseTest {
         List<Avaliacao> avaliacoes = List.of(avaliacao1, avaliacao2, avaliacao3);
         var identificador = 1L;
 
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(RestauranteHelper.gerarRestauranteValido());
         when(buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(any(Long.class))).thenReturn(avaliacoes);
         when(deletarAvaliacaoInterface.deletarAvaliacao(any(Long.class))).thenReturn(true);
         when(deletarRestauranteInterface.deletarRestaurante(any(Long.class))).thenReturn(true);
@@ -68,6 +75,7 @@ class DeletarRestauranteUseCaseTest {
         useCase.deletarRestaurante(identificador);
 
         // Assert
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
         verify(deletarRestauranteInterface, times(1)).deletarRestaurante(any(Long.class));
         verify(buscarAvaliacoesPorRestauranteInterface, times(1)).buscarAvaliacoesPorRestaurante(any(Long.class));
         verify(deletarAvaliacaoInterface, times(3)).deletarAvaliacao(any(Long.class));
@@ -79,6 +87,7 @@ class DeletarRestauranteUseCaseTest {
         List<Avaliacao> avaliacoes = List.of();
         var identificador = 3L;
 
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenReturn(RestauranteHelper.gerarRestauranteValido());
         when(buscarAvaliacoesPorRestauranteInterface.buscarAvaliacoesPorRestaurante(any(Long.class))).thenReturn(avaliacoes);
         when(deletarRestauranteInterface.deletarRestaurante(any(Long.class))).thenReturn(true);
 
@@ -87,8 +96,25 @@ class DeletarRestauranteUseCaseTest {
         useCase.deletarRestaurante(identificador);
 
         // Assert
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
         verify(deletarRestauranteInterface, times(1)).deletarRestaurante(any(Long.class));
         verify(buscarAvaliacoesPorRestauranteInterface, times(1)).buscarAvaliacoesPorRestaurante(any(Long.class));
+        verify(deletarAvaliacaoInterface, never()).deletarAvaliacao(any(Long.class));
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoDeletarRestaurante_IdNaoEncontrado() {
+        var id = 123456L;
+        var mensagemException = "Restaurante de id: " + id + " não encontrado.";
+        when(buscarRestaurantePorIdUseCase.buscarRestaurantePorId(anyLong())).thenThrow(new RestauranteNotFoundException(mensagemException));
+
+        assertThatThrownBy(() -> useCase.deletarRestaurante(id))
+                .isInstanceOf(RestauranteNotFoundException.class)
+                .hasMessage(mensagemException);
+
+        verify(buscarRestaurantePorIdUseCase, times(1)).buscarRestaurantePorId(anyLong());
+        verify(deletarRestauranteInterface, never()).deletarRestaurante(any(Long.class));
+        verify(buscarAvaliacoesPorRestauranteInterface, never()).buscarAvaliacoesPorRestaurante(any(Long.class));
         verify(deletarAvaliacaoInterface, never()).deletarAvaliacao(any(Long.class));
     }
 }

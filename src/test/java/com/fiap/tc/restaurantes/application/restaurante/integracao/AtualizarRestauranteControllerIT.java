@@ -12,10 +12,11 @@ import org.springframework.http.HttpStatus;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class AtualizarRestauranteControllerIT {
+class AtualizarRestauranteControllerIT {
 
     @LocalServerPort
     private int port;
@@ -35,11 +36,79 @@ public class AtualizarRestauranteControllerIT {
                 .contentType("application/json")
                 .body(restauranteRequest)
                 .log().all()
-                .when()
+        .when()
                 .put("/restaurantes/{id}", id)
-                .then()
+        .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/restaurante/restaurante.schema.json"))
+                .log().all();
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_IdNaoEncontrado() {
+        Long id = 116515L;
+        var request = RestauranteHelper.gerarAtualizarRestauranteRequest();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/restaurantes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_CepNaoEncontrado() {
+        Long id = 1L;
+        var request = RestauranteHelper.gerarAtualizarRestauranteRequestComCepInexistente();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/restaurantes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_NomeNaoInformado() {
+        Long id = 1L;
+        var request = RestauranteHelper.gerarAtualizarRestauranteRequestComNomeNulo();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/restaurantes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
+                .log().all();
+    }
+
+    @Test
+    void deveGerarExcecao_QuandoAtualizarRestaurante_CapacidadeNaoInformado() {
+        Long id = 1L;
+        var request = RestauranteHelper.gerarAtualizarRestauranteRequestComCapacidadeNula();
+
+        given()
+                .contentType("application/json")
+                .body(request)
+                .log().all()
+        .when()
+                .put("/restaurantes/{id}", id)
+        .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
                 .log().all();
     }
 }

@@ -14,7 +14,6 @@ public class DeletarRestauranteAdapter implements DeletarRestauranteInterface {
 
   @Override
   public boolean deletarRestaurante(Long id) {
-    // TODO implementar verificacao se restaurante existe
     restauranteRepository.deleteById(id);
     return true;
   }

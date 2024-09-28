@@ -44,8 +44,9 @@ class CadastrarReservaUseCaseIT {
     void deveGerarExcecao_QuandoCadastrarReserva_UsuarioNaoEncontrado() {
         var reserva = ReservaHelper.gerarReserva();
         var usuarioId = 1234567L;
+        var mesaId = reserva.getMesa().getMesaId();
         var mensagemException = "Usuário de id: " + usuarioId + " não encontrado.";
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, reserva.getMesa().getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(UsuarioNotFoundException.class)
                 .hasMessage(mensagemException);
     }
@@ -53,9 +54,10 @@ class CadastrarReservaUseCaseIT {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_MesaNaoEncontrada() {
         var reserva = ReservaHelper.gerarReserva();
+        var usuarioId = reserva.getUsuario().getUsuarioId();
         var mesaId = 1234567L;
         var mensagemException = "Mesa de id: " + mesaId + " não encontrada";
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, reserva.getUsuario().getUsuarioId(), mesaId))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(MesaNotFoundException.class)
                 .hasMessage(mensagemException);
     }
@@ -63,10 +65,12 @@ class CadastrarReservaUseCaseIT {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataInicioAntesDeHoje() {
         var reserva = ReservaHelper.gerarReserva();
+        var mesaId = reserva.getMesa().getMesaId();
+        var usuarioId = reserva.getUsuario().getUsuarioId();
         reserva.setDataInicio(LocalDateTime.now().minusDays(1));
         var mensagemException = "Só é possível reservar para datas futuras.";
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, reserva.getUsuario().getUsuarioId(), reserva.getMesa().getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(mensagemException);
     }
@@ -74,10 +78,12 @@ class CadastrarReservaUseCaseIT {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataFimAntesDeHoje() {
         var reserva = ReservaHelper.gerarReserva();
+        var mesaId = reserva.getMesa().getMesaId();
+        var usuarioId = reserva.getUsuario().getUsuarioId();
         reserva.setDataFim(LocalDateTime.now().minusDays(1));
         var mensagemException = "Só é possível reservar para datas futuras.";
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, reserva.getUsuario().getUsuarioId(), reserva.getMesa().getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(mensagemException);
     }
@@ -85,11 +91,13 @@ class CadastrarReservaUseCaseIT {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataInicioMaiorQueDataFim() {
         var reserva = ReservaHelper.gerarReserva();
+        var mesaId = reserva.getMesa().getMesaId();
+        var usuarioId = reserva.getUsuario().getUsuarioId();
         reserva.setDataInicio(LocalDateTime.now().plusDays(2));
         reserva.setDataFim(LocalDateTime.now().plusDays(1));
         var mensagemException = "A Data inicio da reserva deve ser anterior a data fim.";
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, reserva.getUsuario().getUsuarioId(), reserva.getMesa().getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(mensagemException);
     }
@@ -97,11 +105,13 @@ class CadastrarReservaUseCaseIT {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_MesaJaReservada() {
         var reserva = ReservaHelper.gerarReserva();
+        var mesaId = reserva.getMesa().getMesaId();
+        var usuarioId = reserva.getUsuario().getUsuarioId();
         reserva.setDataInicio(LocalDateTime.of(2030,9,10,11,47,37));
         reserva.setDataFim(LocalDateTime.of(2030,9,10,12,47,37));
         var mensagemException = "A Mesa de id: " + reserva.getMesa().getMesaId() + " já está reservada no período selecionado.";
 
-        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, reserva.getUsuario().getUsuarioId(), reserva.getMesa().getMesaId()))
+        assertThatThrownBy(() -> cadastrarReservaUseCase.cadastrarReserva(reserva, usuarioId, mesaId))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage(mensagemException);
     }

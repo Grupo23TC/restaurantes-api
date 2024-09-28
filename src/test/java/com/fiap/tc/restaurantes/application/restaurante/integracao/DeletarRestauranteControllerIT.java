@@ -13,7 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class DeletarRestauranteControllerIT {
+class DeletarRestauranteControllerIT {
 
     @LocalServerPort
     private int port;
@@ -26,7 +26,7 @@ public class DeletarRestauranteControllerIT {
 
     @Test
     void deveDeletarRestaurante() {
-        Long id = 3L;
+        Long id = 5L;
         when()
                 .delete("/restaurantes/{id}", id)
                 .then()

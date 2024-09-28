@@ -131,7 +131,7 @@ class CadastrarReservaControllerTest {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataInicioAntesDeHoje() throws Exception {
         var reserva = ReservaHelper.gerarReserva();
-        var request = ReservaHelper.gerarCadastrarReservaRequest();
+        var request = ReservaHelper.gerarCadastrarReservaRequestComDataInicioAntesDeHoje();
         var response = ReservaHelper.gerarReservaResponse();
         var mensagemException = "Só é possível reservar para datas futuras.";
         when(cadastrarReservaUseCase.cadastrarReserva(any(Reserva.class), anyLong(), anyLong())).thenThrow(new IllegalArgumentException(mensagemException));
@@ -155,7 +155,7 @@ class CadastrarReservaControllerTest {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataFimAntesDeHoje() throws Exception {
         var reserva = ReservaHelper.gerarReserva();
-        var request = ReservaHelper.gerarCadastrarReservaRequest();
+        var request = ReservaHelper.gerarCadastrarReservaRequestComDataFimAntesDeHoje();
         var response = ReservaHelper.gerarReservaResponse();
         var mensagemException = "Só é possível reservar para datas futuras.";
         when(cadastrarReservaUseCase.cadastrarReserva(any(Reserva.class), anyLong(), anyLong())).thenThrow(new IllegalArgumentException(mensagemException));
@@ -179,7 +179,7 @@ class CadastrarReservaControllerTest {
     @Test
     void deveGerarExcecao_QuandoCadastrarReserva_DataInicioMaiorQueDataFim() throws Exception {
         var reserva = ReservaHelper.gerarReserva();
-        var request = ReservaHelper.gerarCadastrarReservaRequest();
+        var request = ReservaHelper.gerarCadastrarReservaRequestComDataFimAntesDeDataInicio();
         var response = ReservaHelper.gerarReservaResponse();
         var mensagemException = "A Data inicio da reserva deve ser anterior a data fim.";
         when(cadastrarReservaUseCase.cadastrarReserva(any(Reserva.class), anyLong(), anyLong())).thenThrow(new IllegalArgumentException(mensagemException));

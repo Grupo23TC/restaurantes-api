@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class ListarRestauranteUseCaseIT {
+class ListarRestauranteUseCaseIT {
 
     @Autowired
     private ListarRestauranteUseCase listarRestauranteUseCase;

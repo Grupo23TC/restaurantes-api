@@ -15,7 +15,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class CadastrarUsuarioControllerIT {
+class CadastrarUsuarioControllerIT {
   @LocalServerPort
   private int port;
 
@@ -37,7 +37,7 @@ public class CadastrarUsuarioControllerIT {
         .post("/usuarios")
     .then()
         .statusCode(HttpStatus.CREATED.value())
-        .body(matchesJsonSchemaInClasspath("schemas/usuario/cadastrarUsuarioRequest.schema.json"))
+        .body(matchesJsonSchemaInClasspath("schemas/usuario/usuario.schema.json"))
         .log().all();
   }
 }

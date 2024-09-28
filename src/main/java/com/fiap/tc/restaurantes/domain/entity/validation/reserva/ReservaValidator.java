@@ -15,4 +15,7 @@ public class ReservaValidator {
             throw new IllegalArgumentException("A Data inicio da reserva deve ser anterior a data fim.");
         }
     }
+
+    private ReservaValidator() {
+    }
 }
