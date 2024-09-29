@@ -159,12 +159,7 @@
 			<version>7.18.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>7.11.0</version>
-			<scope>test</scope>
-		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api -->
 		<dependency>
 			<groupId>org.junit.platform</groupId>
@@ -252,10 +247,10 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>3.1.2</version>
 						<configuration>
-							<includes>
+							<includes combine.self="override">
 								<include>**/CucumberTest.java</include>
 							</includes>
-							<excludes>
+							<excludes combine.self="override">
 							</excludes>
 						</configuration>
 					</plugin>
