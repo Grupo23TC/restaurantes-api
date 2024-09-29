@@ -32,13 +32,13 @@ class CadastrarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/reservas")
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -48,13 +48,13 @@ class CadastrarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/reservas")
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -64,13 +64,13 @@ class CadastrarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/reservas")
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -80,13 +80,13 @@ class CadastrarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/reservas")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -96,13 +96,13 @@ class CadastrarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/reservas")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -112,13 +112,13 @@ class CadastrarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/reservas")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -128,12 +128,12 @@ class CadastrarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/reservas")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

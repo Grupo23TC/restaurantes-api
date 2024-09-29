@@ -29,7 +29,7 @@ class DeletarUsuarioControllerIT {
     when()
         .delete("/usuarios/{id}", id)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/usuario/usuarioDeletado.schema.json"));
   }
@@ -43,6 +43,6 @@ class DeletarUsuarioControllerIT {
     .then()
         .statusCode(HttpStatus.NOT_FOUND.value())
         .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-        .log().all();
+        ;
   }
 }

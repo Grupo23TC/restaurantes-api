@@ -71,7 +71,7 @@ class CadastrarRestauranteControllerTest {
                 .content(JsonStringHelper.asJsonString(request))
                 .contentType(MediaType.APPLICATION_JSON)
         )
-            .andDo(print())
+            
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.restauranteId").value(response.restauranteId()))
             .andExpect(jsonPath("$.nome").value(response.nome()))
@@ -103,7 +103,7 @@ class CadastrarRestauranteControllerTest {
                         .content(JsonStringHelper.asJsonString(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -133,7 +133,7 @@ class CadastrarRestauranteControllerTest {
                         .content(JsonStringHelper.asJsonString(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -163,7 +163,7 @@ class CadastrarRestauranteControllerTest {
                         .content(JsonStringHelper.asJsonString(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))

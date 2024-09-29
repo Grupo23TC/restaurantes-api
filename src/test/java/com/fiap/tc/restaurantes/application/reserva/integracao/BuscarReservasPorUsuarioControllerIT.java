@@ -30,12 +30,12 @@ class BuscarReservasPorUsuarioControllerIT {
 
         given()
                 .param("usuarioId", usuarioId)
-                .log().all()
+                
         .when()
                 .get("/reservas/usuario")
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponseList.schema.json"))
-                .log().all();
+                ;
     }
 }

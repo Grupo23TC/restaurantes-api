@@ -33,13 +33,13 @@ class AtualizarAvaliacaoControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/avaliacoes/{id}", id)
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -50,13 +50,13 @@ class AtualizarAvaliacaoControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/avaliacoes/{id}", id)
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -67,13 +67,13 @@ class AtualizarAvaliacaoControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/avaliacoes/{id}", id)
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
 }

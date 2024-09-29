@@ -31,13 +31,13 @@ class BuscarAvaliacaoPorIdControllerIT {
         var id = 1L;
 
         given()
-                .log().all()
+                
         .when()
                 .get("/avaliacoes/{id}", id)
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -45,12 +45,12 @@ class BuscarAvaliacaoPorIdControllerIT {
         var id = 1502825L;
 
         given()
-                .log().all()
+                
         .when()
                 .get("/avaliacoes/{id}", id)
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

@@ -30,12 +30,12 @@ class BuscarAvaliacoesPorRestauranteControllerIT {
 
         given()
                 .param("restauranteId", id)
-                .log().all()
+                
         .when()
                 .get("/avaliacoes/restaurante")
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoResponseList.schema.json"))
-                .log().all();
+                ;
     }
 }

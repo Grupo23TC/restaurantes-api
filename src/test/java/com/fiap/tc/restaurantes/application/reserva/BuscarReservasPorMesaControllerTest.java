@@ -64,7 +64,7 @@ class BuscarReservasPorMesaControllerTest {
 
         mockMvc.perform(get("/reservas/mesa")
                 .param("mesaId", String.valueOf(mesaId)))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(listReserva.size()))
                 .andExpect(jsonPath("$[0].status").value(response.status().toString()))

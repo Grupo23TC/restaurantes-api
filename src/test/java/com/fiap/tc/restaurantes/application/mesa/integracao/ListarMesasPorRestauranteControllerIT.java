@@ -28,7 +28,7 @@ class ListarMesasPorRestauranteControllerIT {
     when()
         .get("/mesas/restaurante?restauranteId=" + restauranteId)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/mesa/listarMesasPorRestaurante.schema.json"));
   }

@@ -28,7 +28,7 @@ class ListarUsuariosControllerIT {
     when()
         .get("/usuarios")
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/usuario/listarUsuarios.schema.json"));
   }

@@ -33,13 +33,13 @@ class CadastrarRestauranteControllerIT {
         given()
                 .contentType("application/json")
                 .body(restauranteRequest)
-                .log().all()
+                
         .when()
                 .post("/restaurantes")
         .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body(matchesJsonSchemaInClasspath("schemas/restaurante/restaurante.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -49,13 +49,13 @@ class CadastrarRestauranteControllerIT {
         given()
                 .contentType("application/json")
                 .body(restauranteRequest)
-                .log().all()
+                
         .when()
                 .post("/restaurantes")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -65,13 +65,13 @@ class CadastrarRestauranteControllerIT {
         given()
                 .contentType("application/json")
                 .body(restauranteRequest)
-                .log().all()
+                
         .when()
                 .post("/restaurantes")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -81,12 +81,12 @@ class CadastrarRestauranteControllerIT {
         given()
                 .contentType("application/json")
                 .body(restauranteRequest)
-                .log().all()
+                
         .when()
                 .post("/restaurantes")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

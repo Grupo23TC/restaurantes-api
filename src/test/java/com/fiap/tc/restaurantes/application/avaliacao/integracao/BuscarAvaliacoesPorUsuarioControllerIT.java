@@ -30,12 +30,12 @@ class BuscarAvaliacoesPorUsuarioControllerIT {
 
         given()
                 .param("usuarioId", id)
-                .log().all()
+                
         .when()
                 .get("/avaliacoes/usuario")
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoResponseList.schema.json"))
-                .log().all();
+                ;
     }
 }

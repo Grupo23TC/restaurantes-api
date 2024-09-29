@@ -67,7 +67,7 @@ class CadastrarAvaliacaoControllerTest {
         mockMvc.perform(post("/avaliacoes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.usuarioId").value(response.usuarioId()))
                 .andExpect(jsonPath("$.restauranteId").value(response.restauranteId()))
@@ -92,7 +92,7 @@ class CadastrarAvaliacaoControllerTest {
         mockMvc.perform(post("/avaliacoes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -117,7 +117,7 @@ class CadastrarAvaliacaoControllerTest {
         mockMvc.perform(post("/avaliacoes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -142,7 +142,7 @@ class CadastrarAvaliacaoControllerTest {
         mockMvc.perform(post("/avaliacoes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))

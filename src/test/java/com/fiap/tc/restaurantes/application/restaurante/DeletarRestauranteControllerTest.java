@@ -58,7 +58,7 @@ class DeletarRestauranteControllerTest {
 
         // Act & Assert
         mockMvc.perform(delete("/restaurantes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -72,7 +72,7 @@ class DeletarRestauranteControllerTest {
         when(deletarRestauranteUseCase.deletarRestaurante(anyLong())).thenThrow(new RestauranteNotFoundException(mensagemException));
 
         mockMvc.perform(delete("/restaurantes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

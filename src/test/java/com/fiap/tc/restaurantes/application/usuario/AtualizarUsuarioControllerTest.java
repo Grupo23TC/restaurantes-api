@@ -77,7 +77,7 @@ class AtualizarUsuarioControllerTest {
         .content(JsonStringHelper.asJsonString(usuarioRequest))
         .contentType(MediaType.APPLICATION_JSON)
     )
-        .andDo(print())
+        
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.usuarioId").value(id))
         .andExpect(jsonPath("$.nome").value(usuario.getNome()))
@@ -109,7 +109,7 @@ class AtualizarUsuarioControllerTest {
           .content(JsonStringHelper.asJsonString(usuarioRequest))
           .contentType(MediaType.APPLICATION_JSON)
         )
-        .andDo(print())
+        
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.erro").value("Usuário de id: " + id + " não encontrado."))
         .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

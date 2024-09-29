@@ -30,12 +30,12 @@ class BuscarRestaurantePorLocalidadeControllerIT {
 
         given()
                 .param("localidade", localidade)
-                .log().all()
+                
         .when()
                 .get("/restaurantes/localidade")
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/restaurante/listarRestaurantesResponse.schema.json"))
-                .log().all();
+                ;
     }
 }

@@ -30,7 +30,7 @@ class BuscarRestaurantePorTipoCozinhaControllerIT {
 
         given()
                 .param("tipoCozinha", tipoCozinha)
-                .log().all()
+                
         .when()
                 .get("/restaurantes/tipo")
         .then()

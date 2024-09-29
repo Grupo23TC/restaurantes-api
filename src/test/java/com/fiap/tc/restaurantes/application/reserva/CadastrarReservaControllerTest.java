@@ -68,7 +68,7 @@ class CadastrarReservaControllerTest {
         mockMvc.perform(post("/reservas")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(response.status().toString()))
                 .andExpect(jsonPath("$.usuarioId").value(response.usuarioId()))
@@ -93,7 +93,7 @@ class CadastrarReservaControllerTest {
         mockMvc.perform(post("/reservas")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -117,7 +117,7 @@ class CadastrarReservaControllerTest {
         mockMvc.perform(post("/reservas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -141,7 +141,7 @@ class CadastrarReservaControllerTest {
         mockMvc.perform(post("/reservas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -165,7 +165,7 @@ class CadastrarReservaControllerTest {
         mockMvc.perform(post("/reservas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -189,7 +189,7 @@ class CadastrarReservaControllerTest {
         mockMvc.perform(post("/reservas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -213,7 +213,7 @@ class CadastrarReservaControllerTest {
         mockMvc.perform(post("/reservas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))

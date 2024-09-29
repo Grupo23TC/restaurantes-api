@@ -29,13 +29,13 @@ class BuscarReservaPorIdControllerIT {
         var id = 1L;
 
         given()
-                .log().all()
+                
         .when()
                 .get("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -43,12 +43,12 @@ class BuscarReservaPorIdControllerIT {
         var id = 145616L;
 
         given()
-                .log().all()
+                
         .when()
                 .get("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

@@ -71,7 +71,7 @@ class AtualizarAvaliacaoControllerTest {
         mockMvc.perform(put("/avaliacoes/{id}", id)
                 .content(JsonStringHelper.asJsonString(avaliacaoRequest))
                 .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.avaliacaoId").value(id))
                 .andExpect(jsonPath("$.usuarioId").value(avaliacaoResponse.usuarioId()))
@@ -101,7 +101,7 @@ class AtualizarAvaliacaoControllerTest {
         mockMvc.perform(put("/avaliacoes/{id}", id)
                         .content(JsonStringHelper.asJsonString(avaliacaoRequest))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -130,7 +130,7 @@ class AtualizarAvaliacaoControllerTest {
         mockMvc.perform(put("/avaliacoes/{id}", id)
                         .content(JsonStringHelper.asJsonString(avaliacaoRequest))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))

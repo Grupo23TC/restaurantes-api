@@ -33,13 +33,13 @@ class AtualizarUsuarioControllerIT {
     given()
         .contentType("application/json")
         .body(usuario)
-        .log().all()
+        
     .when()
         .put("/usuarios/{id}", id)
     .then()
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/usuario/usuario.schema.json"))
-        .log().all();
+        ;
 
   }
 
@@ -51,12 +51,12 @@ class AtualizarUsuarioControllerIT {
     given()
         .contentType("application/json")
         .body(usuario)
-        .log().all()
+        
     .when()
         .put("/usuarios/{id}", id)
     .then()
         .statusCode(HttpStatus.NOT_FOUND.value())
         .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-        .log().all();
+        ;
   }
 }
