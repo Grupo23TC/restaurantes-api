@@ -79,6 +79,15 @@ public class ReservaHelper {
         );
     }
 
+    public static CadastrarReservaRequest gerarCadastrarReservaRequest(Long mesaId) {
+        return new CadastrarReservaRequest(
+            1L,
+            mesaId,
+            LocalDateTime.now().plusDays(1),
+            LocalDateTime.now().plusDays(1).plusHours(1)
+        );
+    }
+
     public static CadastrarReservaRequest gerarCadastrarReservaRequestComUsuarioNaoEncontrado() {
         return new CadastrarReservaRequest(
                 1151565L,

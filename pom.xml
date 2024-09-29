@@ -252,10 +252,10 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<version>3.1.2</version>
 						<configuration>
-							<includes combine.self="override">
-								<include>**/*CucumberTest.java</include>
+							<includes>
+								<include>**/CucumberTest.java</include>
 							</includes>
-							<excludes combine.self="override">
+							<excludes>
 							</excludes>
 						</configuration>
 					</plugin>

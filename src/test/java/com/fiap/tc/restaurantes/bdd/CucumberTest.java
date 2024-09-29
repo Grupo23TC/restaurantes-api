@@ -1,4 +1,4 @@
-package com.fiap.tc.restaurantes.bdd.restaurante;
+package com.fiap.tc.restaurantes.bdd;
 
 import io.cucumber.junit.CucumberOptions;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -7,11 +7,11 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("features/restaurante")
+@SelectClasspathResource("features")
 @CucumberOptions(
-    glue = "com.fiap.tc.restaurantes.bdd.restaurante",
-    plugin = {"pretty", "html:target/cucumber-reports/restaurante.html"},
+    glue = "com.fiap.tc.restaurantes.bdd",
+    plugin = {"pretty", "html:target/cucumber-reports/system-test.html"},
     dryRun = false
 )
-public class RestauranteCucumberTest {
+public class CucumberTest {
 }
