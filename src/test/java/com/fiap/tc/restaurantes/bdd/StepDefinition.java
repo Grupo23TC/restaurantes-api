@@ -34,7 +34,7 @@ public class StepDefinition {
   private UsuarioResponse usuarioResponse;
   private final String ENDPOINT_API_USUARIOS = "http://localhost:8080/usuarios";
   private RestauranteResponse restauranteResponse;
-  private final String ENDPOINT_API_RESTURANTES = "http://localhost:8080/restaurantes";
+  private final String ENDPOINT_API_RESTAURANTES = "http://localhost:8080/restaurantes";
   private ReservaResponse reservaResponse;
   private final String ENDPOINT_API_RESERVAS = "http://localhost:8080/reservas";
   private MesaResponse mesaResponse;
@@ -140,7 +140,7 @@ public class StepDefinition {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(request)
         .when()
-        .post(ENDPOINT_API_RESTURANTES);
+        .post(ENDPOINT_API_RESTAURANTES);
 
     return response.then().extract().as(RestauranteResponse.class);
   }
@@ -165,7 +165,7 @@ public class StepDefinition {
   @Quando("efetuar a busca de restaurante")
   public void efetuar_a_busca_de_restaurante() {
     response = when()
-        .get(ENDPOINT_API_RESTURANTES + "/{id}", restauranteResponse.restauranteId());
+        .get(ENDPOINT_API_RESTAURANTES + "/{id}", restauranteResponse.restauranteId());
   }
 
   @Então("o restaurante é exibido com sucesso")
@@ -183,7 +183,7 @@ public class StepDefinition {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(request)
             .when()
-            .put(ENDPOINT_API_RESTURANTES + "/{id}", restauranteResponse.restauranteId());
+            .put(ENDPOINT_API_RESTAURANTES + "/{id}", restauranteResponse.restauranteId());
   }
 
   @Então("o restaurante é atualizado com sucesso")
@@ -195,7 +195,7 @@ public class StepDefinition {
   @Quando("requisitar a remoção do restaurante")
   public void requisitar_a_remoção_do_restaurante() {
     response = when()
-        .delete(ENDPOINT_API_RESTURANTES + "/{id}", restauranteResponse.restauranteId());
+        .delete(ENDPOINT_API_RESTAURANTES + "/{id}", restauranteResponse.restauranteId());
   }
 
   @Então("o restaurante é removido com sucesso")
@@ -211,9 +211,12 @@ public class StepDefinition {
   }
 
   // RESERVA
-  @Quando("cadastrar uma reserva {long}")
-  public ReservaResponse cadastrar_uma_reserva(Long id) {
-    var request = ReservaHelper.gerarCadastrarReservaRequest(id);
+  @Quando("cadastrar uma reserva")
+  public ReservaResponse cadastrar_uma_reserva() {
+    var request = ReservaHelper.gerarCadastrarReservaRequest();
+    if (mesaResponse != null) {
+      request = ReservaHelper.gerarCadastrarReservaRequest(mesaResponse.id());
+    }
 
     response = given()
         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -236,9 +239,9 @@ public class StepDefinition {
         .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponse.schema.json"));
   }
 
-  @Dado("que a reserva {long} já está cadastrada")
-  public void que_a_reserva_já_está_cadastrada(Long id) {
-    reservaResponse = cadastrar_uma_reserva(id);
+  @Dado("que a reserva já está cadastrada")
+  public void que_a_reserva_já_está_cadastrada() {
+    reservaResponse = cadastrar_uma_reserva();
   }
 
   @Quando("efetuar a busca da reserva")
@@ -287,6 +290,9 @@ public class StepDefinition {
   @Quando("cadastrar uma mesa para o restaurante")
   public MesaResponse cadastrar_uma_mesa_para_o_restaurante() {
     CadastrarMesaRequest request = MesaHelper.gerarMesaCadastroRequest(1L, 8);
+    if (restauranteResponse != null) {
+      request = MesaHelper.gerarMesaCadastroRequest(restauranteResponse.restauranteId(), 8);
+    }
 
     response = given()
         .contentType(MediaType.APPLICATION_JSON_VALUE)
