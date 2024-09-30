@@ -8,7 +8,7 @@
 - [Funcionalidades](#funcionalidades)
 - [Ferramentas utilizadas](#ferramentas-utilizadas)
 - [Acesso ao projeto](#acesso-ao-projeto)
-- [Abrir e rodar o projeto](#abrir-e-rodar-o-projeto)
+- [Sobre a aplicação](#sobre-a-aplicação)
 - [Desenvolvedores](#desenvolvedores)
 
 ## Descrição do projeto
@@ -31,53 +31,49 @@ Este projeto apresenta o desenvolvimento de um novo sistema de Restaurantes, com
 
 
 ## Ferramentas utilizadas
-
+<div style="display: flex; gap: 15px">
 <a href="https://www.java.com" target="_blank"> 
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="Java" width="40" height="40"/> 
 </a>
+
 <a href="https://spring.io/" target="_blank"> 
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg" alt="Spring" width="40" height="40"/> 
 </a>
+
 <a href="https://www.postman.com/" target="_blank"> 
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt="Postman" width="40" /> 
 </a>
+
 <a href="https://junit.org/junit5/" target="_blank"> 
     <img src="https://camo.githubusercontent.com/47ab606787e47aee8033b92c8f1d05c0e74b9b81904550f35a8f54e39f6c993b/68747470733a2f2f6a756e69742e6f72672f6a756e6974352f6173736574732f696d672f6a756e6974352d6c6f676f2e706e67" alt="JUnit" width="40" height="40"/> 
 </a>
 
-<a href="https://www.mysql.com/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" width="40" /> </a>
+<a href="https://www.postgresql.org/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-plain.svg" width="40"/> </a>
 
 <a href="https://jmeter.apache.org/" target="_blank"> 
-    <img src="https://jmeter.apache.org/images/logo.svg" alt="JUnit" width="80" height="40"/> 
+    <img src="https://jmeter.apache.org/images/logo.svg" alt="JUnit" width="100"/> 
 </a>
 
 <a href="https://cucumber.io/" target="_blank"> 
-    <img src="https://github.com/cucumber/.github/blob/main/docs/img/cucumber-open-logo.png?raw=true" alt="JUnit" width="80" height="40"/> 
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cucumber/cucumber-plain.svg" alt="JUnit" width="40" /> 
 </a>
-
+</div>
 
 
 ## Acesso ao projeto
 
 Você pode [acessar o código fonte do projeto](https://github.com/Grupo23TC/restaurantes-api).
 
-## Abrir e rodar o projeto
+## Sobre a aplicação
 
-Após baixar o projeto, você pode abrir com o `Intellij ou IDE de preferência para projetos Java`.
+A aplicação foi arquitetada através dos princípios de Clean Archtecture e foi publicada para ser consumida como uma API Rest.
 
-É necessário fazer as configurações de conexão com o banco de dados no application.properties com as variáveis 
-```
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.username=root
-spring.datasource.password=
-```
+O sistema foi implantado utilizando a plataforma gratuita https://render.com/ em conjunto com o https://supabase.com/ para implantarmos o banco de dados Postgres, você pode acessar o swagger da aplicação para ter acesso a todos os endpoints em:
+https://restaurantes-api.onrender.com/restaurantes-doc.html
 
+## Testes
 
-Para executar o projeto localmente, deve estar usando a versão do JDK 17 ou superior e possuir o Maven em uma versão compatível configurado na sua máquina. Por se tratar de uma aplicação Spring Boot, o próprio Spring se encarregará de buildar e startar a aplicação em um servidor local Tomcat na porta 8080.
-
-Para você acessar o Swagger, basta, enquanto o projeto estiver em execução, acessar o link: http://localhost:8080/swagger-ui/index.html
-
+Adotamos o TDD como metodologia para o desenvolvimento e utilizamos o JUnit como principal ferramenta para os testes unitários e de integração. Contamos também com ferramentas como o Cucumber para aplicarmos o BDD e implementamos os testes não funcionais de carga e performance com o JMeter.
 
 ## Desenvolvedores
 
