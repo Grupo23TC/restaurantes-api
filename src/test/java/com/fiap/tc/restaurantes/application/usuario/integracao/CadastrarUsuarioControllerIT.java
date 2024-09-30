@@ -32,12 +32,12 @@ class CadastrarUsuarioControllerIT {
     given()
         .contentType("application/json")
         .body(usuario)
-        .log().all()
+        
     .when()
         .post("/usuarios")
     .then()
         .statusCode(HttpStatus.CREATED.value())
         .body(matchesJsonSchemaInClasspath("schemas/usuario/usuario.schema.json"))
-        .log().all();
+        ;
   }
 }

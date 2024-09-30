@@ -53,7 +53,7 @@ class DeletarMesaControllerTest {
         .content(JsonStringHelper.asJsonString(new MesaDeletadaResponse(true)))
         .contentType(MediaType.APPLICATION_JSON)
     )
-        .andDo(print())
+        
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.deletado").value(true));
 
@@ -70,7 +70,7 @@ class DeletarMesaControllerTest {
         delete("/mesas/{id}", id)
         .contentType(MediaType.APPLICATION_JSON)
     )
-        .andDo(print())
+        
         .andExpect(jsonPath("$.erro").value("Mesa de id: " + id + " não encontrada"))
         .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
         .andExpect(jsonPath("$.horario").exists())

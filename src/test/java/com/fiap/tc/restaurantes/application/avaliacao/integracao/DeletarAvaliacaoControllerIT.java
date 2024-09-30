@@ -29,13 +29,13 @@ class DeletarAvaliacaoControllerIT {
         var id = 3L;
 
         given()
-                .log().all()
+                
         .when()
                 .delete("/avaliacoes/{id}", id)
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoDeletadaResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -43,12 +43,12 @@ class DeletarAvaliacaoControllerIT {
         var id = 1502825L;
 
         given()
-                .log().all()
+                
         .when()
                 .delete("/avaliacoes/{id}", id)
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

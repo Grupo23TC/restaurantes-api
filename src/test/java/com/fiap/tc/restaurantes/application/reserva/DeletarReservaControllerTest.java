@@ -51,7 +51,7 @@ class DeletarReservaControllerTest {
         when(deletarReservaUseCase.deletarReserva(anyLong())).thenReturn(true);
 
         mockMvc.perform(delete("/reservas/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
         verify(deletarReservaUseCase, times(1)).deletarReserva(anyLong());
@@ -64,7 +64,7 @@ class DeletarReservaControllerTest {
         when(deletarReservaUseCase.deletarReserva(anyLong())).thenThrow(new ReservaNotFoundException(mensagemException));
 
         mockMvc.perform(delete("/reservas/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

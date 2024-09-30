@@ -69,7 +69,7 @@ class ListarUsuariosControllerTest {
 
     // Act & Assert
     mockMvc.perform(get("/usuarios"))
-    .andDo(print())
+    
     .andExpect(status().isOk())
     .andExpect(jsonPath("$.length()").value(usuariosResponses.size()))
     .andExpect(jsonPath("$[0].usuarioId").value(1L))

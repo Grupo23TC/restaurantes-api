@@ -78,7 +78,7 @@ class AtualizarMesaControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(JsonStringHelper.asJsonString(request))
     )
-        .andDo(print())
+        
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.capacidade").value(novaQuantidadeAssentos));
 
@@ -106,7 +106,7 @@ class AtualizarMesaControllerTest {
         .contentType(MediaType.APPLICATION_JSON)
         .content(JsonStringHelper.asJsonString(request))
     )
-        .andDo(print())
+        
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.erro").value("Mesa de id: " + id + " não encontrada"))
         .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

@@ -68,7 +68,7 @@ class CadastrarUsuarioControllerTest {
         .content(JsonStringHelper.asJsonString(usuarioRequest))
         .contentType(MediaType.APPLICATION_JSON)
     )
-        .andDo(print())
+        
         .andExpect(status().isCreated())
         .andExpect(header().string("Location", uri.toString()))
         .andExpect(jsonPath("$.usuarioId").value(usuarioResponse.usuarioId()))

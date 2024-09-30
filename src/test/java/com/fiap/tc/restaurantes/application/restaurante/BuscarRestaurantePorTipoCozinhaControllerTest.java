@@ -68,7 +68,7 @@ class BuscarRestaurantePorTipoCozinhaControllerTest {
                         .param("tipoCozinha", tipoCozinha)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andDo(print())
+                
                 .andExpect(status().isOk());
 
         verify(buscarRestaurantePorTipoCozinhaUseCase, times(1)).buscarPorTipoCozinha(anyString());

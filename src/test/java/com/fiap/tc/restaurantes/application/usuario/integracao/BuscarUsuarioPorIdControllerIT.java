@@ -30,7 +30,7 @@ class BuscarUsuarioPorIdControllerIT {
     when()
         .get("/usuarios/{id}", id)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/usuario/usuario.schema.json"));
   }
@@ -44,6 +44,6 @@ class BuscarUsuarioPorIdControllerIT {
     .then()
         .statusCode(HttpStatus.NOT_FOUND.value())
         .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-        .log().all();
+        ;
   }
 }

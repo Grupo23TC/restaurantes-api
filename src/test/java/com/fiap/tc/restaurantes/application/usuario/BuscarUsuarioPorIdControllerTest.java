@@ -64,7 +64,7 @@ class BuscarUsuarioPorIdControllerTest {
 
     // Act & Arrange
     mockMvc.perform(get("/usuarios/{id}", id))
-        .andDo(print())
+        
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.usuarioId").value(id))
         .andExpect(jsonPath("$.nome").value(usuarioResponse.nome()))
@@ -86,7 +86,7 @@ class BuscarUsuarioPorIdControllerTest {
     mockMvc.perform(get("/usuarios/{id}", id)
             .contentType(MediaType.APPLICATION_JSON)
         )
-        .andDo(print())
+        
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.erro").value("Usuário de id: " + id + " não encontrado."))
         .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

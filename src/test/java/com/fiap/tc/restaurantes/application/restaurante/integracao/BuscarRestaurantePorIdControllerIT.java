@@ -29,12 +29,12 @@ class BuscarRestaurantePorIdControllerIT {
         var id = 1L;
 
         given()
-                .log().all()
+                
         .when()
                 .get("/restaurantes/{id}", id)
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/restaurante/restaurante.schema.json"))
-                .log().all();
+                ;
     }
 }

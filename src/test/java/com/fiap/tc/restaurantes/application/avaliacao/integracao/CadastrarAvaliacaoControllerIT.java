@@ -32,13 +32,13 @@ class CadastrarAvaliacaoControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/avaliacoes")
         .then()
                 .statusCode(HttpStatus.CREATED.value())
                 .body(matchesJsonSchemaInClasspath("schemas/avaliacao/avaliacaoResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -48,13 +48,13 @@ class CadastrarAvaliacaoControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/avaliacoes")
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -64,13 +64,13 @@ class CadastrarAvaliacaoControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/avaliacoes")
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -80,12 +80,12 @@ class CadastrarAvaliacaoControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .post("/avaliacoes")
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

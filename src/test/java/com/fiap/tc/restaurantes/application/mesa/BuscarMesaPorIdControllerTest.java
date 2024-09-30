@@ -70,7 +70,7 @@ class BuscarMesaPorIdControllerTest {
         .content(JsonStringHelper.asJsonString(mesaResponse))
         .contentType(MediaType.APPLICATION_JSON)
     )
-        .andDo(print())
+        
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(id))
         .andExpect(jsonPath("$.restauranteId").value(mesa.getRestaurante().getRestauranteId()))
@@ -90,7 +90,7 @@ class BuscarMesaPorIdControllerTest {
         get("/mesas/{id}", id)
         .contentType(MediaType.APPLICATION_JSON)
     )
-        .andDo(print())
+        
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.erro").value("Mesa de id: " + id + " não encontrada"))
         .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

@@ -62,7 +62,7 @@ class BuscarAvaliacaoPorIdControllerTest {
         when(mapper.toAvaliacaoResponse(any(Avaliacao.class))).thenReturn(avaliacaoResponse);
 
         mockMvc.perform(get("/avaliacoes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.avaliacaoId").value(id))
                 .andExpect(jsonPath("$.usuarioId").value(avaliacaoResponse.usuarioId()))
@@ -84,7 +84,7 @@ class BuscarAvaliacaoPorIdControllerTest {
         when(mapper.toAvaliacaoResponse(any(Avaliacao.class))).thenReturn(avaliacaoResponse);
 
         mockMvc.perform(get("/avaliacoes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

@@ -31,11 +31,11 @@ class AtualizarMesaControllerIT {
     given()
         .contentType("application/json")
         .body(mesa)
-        .log().all()
+        
     .when()
         .put("/mesas/{id}", id)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/mesa/mesa.schema.json"));
   }
@@ -51,7 +51,7 @@ class AtualizarMesaControllerIT {
     .when()
         .get("/mesas/{id}", id)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.NOT_FOUND.value())
         .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"));
   }

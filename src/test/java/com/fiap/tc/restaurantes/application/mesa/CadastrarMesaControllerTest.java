@@ -81,7 +81,7 @@ class CadastrarMesaControllerTest {
             .content(JsonStringHelper.asJsonString(request))
             .contentType(MediaType.APPLICATION_JSON)
     )
-        .andDo(print())
+        
         .andExpect(status().isCreated())
         .andExpect(header().string("Location", uri.toString()))
         .andExpect(jsonPath("$.id").value(1L))

@@ -28,7 +28,7 @@ class DeletarMesaControllerIT {
     when()
         .delete("/mesas/{id}", id)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/mesa/mesaDeletada.schema.json"));
   }
@@ -40,7 +40,7 @@ class DeletarMesaControllerIT {
     when()
         .delete("/mesas/{id}", id)
         .then()
-        .log().all()
+        
         .statusCode(HttpStatus.NOT_FOUND.value())
         .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"));
   }

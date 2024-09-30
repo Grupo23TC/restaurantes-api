@@ -71,7 +71,7 @@ class AtualizarReservaControllerTest {
         mockMvc.perform(put("/reservas/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.reservaId").value(id))
                 .andExpect(jsonPath("$.status").value(response.status().toString()))
@@ -99,7 +99,7 @@ class AtualizarReservaControllerTest {
         mockMvc.perform(put("/reservas/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -126,7 +126,7 @@ class AtualizarReservaControllerTest {
         mockMvc.perform(put("/reservas/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -153,7 +153,7 @@ class AtualizarReservaControllerTest {
         mockMvc.perform(put("/reservas/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -181,7 +181,7 @@ class AtualizarReservaControllerTest {
         mockMvc.perform(put("/reservas/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -207,7 +207,7 @@ class AtualizarReservaControllerTest {
         mockMvc.perform(put("/reservas/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonStringHelper.asJsonString(request)))
-                .andDo(print())
+                
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))

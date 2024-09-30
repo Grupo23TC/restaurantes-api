@@ -64,7 +64,7 @@ class BuscarAvaliacoesPorUsuarioControllerTest {
 
         mockMvc.perform(get("/avaliacoes/usuario")
                         .param("usuarioId", String.valueOf(usuarioId)))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(listAvaliacoes.size()))
                 .andExpect(jsonPath("$[0].usuarioId").value(avaliacaoResponse.usuarioId()))

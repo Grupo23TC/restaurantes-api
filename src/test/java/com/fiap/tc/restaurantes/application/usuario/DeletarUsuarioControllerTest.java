@@ -54,7 +54,7 @@ class DeletarUsuarioControllerTest {
 
     // Act & Assert
     mockMvc.perform(delete("/usuarios/{id}", id))
-        .andDo(print())
+        
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.deletado").value(true));
 
@@ -72,7 +72,7 @@ class DeletarUsuarioControllerTest {
     mockMvc.perform(delete("/usuarios/{id}", id)
             .contentType(MediaType.APPLICATION_JSON)
         )
-        .andDo(print())
+        
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.erro").value("Usuário de id: " + id + " não encontrado."))
         .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

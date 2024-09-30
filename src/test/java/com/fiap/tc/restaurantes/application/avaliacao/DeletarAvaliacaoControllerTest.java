@@ -50,7 +50,7 @@ class DeletarAvaliacaoControllerTest {
         when(deletarAvaliacaoUseCase.deletarAvaliacao(anyLong())).thenReturn(true);
 
         mockMvc.perform(delete("/avaliacoes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
         verify(deletarAvaliacaoUseCase, times(1)).deletarAvaliacao(anyLong());
@@ -63,7 +63,7 @@ class DeletarAvaliacaoControllerTest {
         when(deletarAvaliacaoUseCase.deletarAvaliacao(anyLong())).thenThrow(new AvaliacaoNotFoundException(mensagemException));
 
         mockMvc.perform(delete("/avaliacoes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

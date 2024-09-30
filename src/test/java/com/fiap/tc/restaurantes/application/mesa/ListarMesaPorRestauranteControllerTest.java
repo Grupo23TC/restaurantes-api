@@ -74,7 +74,7 @@ class ListarMesaPorRestauranteControllerTest {
         .contentType(MediaType.APPLICATION_JSON)
         .param("restauranteId", String.valueOf(restauranteId))
     )
-        .andDo(print())
+        
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(listaMesaResponse.size()))
         .andExpect(jsonPath("$[0].id").value(mesaResponse1.id()))

@@ -64,7 +64,7 @@ class BuscarAvaliacoesPorRestauranteControllerTest {
 
         mockMvc.perform(get("/avaliacoes/restaurante")
                 .param("restauranteId", String.valueOf(restauranteId)))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(listAvaliacoes.size()))
                 .andExpect(jsonPath("$[0].usuarioId").value(avaliacaoResponse.usuarioId()))

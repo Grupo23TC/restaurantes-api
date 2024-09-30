@@ -61,7 +61,7 @@ class BuscarRestaurantePorIdControllerTest {
         when(mapper.toRestauranteResponse(any(Restaurante.class))).thenReturn(response);
 
         mockMvc.perform(get("/restaurantes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.restauranteId").value(id))
                 .andExpect(jsonPath("$.nome").value(response.nome()))
@@ -83,7 +83,7 @@ class BuscarRestaurantePorIdControllerTest {
         when(mapper.toRestauranteResponse(any(Restaurante.class))).thenReturn(response);
 
         mockMvc.perform(get("/restaurantes/{id}", id))
-                .andDo(print())
+                
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))

@@ -29,7 +29,7 @@ class ListarRestauranteControllerIT {
         when()
                 .get("/restaurantes")
                 .then()
-                .log().all()
+                
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/restaurante/listarRestaurantesResponse.schema.json"));
     }

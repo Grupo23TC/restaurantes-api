@@ -29,13 +29,13 @@ class DeletarReservaControllerIT {
         var id = 4L;
 
         given()
-                .log().all()
+                
         .when()
                 .delete("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaDeletadaResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -43,12 +43,12 @@ class DeletarReservaControllerIT {
         var id = 12345678L;
 
         given()
-                .log().all()
+                
         .when()
                 .delete("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

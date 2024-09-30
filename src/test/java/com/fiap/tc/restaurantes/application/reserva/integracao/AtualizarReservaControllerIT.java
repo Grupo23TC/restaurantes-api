@@ -33,13 +33,13 @@ class AtualizarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponse.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -50,13 +50,13 @@ class AtualizarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -67,13 +67,13 @@ class AtualizarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -84,13 +84,13 @@ class AtualizarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -101,13 +101,13 @@ class AtualizarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 
     @Test
@@ -118,12 +118,12 @@ class AtualizarReservaControllerIT {
         given()
                 .contentType("application/json")
                 .body(request)
-                .log().all()
+                
         .when()
                 .put("/reservas/{id}", id)
         .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"))
-                .log().all();
+                ;
     }
 }

@@ -28,7 +28,7 @@ class BuscarMesaPorIdControllerIT {
     when()
         .get("/mesas/{id}", id)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.OK.value())
         .body(matchesJsonSchemaInClasspath("schemas/mesa/mesa.schema.json"));
   }
@@ -40,7 +40,7 @@ class BuscarMesaPorIdControllerIT {
     when()
         .get("/mesas/{id}", id)
     .then()
-        .log().all()
+        
         .statusCode(HttpStatus.NOT_FOUND.value())
         .body(matchesJsonSchemaInClasspath("schemas/exception/erroCustomizado.schema.json"));
   }

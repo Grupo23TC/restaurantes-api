@@ -70,7 +70,7 @@ class AtualizarRestauranteControllerTest {
         mockMvc.perform(put("/restaurantes/{id}", id)
                 .content(JsonStringHelper.asJsonString(request))
                 .contentType(MediaType.APPLICATION_JSON)
-        ).andDo(print())
+        )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.restauranteId").value(id))
                 .andExpect(jsonPath("$.nome").value(response.nome()))
@@ -96,7 +96,7 @@ class AtualizarRestauranteControllerTest {
         mockMvc.perform(put("/restaurantes/{id}", id)
                         .content(JsonStringHelper.asJsonString(request))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
@@ -121,7 +121,7 @@ class AtualizarRestauranteControllerTest {
         mockMvc.perform(put("/restaurantes/{id}", id)
                         .content(JsonStringHelper.asJsonString(request))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -146,7 +146,7 @@ class AtualizarRestauranteControllerTest {
         mockMvc.perform(put("/restaurantes/{id}", id)
                         .content(JsonStringHelper.asJsonString(request))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
@@ -171,7 +171,7 @@ class AtualizarRestauranteControllerTest {
         mockMvc.perform(put("/restaurantes/{id}", id)
                         .content(JsonStringHelper.asJsonString(request))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
+
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.erro").value(mensagemException))
                 .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))

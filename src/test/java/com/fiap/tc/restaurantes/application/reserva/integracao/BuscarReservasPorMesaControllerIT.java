@@ -31,12 +31,12 @@ class BuscarReservasPorMesaControllerIT {
 
         given()
                 .param("mesaId", mesaId)
-                .log().all()
+                
         .when()
                 .get("/reservas/mesa")
         .then()
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/reserva/reservaResponseList.schema.json"))
-                .log().all();
+                ;
     }
 }

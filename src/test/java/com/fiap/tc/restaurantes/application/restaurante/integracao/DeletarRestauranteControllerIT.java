@@ -30,7 +30,7 @@ class DeletarRestauranteControllerIT {
         when()
                 .delete("/restaurantes/{id}", id)
                 .then()
-                .log().all()
+                
                 .statusCode(HttpStatus.OK.value())
                 .body(matchesJsonSchemaInClasspath("schemas/restaurante/restauranteDeletadoResponse.schema.json"));
     }
